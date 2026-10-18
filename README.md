@@ -7,7 +7,7 @@ A cryptocurrency volatility forecasting and tail-risk analysis engine for BTC an
 ```text
 data/raw/       Dữ liệu gốc, ZIP, checksum, metadata và raw Parquet
 data/interim/   Nến sạch, chất lượng theo ngày và tham chiếu QA
-data/processed/ Chưa có dataset mô hình; Châu xây ở bước tiếp theo
+data/processed/ Chưa có dataset mô hình
 src/data/       Code của toàn bộ luồng dữ liệu
 config/         Cấu hình coin, thời gian và quy tắc kiểm tra
 tests/          Kiểm tra dữ liệu
