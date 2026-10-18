@@ -1,0 +1,16 @@
+{
+  "dataset_id": "audit_ETHUSDT_1d_2026-02",
+  "symbol": "ETHUSDT",
+  "interval": "1d",
+  "period": "2026-02",
+  "purpose": "crosscheck_binance_1d_corrob",
+  "frequency": "monthly",
+  "path": "data/raw/audit/ETHUSDT/ETHUSDT-1d-2026-02.zip",
+  "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1d/ETHUSDT-1d-2026-02.zip",
+  "status": "ok",
+  "checksum_status": "verified",
+  "sha256": "c853802f359f27a9e935f9ea48cdc66207b0c7bd6d22241e7bf240722d0e1600",
+  "downloaded_at_utc": "2026-10-18T08:07:00.861214+00:00",
+  "byte_count": 1965,
+  "cache_reused": false
+}

@@ -1,0 +1,16 @@
+{
+  "dataset_id": "audit_BTCUSDT_1d_2026-02",
+  "symbol": "BTCUSDT",
+  "interval": "1d",
+  "period": "2026-02",
+  "purpose": "crosscheck_binance_1d_corrob",
+  "frequency": "monthly",
+  "path": "data/raw/audit/BTCUSDT/BTCUSDT-1d-2026-02.zip",
+  "url": "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1d/BTCUSDT-1d-2026-02.zip",
+  "status": "ok",
+  "checksum_status": "verified",
+  "sha256": "f8806308002477a1a28d6cc55ec9ea7bd91bfd4b44c04500d9fc4aec50fd9464",
+  "downloaded_at_utc": "2026-10-18T08:06:57.234705+00:00",
+  "byte_count": 2030,
+  "cache_reused": false
+}

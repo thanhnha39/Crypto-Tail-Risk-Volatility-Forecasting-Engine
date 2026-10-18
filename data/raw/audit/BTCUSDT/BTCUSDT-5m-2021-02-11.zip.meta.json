@@ -1,0 +1,16 @@
+{
+  "dataset_id": "audit_BTCUSDT_5m_2021-02-11",
+  "symbol": "BTCUSDT",
+  "interval": "5m",
+  "period": "2021-02-11",
+  "purpose": "missing_day_source_check",
+  "frequency": "daily",
+  "path": "data/raw/audit/BTCUSDT/BTCUSDT-5m-2021-02-11.zip",
+  "url": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/5m/BTCUSDT-5m-2021-02-11.zip",
+  "status": "ok",
+  "checksum_status": "verified",
+  "sha256": "0ce434cb4b83a528b5fb543d19aaeca6c6aa5bf96ff8363eec24c3eb7e28ac96",
+  "downloaded_at_utc": "2026-10-18T08:06:55.931229+00:00",
+  "byte_count": 15194,
+  "cache_reused": false
+}

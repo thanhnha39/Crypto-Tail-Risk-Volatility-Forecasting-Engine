@@ -1,0 +1,16 @@
+{
+  "dataset_id": "audit_ETHUSDT_1m_2021-05-19",
+  "symbol": "ETHUSDT",
+  "interval": "1m",
+  "period": "2021-05-19",
+  "purpose": "large_return_1m_corrob",
+  "frequency": "daily",
+  "path": "data/raw/audit/ETHUSDT/ETHUSDT-1m-2021-05-19.zip",
+  "url": "https://data.binance.vision/data/spot/daily/klines/ETHUSDT/1m/ETHUSDT-1m-2021-05-19.zip",
+  "status": "ok",
+  "checksum_status": "verified",
+  "sha256": "e8e1c0562a21b8b30b8cf9f6e0d20f85ca1c417377ed8230f28fb332bc1a2ab9",
+  "downloaded_at_utc": "2026-10-18T08:07:01.035348+00:00",
+  "byte_count": 77828,
+  "cache_reused": false
+}

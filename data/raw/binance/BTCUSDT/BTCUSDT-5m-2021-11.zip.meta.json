@@ -1,0 +1,14 @@
+{
+  "dataset_id": "BTCUSDT_5m_2021-11",
+  "symbol": "BTCUSDT",
+  "frequency": "monthly",
+  "period": "2021-11",
+  "url": "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/5m/BTCUSDT-5m-2021-11.zip",
+  "path": "data/raw/binance/BTCUSDT/BTCUSDT-5m-2021-11.zip",
+  "status": "ok",
+  "checksum_status": "verified",
+  "sha256": "69725bd82baef5339e32c773937966ec413648dfaf985741f9be730b9cddd915",
+  "downloaded_at_utc": "2026-10-18T07:59:21.854167+00:00",
+  "byte_count": 461307,
+  "cache_reused": false
+}
