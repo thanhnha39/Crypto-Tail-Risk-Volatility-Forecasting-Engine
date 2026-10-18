@@ -11,7 +11,7 @@ data/processed/ Chưa có dataset mô hình; Châu xây ở bước tiếp theo
 src/data/       Code của toàn bộ luồng dữ liệu
 config/         Cấu hình coin, thời gian và quy tắc kiểm tra
 tests/          Kiểm tra dữ liệu
-docs/           Source log, dictionary, quality report, bàn giao Châu
+docs/           Source log, dictionary, quality report
 outputs/        Bảng, hình và báo cáo HTML
 ```
 
