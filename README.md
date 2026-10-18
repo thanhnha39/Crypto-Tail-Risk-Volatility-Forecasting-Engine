@@ -1,9 +1,6 @@
 # Crypto-Tail-Risk-Volatility-Forecasting-Engine
 A cryptocurrency volatility forecasting and tail-risk analysis engine for BTC and ETH, combining GARCH, HAR-RV, and XGBoost models with VaR/ES backtesting and an interactive Streamlit dashboard.
 
-## Phần dữ liệu của Huân
-
-Bộ bàn giao Gói phần mềm 1 theo PCCV. Repo gồm dữ liệu thật, code tải/làm sạch/kiểm tra, tài liệu và kết quả mô tả. Phần dữ liệu được bàn giao trên nhánh `data` của repo nhóm.
 
 ## Cấu trúc
 
@@ -20,9 +17,7 @@ outputs/        Bảng, hình và báo cáo HTML
 
 Tài liệu mô tả được lưu tại một nơi là `docs/`. Chỉ có một file cài thư viện `requirements.txt`, chứa phiên bản thực tế đã kiểm tra. Bộ này không chứa `.venv`, `.cache`, `.idea` hoặc bytecode.
 
-## Đọc và dùng ngay
-
-Châu đọc `docs/HANDOFF.md`, `docs/data_dictionary.md` và `docs/data_quality_report.md`. Hai file nến chính là `data/interim/BTCUSDT_5m_clean.parquet` và `data/interim/ETHUSDT_5m_clean.parquet`; luôn dùng kèm daily_quality để biết ngày đủ RV. Báo cáo xem bằng trình duyệt: `outputs/BAN_GIAO_DU_LIEU_HUAN.html`.
+Đọc `docs/HANDOFF.md`, `docs/data_dictionary.md` và `docs/data_quality_report.md`. Hai file nến chính là `data/interim/BTCUSDT_5m_clean.parquet` và `data/interim/ETHUSDT_5m_clean.parquet`; luôn dùng kèm daily_quality để biết ngày đủ RV. Báo cáo xem bằng trình duyệt: `outputs/BAN_GIAO_DU_LIEU_HUAN.html`.
 
 ## Cài và chạy
 
