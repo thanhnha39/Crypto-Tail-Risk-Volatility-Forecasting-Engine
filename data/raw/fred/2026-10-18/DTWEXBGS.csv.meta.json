@@ -1,0 +1,10 @@
+{
+  "dataset_id": "DTWEXBGS",
+  "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS&cosd=2018-12-01&coed=2026-10-17",
+  "path": "data/raw/fred/2026-10-18/DTWEXBGS.csv",
+  "status": "ok",
+  "sha256": "c1060dd14eacd46b50585b054468dd93aca64d6f0e31521cf532118aa3f5e5a2",
+  "downloaded_at_utc": "2026-10-18T08:01:38.452925+00:00",
+  "byte_count": 40314,
+  "checksum_status": "local_hash"
+}
