@@ -1,0 +1,25 @@
+{
+  "validated_at_utc": "2026-10-18T09:35:39.338733+00:00",
+  "checks": [
+    {
+      "symbol": "BTCUSDT",
+      "rows_validated": 828050,
+      "calendar_days": 2878,
+      "status": "passed"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "rows_validated": 828050,
+      "calendar_days": 2878,
+      "status": "passed"
+    }
+  ],
+  "source_files_hash_checked": 277,
+  "macro_predictive_use_blocked": true,
+  "status": "passed_with_documented_source_gaps_and_reviews",
+  "limitations": [
+    "macro_release_vintage_unverified",
+    "archive_disagreement_2020_12_21",
+    "coingecko_difference_2026_02_22"
+  ]
+}

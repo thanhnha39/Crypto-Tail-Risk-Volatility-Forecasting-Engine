@@ -1,0 +1,27 @@
+[snapshot]
+id = "2026-10-18"
+prepared_by = "Huân"
+
+[data]
+symbols = ["BTCUSDT", "ETHUSDT"]
+market = "spot"
+interval = "5m"
+timezone = "UTC"
+start = "2018-12-01"
+end = "2026-10-17"
+research_start = "2019-01-01"
+research_end = "2025-12-31"
+expected_bars_per_day = 288
+max_missing_fraction_for_review = 0.05
+large_return_review_threshold_pct = 10.0
+crosscheck_review_threshold_pct = 2.0
+
+[quality]
+missing_bars = "leave_missing_and_log"
+identical_duplicates = "keep_first_and_log"
+conflicting_duplicates = "quarantine_all_copies"
+invalid_numeric_or_ohlc = "quarantine"
+zero_volume = "retain_flag_and_review"
+large_returns = "retain_flag_and_review_no_winsorization"
+rv_policy = "complete_valid_day_with_previous_close_and_no_gap"
+macro = "observation_table_only_no_unverified_point_in_time_features"

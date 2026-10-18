@@ -1,0 +1,129 @@
+{
+  "generated_at_utc": "2026-10-18T08:10:16.085519+00:00",
+  "snapshot_id": "2026-10-18",
+  "config_sha256": "0e927faf1e9d16ab5ba17d9116005f5f57dd5c1dc06383550b86efc6a4d530f5",
+  "symbols": [
+    {
+      "symbol": "BTCUSDT",
+      "raw_rows": 828050,
+      "clean_rows": 828050,
+      "quarantined_rows": 0,
+      "quarantine_reasons": {},
+      "coverage_start_utc": "2018-12-01 00:00:00+00:00",
+      "coverage_end_utc": "2026-10-17 23:55:00+00:00",
+      "expected_days": 2878,
+      "days_complete_bars": 2857,
+      "days_eligible_rv": 2856,
+      "incomplete_days": 21,
+      "missing_bars": 814,
+      "zero_volume_bars": 56,
+      "large_return_bars": 4,
+      "timestamp_units": {
+        "ms": 639410,
+        "us": 188640
+      },
+      "daily_quality_by_segment": [
+        {
+          "sample_segment": "research_2019_2025",
+          "days": 2557,
+          "eligible_rv": 2536,
+          "missing_bars": 814
+        },
+        {
+          "sample_segment": "update_2026",
+          "days": 290,
+          "eligible_rv": 290,
+          "missing_bars": 0
+        },
+        {
+          "sample_segment": "warmup",
+          "days": 31,
+          "eligible_rv": 30,
+          "missing_bars": 0
+        }
+      ]
+    },
+    {
+      "symbol": "ETHUSDT",
+      "raw_rows": 828050,
+      "clean_rows": 828050,
+      "quarantined_rows": 0,
+      "quarantine_reasons": {},
+      "coverage_start_utc": "2018-12-01 00:00:00+00:00",
+      "coverage_end_utc": "2026-10-17 23:55:00+00:00",
+      "expected_days": 2878,
+      "days_complete_bars": 2857,
+      "days_eligible_rv": 2856,
+      "incomplete_days": 21,
+      "missing_bars": 814,
+      "zero_volume_bars": 56,
+      "large_return_bars": 6,
+      "timestamp_units": {
+        "ms": 639410,
+        "us": 188640
+      },
+      "daily_quality_by_segment": [
+        {
+          "sample_segment": "research_2019_2025",
+          "days": 2557,
+          "eligible_rv": 2536,
+          "missing_bars": 814
+        },
+        {
+          "sample_segment": "update_2026",
+          "days": 290,
+          "eligible_rv": 290,
+          "missing_bars": 0
+        },
+        {
+          "sample_segment": "warmup",
+          "days": 31,
+          "eligible_rv": 30,
+          "missing_bars": 0
+        }
+      ]
+    }
+  ],
+  "macro": [
+    {
+      "series_id": "DTWEXBGS",
+      "status": "collected_not_verified_point_in_time",
+      "rows": 2050,
+      "nonmissing_values": 1961,
+      "last_observation_with_value": "2026-10-09 00:00:00+00:00"
+    },
+    {
+      "series_id": "VIXCLS",
+      "status": "collected_not_verified_point_in_time",
+      "rows": 2054,
+      "nonmissing_values": 2010,
+      "last_observation_with_value": "2026-10-15 00:00:00+00:00"
+    }
+  ],
+  "crosscheck": [
+    {
+      "symbol": "BTCUSDT",
+      "status": "compared",
+      "matched_days": 365,
+      "date_start": "2025-10-18 00:00:00+00:00",
+      "date_end": "2026-10-17 00:00:00+00:00",
+      "median_absolute_difference_pct": 0.06043389959737855,
+      "max_absolute_difference_pct": 3.759976996683978,
+      "days_above_review_threshold": 1,
+      "current_nonmidnight_points_excluded": 1
+    },
+    {
+      "symbol": "ETHUSDT",
+      "status": "compared",
+      "matched_days": 365,
+      "date_start": "2025-10-18 00:00:00+00:00",
+      "date_end": "2026-10-17 00:00:00+00:00",
+      "median_absolute_difference_pct": 0.059475199715874894,
+      "max_absolute_difference_pct": 4.514730459394256,
+      "days_above_review_threshold": 1,
+      "current_nonmidnight_points_excluded": 1
+    }
+  ],
+  "download_failures": [],
+  "scope": "source acquisition, normalization, QA references; no modeling dataset, lags, tuning or forecasts"
+}

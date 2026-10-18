@@ -218,3 +218,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# File máy cá nhân; dữ liệu và kết quả bàn giao được theo dõi trên GitHub.
+.venv/
+.cache/
+.idea/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.env
+.env.*
+!.env.example
+*.log
+Thumbs.db
+.DS_Store

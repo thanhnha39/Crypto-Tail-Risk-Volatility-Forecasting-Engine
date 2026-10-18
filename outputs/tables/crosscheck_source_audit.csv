@@ -1,0 +1,3 @@
+symbol,date,close_from_5m,close_from_1d_archive,coingecko_price_usd,signed_difference_pct,binance_close_confirmed,status,source_file
+BTCUSDT,2026-02-22 00:00:00+00:00,67643.4,67643.4,65192.18870120006,3.759976996683978,True,binance_aggregation_confirmed_cross_source_difference_unresolved,data/raw/audit/BTCUSDT/BTCUSDT-1d-2026-02.zip
+ETHUSDT,2026-02-22 00:00:00+00:00,1957.82,1957.82,1873.2479061988745,4.514730459394256,True,binance_aggregation_confirmed_cross_source_difference_unresolved,data/raw/audit/ETHUSDT/ETHUSDT-1d-2026-02.zip

@@ -1,0 +1,11 @@
+symbol,open_time,return_5m_pct,status,n_1m,source_file
+BTCUSDT,2020-03-12 10:55:00+00:00,-10.78678022123837,ohlc_confirmed_by_5x1m_same_exchange,5,data/raw/audit/BTCUSDT/BTCUSDT-1m-2020-03-12.zip
+BTCUSDT,2020-03-13 02:35:00+00:00,16.914214536807325,ohlc_confirmed_by_5x1m_same_exchange,5,data/raw/audit/BTCUSDT/BTCUSDT-1m-2020-03-13.zip
+BTCUSDT,2021-05-19 13:05:00+00:00,-10.20015035236476,ohlc_confirmed_by_5x1m_same_exchange,5,data/raw/audit/BTCUSDT/BTCUSDT-1m-2021-05-19.zip
+BTCUSDT,2021-09-07 15:05:00+00:00,-10.414502834112186,ohlc_confirmed_by_5x1m_same_exchange,5,data/raw/audit/BTCUSDT/BTCUSDT-1m-2021-09-07.zip
+ETHUSDT,2020-03-13 02:35:00+00:00,12.27774877081427,ohlc_confirmed_by_5x1m_same_exchange,5,data/raw/audit/ETHUSDT/ETHUSDT-1m-2020-03-13.zip
+ETHUSDT,2021-05-19 12:50:00+00:00,-15.900883597698783,ohlc_confirmed_by_5x1m_same_exchange,5,data/raw/audit/ETHUSDT/ETHUSDT-1m-2021-05-19.zip
+ETHUSDT,2021-05-19 12:55:00+00:00,16.462669727252052,ohlc_confirmed_by_5x1m_same_exchange,5,data/raw/audit/ETHUSDT/ETHUSDT-1m-2021-05-19.zip
+ETHUSDT,2021-05-19 13:05:00+00:00,-14.282238645789963,ohlc_confirmed_by_5x1m_same_exchange,5,data/raw/audit/ETHUSDT/ETHUSDT-1m-2021-05-19.zip
+ETHUSDT,2021-05-19 13:15:00+00:00,12.677453448191049,ohlc_confirmed_by_5x1m_same_exchange,5,data/raw/audit/ETHUSDT/ETHUSDT-1m-2021-05-19.zip
+ETHUSDT,2021-09-07 15:05:00+00:00,-13.957431183559828,ohlc_confirmed_by_5x1m_same_exchange,5,data/raw/audit/ETHUSDT/ETHUSDT-1m-2021-09-07.zip

@@ -1,0 +1,11 @@
+# Keep original source snapshots byte-for-byte for SHA256 validation.
+* text=auto
+data/raw/** -text
+data/interim/** -text
+*.parquet -text -diff -merge
+*.zip -text -diff -merge
+*.py text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.ps1 text eol=lf
+*.txt text eol=lf
