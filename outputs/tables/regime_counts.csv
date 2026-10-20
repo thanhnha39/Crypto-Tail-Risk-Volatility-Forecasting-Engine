@@ -1,0 +1,17 @@
+asset,horizon,regime,n_days
+BTCUSDT,1,bear,702
+BTCUSDT,1,bull,358
+BTCUSDT,1,crisis,150
+BTCUSDT,1,normal,615
+BTCUSDT,7,bear,702
+BTCUSDT,7,bull,352
+BTCUSDT,7,crisis,150
+BTCUSDT,7,normal,615
+ETHUSDT,1,bear,557
+ETHUSDT,1,bull,587
+ETHUSDT,1,crisis,251
+ETHUSDT,1,normal,430
+ETHUSDT,7,bear,557
+ETHUSDT,7,bull,584
+ETHUSDT,7,crisis,251
+ETHUSDT,7,normal,427

@@ -1,0 +1,37 @@
+# ===== Cấu hình dùng chung cho Backend 1 =====
+assets: [BTCUSDT, ETHUSDT]
+data_source: synthetic          # "synthetic" | "binance"  (ghi vào dataset_meta.json)
+
+intraday:
+  bar_minutes: 5
+  bars_per_day: 288
+  min_bar_coverage: 0.90        # ngày có < 90% return 5' hợp lệ -> RV = NaN (không backfill)
+  scale_for_missing: true       # RV *= 288 / n_valid khi thiếu ít bar
+  max_abs_r5: 15.0              # |r5| (%) lớn hơn ngưỡng -> coi là bad tick, bỏ
+
+features:
+  har_windows: {week: 5, month: 22}
+  turnover_window: 22
+  macro_lag_days: 1             # VIX / USD trễ 1 ngày (conservative)
+
+horizons: [1, 7]
+
+evaluation:
+  scheme: expanding             # expanding | rolling
+  min_train: 365                # số quan sát train tối thiểu
+  rolling_window: 730
+  refit_every: 5                # refit mỗi 5 ngày (ước lượng HAR rất rẻ; ML có thể để 20-30)
+  test_start: "2021-01-01"
+  test_end: null
+  benchmark: har_rv
+  rolling_qlike_window: 90
+  min_n_dm: 30                  # regime có < 30 quan sát -> không báo DM
+
+# Định nghĩa regime (point-in-time: chỉ dùng thông tin tới hết ngày t). ĐỀ XUẤT - cần nhóm chốt.
+regimes:
+  min_history: 365              # expanding quantile cần tối thiểu 365 ngày
+  crisis_quantile: 0.90         # crisis: RV_trung_bình_22d > phân vị 90% expanding của chính nó
+  trend_window: 90              # ngày
+  bull_threshold: 10.0          # return log 90d >= +10%  -> bull
+  bear_threshold: -10.0         # return log 90d <= -10%  -> bear
+  # ưu tiên: crisis > bear > bull > normal
