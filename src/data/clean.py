@@ -309,6 +309,7 @@ def clean(config_path: Path) -> dict:
     log.to_csv(ROOT / "docs/source_log.csv", index=False, encoding="utf-8-sig")
     summary = {"generated_at_utc": datetime.now(timezone.utc).isoformat(),
                "snapshot_id": config["snapshot"]["id"], "config_sha256": sha256(config_path),
+               "study_protocol": config["study"],
                "symbols": symbols, "macro": macro, "crosscheck": comparisons,
                "download_failures": [r for r in manifest["records"] if r["status"] != "ok"],
                "scope": "source acquisition, normalization, QA references; no modeling dataset, lags, tuning or forecasts"}

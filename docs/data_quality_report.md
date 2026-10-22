@@ -1,6 +1,6 @@
 # Báo cáo chất lượng dữ liệu và bàn giao thống nhất
 
-Người chuẩn bị: Huân. Snapshot 2026-10-18; tạo báo cáo 2026-10-22T13:54:07.212731+00:00.
+Người chuẩn bị: Huân. Snapshot 2026-10-18; tạo báo cáo 2026-10-22T14:10:39.634183+00:00.
 
 ## Phạm vi và tình trạng
 
@@ -42,6 +42,17 @@ Ngày lệch trên 2% đã được đối chiếu thêm với archive Binance 1
 | VIXCLS | 2054 | 2010 | 2026-10-15 00:00:00+00:00 |
 
 **Đã thu thập, chưa đủ xác minh point-in-time để đưa vào feature dự báo.** FRED tải hiện tại có thể chứa sửa đổi; ngày quan sát không phải thời điểm công bố. H.10/USD được công bố theo tuần, vì vậy shift một ngày đơn thuần chưa đủ. Bảng observations để available_at trống và point_in_time_verified=False. Bản calendar forward-fill chỉ dành cho mô tả, tên file DESCRIPTIVE_ONLY và predictive_use_allowed=False; không backfill đầu chuỗi. Khi có lịch release/vintage kiểm chứng được, Châu/Huân mới ghép as-of để làm feature. Theo quy định nhóm, macro bị loại khỏi mô hình chính; chỉ dùng kiểm tra độ nhạy sau khi xác minh release/vintage.
+
+## Bốn quy ước đã thống nhất
+
+| Hạng mục | Quy ước |
+| --- | --- |
+| Cửa sổ | 730 ngày lịch; t−729 đến t; giữ ngày thiếu |
+| Refit | Mỗi 5 ngày lịch; neo ngày dự báo 2021-01-01; dự báo hằng ngày |
+| Target 7 ngày | Tổng RV(t+1)...RV(t+7), %²; yêu cầu đủ 7 RV; chỉ fit target đã quan sát đầy đủ |
+| Crisis | Phân vị 90% của RV trung bình 22 ngày; hiệu chuẩn warmup riêng coin rồi cố định; chỉ dùng thông tin đến origin |
+
+Chi tiết: docs/GROUP_PROTOCOL.md. Mới ghi quy định bàn giao; backend, target 7 ngày và ngưỡng crisis chưa được triển khai.
 
 ## Bảng và hình dùng cho chương 3
 

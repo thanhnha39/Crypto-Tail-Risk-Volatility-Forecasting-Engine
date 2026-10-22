@@ -15,6 +15,7 @@ def validate():
     config_path = ROOT / "config/data.toml"
     config = tomllib.loads(config_path.read_text(encoding="utf-8"))
     assert summary["config_sha256"] == sha256(config_path), "Refresh stale data handoff after config changes"
+    assert summary["study_protocol"] == config["study"], "Stale study protocol metadata"
     checks = []
     for item in summary["symbols"]:
         symbol = item["symbol"]
@@ -79,6 +80,7 @@ def validate():
               "source_files_hash_checked": len(log), "macro_predictive_use_blocked": True,
               "period_labels_verified": True, "rv_units_and_completeness_verified": True,
               "holdout_excluded_from_descriptive_statistics": True,
+              "study_protocol_metadata_verified": True,
               "status": "passed_with_documented_source_gaps_and_reviews",
               "limitations": ["macro_release_vintage_unverified", "archive_disagreement_2020_12_21", "coingecko_difference_2026_02_22"]}
     save_json(ROOT / "outputs/tables/handoff_validation.json", result)

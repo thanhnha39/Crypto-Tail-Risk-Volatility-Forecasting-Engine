@@ -1,7 +1,7 @@
 {
-  "generated_at_utc": "2026-10-22T13:54:07.212731+00:00",
+  "generated_at_utc": "2026-10-22T14:10:39.634183+00:00",
   "snapshot_id": "2026-10-18",
-  "config_sha256": "79bbf4fa53bd42fded582b5f4526536ccd416f4772691127f2eacbaa31ee832c",
+  "config_sha256": "fd407498438f7fe56b189fcbef3f4e8df59ca4dc30f8679677610fa4041591e1",
   "symbols": [
     {
       "symbol": "BTCUSDT",
@@ -138,5 +138,81 @@
   ],
   "download_failures": [],
   "scope": "source acquisition, normalization, QA references; no modeling dataset, lags, tuning or forecasts",
-  "period_labels": "pre_sample / warmup / evaluation / holdout; observation dates"
+  "period_labels": "pre_sample / warmup / evaluation / holdout; observation dates",
+  "study_protocol": {
+    "models": [
+      "HAR-RV",
+      "GARCH(1,1)",
+      "GJR-GARCH",
+      "XGBoost"
+    ],
+    "target": "realized_variance",
+    "target_unit": "percent_squared",
+    "report_sqrt_rv": true,
+    "main_window": "rolling",
+    "sensitivity_window": "expanding",
+    "window_days": 730,
+    "window_basis": "calendar_days",
+    "window_start_offset_days": -729,
+    "window_end": "forecast_origin_inclusive",
+    "refit_every_days": 5,
+    "refit_step_basis": "calendar_days",
+    "refit_anchor_target_date": "2021-01-01",
+    "refit_anchor_origin_date": "2020-12-31",
+    "reset_refit_at_holdout": false,
+    "forecast_every_days": 1,
+    "update_state_between_refits": true,
+    "main_horizon_days": 1,
+    "sensitivity_horizon_days": [
+      7
+    ],
+    "multi_day_target_aggregation": "sum",
+    "multi_day_target_requires_complete": true,
+    "training_targets_must_be_observed": true,
+    "xgboost_tuning_period": "warmup",
+    "xgboost_retune": false,
+    "holdout_final_evaluation_only": true,
+    "forecast_information": "through_end_of_origin_day_UTC",
+    "main_metric": "QLIKE",
+    "other_metrics": [
+      "RMSE",
+      "MAE"
+    ],
+    "comparison_test": "Diebold-Mariano",
+    "macro_in_main_model": false,
+    "macro_role": "sensitivity_only_after_point_in_time_verification",
+    "regime": {
+      "rv_average_days": 22,
+      "crisis_quantile": 0.9,
+      "crisis_calibration_segment": "warmup",
+      "crisis_calibration_per_symbol": true,
+      "freeze_crisis_threshold_after_warmup": true,
+      "rv_average_min_valid_days": 22,
+      "information_date": "forecast_origin",
+      "missing_history_label": "unclassified",
+      "log_return_days": 90,
+      "bull_threshold_pct": 10.0,
+      "bear_threshold_pct": -10.0,
+      "priority": [
+        "crisis",
+        "bear",
+        "bull",
+        "normal"
+      ]
+    },
+    "risk": {
+      "confidence_levels": [
+        0.95,
+        0.99
+      ],
+      "garch_gjr_distribution": "Student-t",
+      "har_xgboost_method": "filtered_historical_simulation",
+      "backtests": [
+        "Kupiec",
+        "Christoffersen"
+      ],
+      "forecast_filename": "{symbol}_{model}.parquet",
+      "risk_filename": "{symbol}_{model}_risk.parquet"
+    }
+  }
 }

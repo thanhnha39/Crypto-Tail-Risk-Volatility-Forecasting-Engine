@@ -38,7 +38,7 @@ def refresh():
         quality.loc[quality["day_status"].ne("complete")].to_csv(
             ROOT / f"outputs/tables/{symbol}_incomplete_days.csv", index=False)
         cross_path = ROOT / f"outputs/tables/{symbol}_coingecko_crosscheck.csv"
-        cross = pd.read_csv(cross_path)
+        cross = pd.read_csv(cross_path, float_precision="round_trip")
         cross["sample_segment"] = sample_segments(cross["date"], config["data"])
         cross.to_csv(cross_path, index=False)
         item["daily_quality_by_segment"] = quality.groupby("sample_segment").agg(
@@ -48,6 +48,7 @@ def refresh():
             segment_rows.append({"symbol": symbol, **row})
     summary["generated_at_utc"] = datetime.now(timezone.utc).isoformat()
     summary["config_sha256"] = sha256(config_path)
+    summary["study_protocol"] = config["study"]
     summary["period_labels"] = "pre_sample / warmup / evaluation / holdout; observation dates"
     save_json(summary_path, summary)
     pd.DataFrame(segment_rows).to_csv(ROOT / "outputs/tables/sample_period_summary.csv", index=False)

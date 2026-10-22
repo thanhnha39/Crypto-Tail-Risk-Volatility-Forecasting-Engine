@@ -1,5 +1,5 @@
 {
-  "validated_at_utc": "2026-10-22T13:54:15.224895+00:00",
+  "validated_at_utc": "2026-10-22T14:11:31.559634+00:00",
   "checks": [
     {
       "symbol": "BTCUSDT",
@@ -19,6 +19,7 @@
   "period_labels_verified": true,
   "rv_units_and_completeness_verified": true,
   "holdout_excluded_from_descriptive_statistics": true,
+  "study_protocol_metadata_verified": true,
   "status": "passed_with_documented_source_gaps_and_reviews",
   "limitations": [
     "macro_release_vintage_unverified",

@@ -61,3 +61,12 @@ Cập nhật nhãn, bảng, hình và tài liệu từ dữ liệu đã có, kh�
 ```
 
 Lệnh này giữ nguyên raw và nến sạch, kiểm tra giá/return/RV không đổi, tạo lại báo cáo rồi xác minh toàn bộ bộ bàn giao. `outputs/tables/sample_period_summary.csv` thống kê độ phủ và ngày đủ RV theo từng giai đoạn. Thống kê giá/return/RV không dùng holdout; ACF chỉ dùng warmup.
+
+## Bốn quy ước đã chốt
+
+- Cửa sổ: 730 ngày lịch, từ t−729 đến t; giữ ngày thiếu trên lịch.
+- Refit: cách 5 ngày lịch, neo ngày dự báo 01/01/2021 (origin 31/12/2020); dự báo hằng ngày, tiếp tục cùng lịch sang holdout.
+- Target 7 ngày: tổng RV của t+1 đến t+7 (%²), yêu cầu đủ bảy ngày; chỉ fit nhãn đã quan sát đầy đủ.
+- Crisis: phân vị 90% của RV trung bình 22 ngày trong warmup 2019–2020, riêng từng coin, cố định sau warmup; regime dự báo chỉ dùng dữ liệu đến origin.
+
+Chi tiết và ví dụ: `docs/GROUP_PROTOCOL.md`. Đây là quy ước bàn giao; dataset feature/target, lịch chạy và ngưỡng số cụ thể sẽ được triển khai ở bước tiếp theo.

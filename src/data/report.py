@@ -141,6 +141,15 @@ def report():
     summary = json.loads((ROOT / "outputs/tables/data_quality_summary.json").read_text(encoding="utf-8"))
     frames = {x["symbol"]: pd.read_parquet(ROOT / f"data/interim/{x['symbol']}_daily_reference_qa.parquet")
               for x in summary["symbols"]}
+    config = tomllib.loads((ROOT / "config/data.toml").read_text(encoding="utf-8"))
+    study = config["study"]
+    regime = study["regime"]
+    agreement_rows = [
+        ["Cửa sổ", f"{study['window_days']} ngày lịch; t−729 đến t; giữ ngày thiếu"],
+        ["Refit", f"Mỗi {study['refit_every_days']} ngày lịch; neo ngày dự báo {study['refit_anchor_target_date']}; dự báo hằng ngày"],
+        ["Target 7 ngày", "Tổng RV(t+1)...RV(t+7), %²; yêu cầu đủ 7 RV; chỉ fit target đã quan sát đầy đủ"],
+        ["Crisis", f"Phân vị {regime['crisis_quantile']:.0%} của RV trung bình {regime['rv_average_days']} ngày; hiệu chuẩn warmup riêng coin rồi cố định; chỉ dùng thông tin đến origin"],
+    ]
     period_rows = [dict(symbol=item["symbol"], **row)
                    for item in summary["symbols"] for row in item["daily_quality_by_segment"]]
     pd.DataFrame(period_rows).to_csv(ROOT / "outputs/tables/sample_period_summary.csv", index=False)
@@ -179,6 +188,7 @@ def report():
         md += "Ngày lệch trên 2% đã được đối chiếu thêm với archive Binance 1 ngày. Xem crosscheck_source_audit.csv: nếu close 1d khớp close tổng hợp 5m, ghi nhận chênh lệch giữa nguồn vẫn chưa có kết luận nguyên nhân; giữ giá gốc, không thay giá Binance bằng CoinGecko.\n\n"
     md += "## Dữ liệu vĩ mô và tính khả dụng\n\n" + md_table(["Chuỗi", "Dòng quan sát", "Giá trị không thiếu", "Ngày cuối có giá trị"], macro_rows)
     md += "\n\n**Đã thu thập, chưa đủ xác minh point-in-time để đưa vào feature dự báo.** FRED tải hiện tại có thể chứa sửa đổi; ngày quan sát không phải thời điểm công bố. H.10/USD được công bố theo tuần, vì vậy shift một ngày đơn thuần chưa đủ. Bảng observations để available_at trống và point_in_time_verified=False. Bản calendar forward-fill chỉ dành cho mô tả, tên file DESCRIPTIVE_ONLY và predictive_use_allowed=False; không backfill đầu chuỗi. Khi có lịch release/vintage kiểm chứng được, Châu/Huân mới ghép as-of để làm feature. Theo quy định nhóm, macro bị loại khỏi mô hình chính; chỉ dùng kiểm tra độ nhạy sau khi xác minh release/vintage.\n\n"
+    md += "## Bốn quy ước đã thống nhất\n\n" + md_table(["Hạng mục", "Quy ước"], agreement_rows) + "\n\nChi tiết: docs/GROUP_PROTOCOL.md. Mới ghi quy định bàn giao; backend, target 7 ngày và ngưỡng crisis chưa được triển khai.\n\n"
     md += "## Bảng và hình dùng cho chương 3\n\nBảng nguồn: source_log.csv; từ điển biến: docs/data_dictionary.md; thống kê: descriptive_statistics.csv. Hình 3.1 giá và Hình 3.2 RV dùng mẫu mô tả 2019–2025. Hình 3.3 ACF chỉ tính trên đoạn lịch liên tục dài nhất có RV đủ điều kiện trong warmup 2019–2020 của từng coin, không nối qua ngày thiếu; đoạn và N nằm trong acf_rv.csv. Dải ±1.96/sqrt(N) chỉ là tham chiếu xấp xỉ dưới giả định nhiễu trắng. Các hình là kết quả tính từ dữ liệu thật, không phải hình minh họa trong brief.\n\n"
     md += "## Bộ bàn giao và bước tiếp theo\n\nNhận *_5m_clean.parquet, *_daily_quality.parquet, *_quarantine.parquet, QA daily reference, source log, dictionary, bảng thiếu/outlier và báo cáo này. Huân phụ trách tiếp phần chuẩn bị feature của Châu ở bước sau. Giữ ngày thiếu trên lịch, tạo feature đến hết ngày t UTC và target t+1; gán split của dataset mô hình theo target_date bằng cùng cấu hình giai đoạn. QA reference đã có nhãn ngày quan sát, chưa phải dataset feature/target và không có lệnh train. Quy định nhóm: HAR-RV, GARCH(1,1), GJR-GARCH, XGBoost; rolling 730 ngày, expanding để kiểm tra độ nhạy; ước lượng lại mỗi 5 ngày; horizon chính 1 ngày và kiểm tra độ nhạy 7 ngày; chỉ chọn siêu tham số XGBoost trên warmup. Xem docs/GROUP_PROTOCOL.md. Phần Huân còn lại là robustness và chương 3/7 theo tiến độ nhóm, sau khi có output mô hình.\n\n"
     md += "## Nguồn và giới hạn\n\nBinance Public Data: https://github.com/binance/binance-public-data\n\nFRED: https://fred.stlouisfed.org/series/VIXCLS và https://fred.stlouisfed.org/series/DTWEXBGS\n\nFed H.10: https://www.federalreserve.gov/releases/h10/about.htm\n\nCoinGecko API: https://docs.coingecko.com/demo/reference/coins-id-market-chart\n\nSố liệu trong báo cáo do nhóm tính từ các snapshot có hash; không khẳng định lịch sử Binance là toàn thị trường. Outlier chưa có bằng chứng độc lập không bị tự loại. Macro chưa được chứng minh availability/vintage nên bị chặn khỏi predictive core.\n"
@@ -197,6 +207,8 @@ def report():
     content += f"<p>Huân · Snapshot {summary['snapshot_id']} · BTCUSDT / ETHUSDT spot 5 phút · UTC</p>"
     content += "<p>Đã tải và chuẩn hóa dữ liệu từ 01/12/2018 đến 17/10/2026. Tháng 12/2018 là dữ liệu đệm; warmup 2019–2020; đánh giá 2021–2025; holdout 2026 hiện đến 17/10/2026. Chưa tạo dataset có feature/target hay chạy mô hình. Báo cáo mô tả giá/return/RV chỉ dùng 2019–2025, thống kê tách warmup và evaluation. Cấu hình thống nhất nằm ở config/data.toml và docs/GROUP_PROTOCOL.md.</p>"
     content += f"<p><b>{verified} archive Binance khớp SHA256; {len(summary['download_failures'])} file/nguồn tải lỗi.</b> Bản gốc và metadata được giữ trong data/raw; dữ liệu sạch trong data/interim.</p>"
+    content += "<h2>Bốn quy ước đã thống nhất</h2>" + html_table(["Hạng mục", "Quy ước"], agreement_rows)
+    content += "<p>Chi tiết: docs/GROUP_PROTOCOL.md. Bảng này ghi quy định cho bước tiếp theo; chưa có dataset target 7 ngày, ngưỡng crisis hay backend.</p>"
     content += "<h2>1. Chất lượng dữ liệu</h2>" + html_table(["Coin", "Raw", "Clean", "Quarantine", "Ngày thiếu", "Nến thiếu", "Volume 0", "Return >10%"], symbol_rows)
     content += "<p>Ngày thiếu giữ nguyên trên lịch. RV chỉ được tính làm tham chiếu QA khi có đủ 288 nến hợp lệ và 288 return liền nhau. Không nội suy/backfill, không dùng chênh lệch qua khoảng trống như return 5 phút. Các nến cần xem xét vẫn được giữ và gắn cờ, có bảng chi tiết.</p>"
     if audit:
