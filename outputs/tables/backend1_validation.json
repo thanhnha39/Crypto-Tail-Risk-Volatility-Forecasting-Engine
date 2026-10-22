@@ -4,9 +4,12 @@
   "protocol_sha256": "7e0191870a5c7609ce0313e525d34e788a7fc75072a71c9727d1409900d9678b",
   "dataset_sha256": "2025bf54f52f9bad444c8474cf3df3c7ca434c6884b06017c443d575cbbf4edd",
   "segment": "evaluation",
-  "forecast_rows": 43752,
-  "common_scored_rows": 39576,
+  "forecast_rows": 87504,
+  "common_scored_rows": 79152,
   "models": [
+    "combo_econ",
+    "garch",
+    "gjr_garch",
     "har_rv",
     "hist_mean",
     "naive_rw"

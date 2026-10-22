@@ -13,3 +13,11 @@ python-dateutil==2.9.0.post0
 six==1.17.0
 tzdata==2026.5
 scipy==1.18.0
+arch==8.0.0
+statsmodels==0.15.0
+patsy==1.0.3
+formulaic==1.2.2
+interface-meta==2.0.1
+narwhals==2.27.1
+typing-extensions==4.16.0
+wrapt==2.5.1

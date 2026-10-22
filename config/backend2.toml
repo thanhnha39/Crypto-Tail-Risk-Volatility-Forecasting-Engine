@@ -1,0 +1,27 @@
+[garch]
+mean = "Constant"
+distribution = "StudentsT"
+p = 1
+q = 1
+power = 2.0
+rescale = false
+max_iterations = 1500
+retry_max_iterations = 5000
+retry_start = "conservative_training_only"
+optimizer_tolerance = 1e-8
+variance_floor = 1e-10
+stationarity_warning_tolerance = 1e-6
+diagnostic_lags = [10, 22]
+arch_lm_lags = 10
+verify_arch_analytic = true
+
+[combination]
+model_name = "combo_econ"
+components = ["har_rv", "garch", "gjr_garch"]
+method = "equal_weight_variance"
+require_all_components = true
+
+[evaluation]
+segment = "evaluation"
+include_expanding_sensitivity = true
+include_seven_day_sensitivity = true

@@ -1,0 +1,9 @@
+symbol,model,window,refits_attempted,refits_successful,refits_failed,near_integrated_fits,nu_le_4_fits,min_nu,max_persistence,max_arch_forecast_difference,nonfinite_covariances,arch_lm_p_below_05,diagnostic_pvalues
+BTCUSDT,garch,expanding,366,366,0,366,366,2.5965070071598824,1.0000000001092857,2.8421709430404014e-14,0,0,approximate; parameter estimation and heavy tails affect interpretation
+BTCUSDT,garch,rolling,366,366,0,183,353,2.489805358844455,1.0000000083903378,4.263256414560601e-14,0,22,approximate; parameter estimation and heavy tails affect interpretation
+BTCUSDT,gjr_garch,expanding,366,366,0,366,366,2.714409537188127,1.0000000892169962,4.263256414560601e-14,0,0,approximate; parameter estimation and heavy tails affect interpretation
+BTCUSDT,gjr_garch,rolling,366,366,0,199,359,2.4828329551730985,1.0000000316364968,5.684341886080803e-14,0,23,approximate; parameter estimation and heavy tails affect interpretation
+ETHUSDT,garch,expanding,366,366,0,94,366,3.0942188196891416,1.000000000000034,4.263256414560601e-14,0,0,approximate; parameter estimation and heavy tails affect interpretation
+ETHUSDT,garch,rolling,366,366,0,104,230,2.346710207340025,1.0000000276810352,3.5527136788005016e-14,0,0,approximate; parameter estimation and heavy tails affect interpretation
+ETHUSDT,gjr_garch,expanding,366,366,0,126,365,3.1081804592882403,1.0000000000556102,4.263256414560601e-14,0,0,approximate; parameter estimation and heavy tails affect interpretation
+ETHUSDT,gjr_garch,rolling,366,366,0,90,230,2.346716030866128,1.0000000018100994,8.526512829121202e-14,0,15,approximate; parameter estimation and heavy tails affect interpretation

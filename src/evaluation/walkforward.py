@@ -16,10 +16,18 @@ class Task:
     @property
     def ylog_col(self): return ylog_col(self.horizon)
 
+class ModelFitError(RuntimeError):
+    """An expected estimation failure, recorded rather than hidden by a fallback model."""
+
+class ModelForecastError(RuntimeError):
+    """An expected missing/invalid conditional-state failure."""
+
 class BaseModel:
     name="base"
     features=[]
     requires_target=True
+    def set_context(self,context): self.context=dict(context)
+    def forecast_metadata(self,task): return {}
     def fit(self,train,task): raise NotImplementedError
     def predict(self,test,task,history=None): raise NotImplementedError
 
@@ -48,6 +56,10 @@ def select_training(data,task,features,fit_origin,config,scheme="rolling",requir
     label_end=end.loc[mask].max() if len(train) else pd.NaT
     if not requires_target:
         train=train[[c for c in train.columns if not c.startswith(("y_","target_"))]]
+    else:
+        # Other-horizon labels may still be unknown at this refit origin.
+        keep={task.y_col,task.ylog_col,*[f"target_{field}_h{task.horizon}" for field in ["start","end","segment","valid"]]}
+        train=train[[c for c in train.columns if not c.startswith(("y_","target_")) or c in keep]]
     return train,lower,label_end
 
 def iter_splits(data,task,features,config,scheme="rolling",segment="evaluation",requires_target=True):
@@ -69,33 +81,40 @@ def iter_splits(data,task,features,config,scheme="rolling",segment="evaluation",
 def walk_forward(data,model_factory,task,config,scheme="rolling",segment="evaluation"):
     template=model_factory();features=list(template.features);requires_target=template.requires_target
     d=data.sort_values("origin_date").reset_index(drop=True)
-    model=None;rows=[];n_train=0;feature_end=pd.NaT
+    model=None;rows=[];n_train=0;feature_end=pd.NaT;fit_error=""
     for train,row,meta in iter_splits(d,task,features,config,scheme,segment,requires_target):
         if meta["needs_fit"]:
             n_train=len(train);feature_end=train["origin_date"].max() if n_train else pd.NaT
-            model=None
+            model=None;fit_error=""
             if n_train>=config["backend1"]["evaluation"]["min_train_rows"]:
-                model=model_factory();model.fit(train,task)
-        status="ok";prediction=np.nan
-        if model is None: status="insufficient_train"
+                model=model_factory()
+                model.set_context(dict(meta,symbol=row["symbol"],window=scheme,horizon_days=task.horizon))
+                try: model.fit(train,task)
+                except ModelFitError as error: fit_error=str(error);model=None
+        status="ok";prediction=np.nan;extra={};error_message=fit_error
+        if model is None: status="fit_failed" if fit_error else "insufficient_train"
         elif features and not np.isfinite(row[features].astype(float)).all(): status="missing_features"
         else:
             columns=["symbol","origin_date",*features]
             test=pd.DataFrame([row[columns]])
             history=d.loc[d["origin_date"].le(row["origin_date"]),
                 [c for c in d.columns if not c.startswith(("y_","target_"))]].copy()
-            values=np.asarray(model.predict(test,task,history=history),dtype=float)
-            if values.shape!=(1,): raise ValueError("predict must return exactly one variance for each input row")
-            prediction=float(values[0])
-            if not np.isfinite(prediction) or prediction<=0: raise ValueError(f"{template.name}: invalid variance forecast")
+            try:
+                values=np.asarray(model.predict(test,task,history=history),dtype=float)
+                if values.shape!=(1,): raise ValueError("predict must return exactly one variance for each input row")
+                prediction=float(values[0])
+                if not np.isfinite(prediction) or prediction<=0: raise ModelForecastError("Invalid variance forecast")
+                extra=model.forecast_metadata(task)
+            except ModelForecastError as error:
+                status="forecast_failed";prediction=np.nan;error_message=str(error)
         rows.append({"symbol":row["symbol"],"model":template.name,"horizon_days":task.horizon,
             "window":scheme,"origin_date":row["origin_date"],"target_start":row[f"target_start_h{task.horizon}"],
             "target_date":row[f"target_end_h{task.horizon}"],"forecast_available_at":row["origin_date"]+pd.Timedelta(days=1),
             "rv_forecast_pct2":prediction,"volatility_forecast_pct":np.sqrt(prediction),
             "refit_origin":meta["refit_origin"],"train_start":meta["train_start"],"train_end":meta["train_end"],
             "train_feature_end":feature_end,"n_train":n_train,"training_kind":"supervised" if requires_target else "observations",
-            "status":status})
-    return pd.DataFrame(rows,columns=FORECAST_COLS)
+            "status":status,"error_message":error_message,**extra})
+    return pd.DataFrame(rows) if rows else pd.DataFrame(columns=FORECAST_COLS)
 
 def make_schedule(dataset,config):
     parts=[]

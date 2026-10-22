@@ -1,0 +1,69 @@
+{
+  "segment": "evaluation",
+  "models": [
+    "har_rv",
+    "garch",
+    "gjr_garch"
+  ],
+  "forecast_rows": 58336,
+  "status_counts": {
+    "ok": 55888,
+    "missing_features": 1224,
+    "component_unavailable": 1224
+  },
+  "fit_cache_counts": [
+    {
+      "symbol": "BTCUSDT",
+      "model": "garch",
+      "window": "rolling",
+      "unique_fits": 366
+    },
+    {
+      "symbol": "BTCUSDT",
+      "model": "garch",
+      "window": "expanding",
+      "unique_fits": 366
+    },
+    {
+      "symbol": "BTCUSDT",
+      "model": "gjr_garch",
+      "window": "rolling",
+      "unique_fits": 366
+    },
+    {
+      "symbol": "BTCUSDT",
+      "model": "gjr_garch",
+      "window": "expanding",
+      "unique_fits": 366
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "garch",
+      "window": "rolling",
+      "unique_fits": 366
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "garch",
+      "window": "expanding",
+      "unique_fits": 366
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "gjr_garch",
+      "window": "rolling",
+      "unique_fits": 366
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "gjr_garch",
+      "window": "expanding",
+      "unique_fits": 366
+    }
+  ],
+  "protocol_sha256": "7e0191870a5c7609ce0313e525d34e788a7fc75072a71c9727d1409900d9678b",
+  "dataset_sha256": "2025bf54f52f9bad444c8474cf3df3c7ca434c6884b06017c443d575cbbf4edd",
+  "model_config_sha256": "8de07dba72fc2684b9b273e3fc023cfef31d2ac9fc95cc018288952b00c39492",
+  "holdout_evaluated": false,
+  "risk_note": "h=7 sigma is sqrt(sum variance); aggregate return is not exactly Student-t"
+}

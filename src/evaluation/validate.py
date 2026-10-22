@@ -21,7 +21,7 @@ def validate_forecasts(fc,dataset,config,dataset_hash=None,name="forecast"):
     if fc.duplicated(key).any(): errors.append("Duplicate forecast keys")
     if fc.empty: return ["Empty forecast file"]
     if not fc["horizon_days"].isin([1,7]).all() or not fc["window"].isin(["rolling","expanding"]).all(): errors.append("Unsupported task")
-    if not fc["status"].isin(["ok","missing_features","insufficient_train"]).all(): errors.append("Invalid status")
+    if not fc["status"].isin(["ok","missing_features","insufficient_train","fit_failed","forecast_failed","component_unavailable"]).all(): errors.append("Invalid status")
     dates={c:pd.to_datetime(fc[c],utc=True,errors="coerce") for c in ["origin_date","target_start","target_date","forecast_available_at","refit_origin","train_start","train_end","train_feature_end"]}
     origin=dates["origin_date"];ok=fc["status"].eq("ok")
     if not dates["target_start"].eq(origin+pd.Timedelta(days=1)).all(): errors.append("Wrong target start")
@@ -34,7 +34,7 @@ def validate_forecasts(fc,dataset,config,dataset_hash=None,name="forecast"):
     if (ok & (dates["train_end"].isna() | dates["train_end"].gt(dates["refit_origin"]))).any(): errors.append("LEAKAGE: target/observation used after refit cutoff")
     if (ok & dates["train_feature_end"].gt(dates["refit_origin"])).any(): errors.append("LEAKAGE: future feature")
     supervised=fc["training_kind"].eq("supervised")
-    if not fc["training_kind"].isin(["supervised","observations"]).all(): errors.append("Unknown training kind")
+    if not fc["training_kind"].isin(["supervised","observations","combination"]).all(): errors.append("Unknown training kind")
     if (ok & (fc["n_train"]<config["backend1"]["evaluation"]["min_train_rows"])).any(): errors.append("Insufficient train rows for successful forecast")
     if (ok & supervised & dates["train_feature_end"].gt(dates["refit_origin"]-pd.to_timedelta(fc["horizon_days"],unit="D"))).any():
         errors.append("LEAKAGE: supervised feature origin has an unfinished target")

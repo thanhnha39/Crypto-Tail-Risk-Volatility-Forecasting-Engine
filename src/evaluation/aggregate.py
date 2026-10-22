@@ -102,9 +102,9 @@ def make_figures(ev,config,directory):
         ax.set_title(f"{symbol} | {scheme} | h={h} | QLIKE by origin regime")
         ax.figure.tight_layout();ax.figure.savefig(directory/f"{prefix}_regimes.png",dpi=130);plt.close(ax.figure)
 
-def main():
+def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument("--final-holdout",action="store_true")
-    args=parser.parse_args();cfg=load_config();segment="holdout" if args.final_holdout else "evaluation"
+    args=parser.parse_args(argv);cfg=load_config();segment="holdout" if args.final_holdout else "evaluation"
     path=ROOT/"data/processed/dataset.parquet";ds=pd.read_parquet(path)
     meta=json.loads((ROOT/"data/processed/dataset_meta.json").read_text())
     if meta["dataset_sha256"]!=sha256(path) or meta["protocol_sha256"]!=protocol_hash(cfg): raise ValueError("Stale dataset")
@@ -125,11 +125,20 @@ def main():
     tables={"model_comparison":comparison,"dm_vs_benchmark":dm_table(ev,benchmark,cfg),
         "regime_performance":pd.DataFrame(regime_rows),"dm_by_regime":dm_table(ev,benchmark,cfg,True),
         "forecast_coverage":coverage}
+    available=fc.merge(truth_table(ds,sorted(fc["horizon_days"].unique())),
+        on=["symbol","origin_date","horizon_days"],how="left",validate="many_to_one")
+    available=available.loc[available.target_segment.eq(segment)&available.status.eq("ok")&
+        available.y_true.gt(0)&np.isfinite(available.y_true)].copy()
+    available=add_losses(available)
+    tables["model_comparison_available_sample"]=pd.DataFrame([
+        dict(zip(GROUP+["model"],keys),**summarize(group).to_dict(),sample="model_specific_not_common")
+        for keys,group in available.groupby(GROUP+["model"])])
     for name,table in tables.items(): table.to_csv(out/f"{name}.csv",index=False)
     availability=[]
     for model in ["har_rv","garch","gjr_garch","xgboost"]:
         availability.append({"model":model,"status":"available" if model in set(fc["model"]) else "awaiting_team_forecast",
-            "note":"HAR is an OLS reference implementation" if model=="har_rv" else "External backend adapter/file"})
+            "note":"Backend 2 OLS" if model=="har_rv" else
+                "Backend 2 arch Student-t" if model in ["garch","gjr_garch"] else "External backend adapter/file"})
     pd.DataFrame(availability).to_csv(out/"model_availability.csv",index=False)
     counts=ev.drop_duplicates(GROUP+["origin_date"]).groupby(GROUP+["regime"]).size().rename("n_common_dates").reset_index()
     counts.to_csv(out/"regime_counts.csv",index=False)

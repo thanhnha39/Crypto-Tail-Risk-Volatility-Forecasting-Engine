@@ -9,8 +9,11 @@ data/raw/       Dữ liệu gốc, ZIP, checksum, metadata và raw Parquet
 data/interim/   Nến sạch, chất lượng theo ngày và tham chiếu QA
 data/processed/ Dataset feature/target, regime và lịch chạy Backend 1
 src/data/       Code của toàn bộ luồng dữ liệu
+src/features/   Feature và target point-in-time
+src/models/     HAR-RV, GARCH/GJR Student-t, tổ hợp
+src/evaluation/ Walk-forward, metrics, DM và tổng hợp
 config/         Cấu hình coin, thời gian và quy tắc kiểm tra
-tests/          Kiểm tra dữ liệu
+tests/          Kiểm tra dữ liệu, leakage và mô hình
 docs/           Source log, dictionary, quality report
 outputs/        Bảng, hình và báo cáo HTML
 ```
@@ -44,7 +47,7 @@ Chạy từng bước bằng các module `src.data.download`, `src.data.clean`, 
 
 BTCUSDT/ETHUSDT spot 5 phút từ 01/12/2018 đến 17/10/2026 UTC, 828.050 nến mỗi coin; 12/2018 là dữ liệu đệm; warmup 2019–2020, đánh giá 2021–2025, holdout 2026 (hiện đến 17/10/2026). Mỗi coin có 21 ngày thiếu nến, không tự lấp giá hay RV bằng 0. RV tham chiếu chỉ có ở ngày đủ điều kiện; return qua khoảng trống không được tính như return 5 phút.
 
-VIX/USD đã thu thập và có forward-fill cho mô tả, nhưng chưa xác minh thời điểm công bố/vintage lịch sử. Theo quy định nhóm, macro chỉ dành cho kiểm tra độ nhạy sau khi xác minh; không đưa vào mô hình chính. CoinGecko đối chiếu 365 ngày; các khác biệt nguồn được ghi trong quality report. Các bảng QA có nhãn ngày quan sát theo quy định nhóm; chưa phải dataset có feature/target. Chi tiết tại `docs/GROUP_PROTOCOL.md`. Đã có baseline và HAR-RV tham chiếu trên backend-1. So sánh đầy đủ bốn mô hình và robustness cuối cùng cần các file GARCH/GJR/XGBoost từ nhóm.
+VIX/USD đã thu thập và có forward-fill cho mô tả, nhưng chưa xác minh thời điểm công bố/vintage lịch sử. Theo quy định nhóm, macro chỉ dành cho kiểm tra độ nhạy sau khi xác minh; không đưa vào mô hình chính. CoinGecko đối chiếu 365 ngày; các khác biệt nguồn được ghi trong quality report. QA ngày và dataset feature/target được lưu riêng. Chi tiết tại `docs/GROUP_PROTOCOL.md`. Backend 2 bổ sung GARCH/GJR vào baseline và HAR đã có; so sánh đầy đủ bốn mô hình còn chờ XGBoost.
 
 Unit test và kiểm tra dữ liệu bàn giao được dùng để xác nhận timestamp, return, điều kiện RV và hash nguồn; chưa thay thế kiểm tra leakage của feature/model.
 
@@ -80,4 +83,14 @@ Chi tiết và ví dụ: `docs/GROUP_PROTOCOL.md`. Trên backend-1, dataset feat
 .\.venv\Scripts\python.exe -m src.backend1
 ```
 
-Luồng: daily QA thật → feature/target/regime → lịch walk-forward → naive/historical mean/HAR OLS tham chiếu → bảng và hình đánh giá 2021–2025. GARCH/GJR/XGBoost chờ file từ backend phụ trách. Không sinh chương báo cáo và không mặc định chấm điểm holdout 2026. Các trạng thái cũ trong tài liệu bàn giao data mô tả thời điểm trước khi Backend 1 được xây; trạng thái hiện tại nằm trong docs/backend1.md và outputs/tables/backend1_validation.json.
+Luồng: daily QA thật → feature/target/regime → lịch walk-forward → naive/historical mean/HAR OLS tham chiếu → bảng và hình đánh giá 2021–2025. Không sinh chương báo cáo và không mặc định chấm điểm holdout 2026. Các trạng thái cũ trong tài liệu bàn giao data mô tả thời điểm trước khi Backend 1 được xây; trạng thái Backend 1 nằm trong docs/backend1.md và outputs/tables/backend1_validation.json.
+
+## Backend 2: đọc từ đây
+
+Hướng dẫn chính: **[docs/backend2.md](docs/backend2.md)**. Chạy sau khi đã có dataset Backend 1:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.backend2
+```
+
+Đã có HAR-RV OLS, GARCH(1,1)-t, GJR-GARCH-t, tổ hợp ba mô hình, chẩn đoán tham số/residual và bản xuất σ cho risk backend. Kết quả thật 2021–2025 ở `outputs/forecasts/`, `outputs/volatility/`, `outputs/diagnostics/`; bảng/hình đánh giá dùng chung với Backend 1. XGBoost và VaR/ES thuộc phần tiếp theo. Holdout 2026 chưa chấm điểm. Review độc lập của thành viên nhóm còn chờ; ghi chú tại `docs/backend2_review.md`.

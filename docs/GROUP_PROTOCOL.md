@@ -65,4 +65,6 @@ Regime đi kèm dự báo t+1 dùng thông tin đến hết origin t: crisis n�
 
 Trên nhánh backend-1 đã tạo dataset feature/target 1/7 ngày, lịch dự báo, ngưỡng crisis và khung đánh giá với baseline/HAR OLS tham chiếu. Schema file dự báo đã ghi ở docs/forecast_format.md; model GARCH/GJR/XGBoost do backend phụ trách tích hợp sau. Ngưỡng regime, scaler và mọi bước hiệu chuẩn không được dùng dữ liệu tương lai/holdout.
 
+Cập nhật backend-2: đã triển khai HAR OLS, GARCH/GJR Student-t, tổ hợp ba mô hình, chẩn đoán và bản xuất σ; hướng dẫn tại `docs/backend2.md`. XGBoost và phần VaR/ES chưa thuộc bàn giao này. Các quy tắc nghiên cứu ở trên giữ nguyên.
+
 Macro observations hiện chưa có release/vintage được xác minh; calendar forward-fill chỉ mô tả. Không đổi cờ `predictive_use_allowed=False` thành True để chạy sensitivity cho đủ bảng.
