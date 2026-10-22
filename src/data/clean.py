@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 
 from .download import ROOT, save_json, sha256
+from .protocol import sample_segments
 
 COLS = ["open_time_raw", "open", "high", "low", "close", "volume", "close_time_raw",
         "quote_volume", "n_trades", "taker_buy_base", "taker_buy_quote", "ignore"]
@@ -108,8 +109,7 @@ def daily_quality(cleaned: pd.DataFrame, normalized_raw: pd.DataFrame,
         [result["valid_bars"].eq(0), result["missing_fraction"].gt(settings["max_missing_fraction_for_review"]),
          result["missing_bars"].gt(0), ~result["eligible_rv"]],
         ["no_data", "more_than_5pct_missing", "incomplete", "missing_previous_close"], default="complete")
-    research_start, research_end = pd.Timestamp(settings["research_start"], tz="UTC"), pd.Timestamp(settings["research_end"], tz="UTC")
-    result["sample_segment"] = np.where(days < research_start, "warmup", np.where(days <= research_end, "research_2019_2025", "update_2026"))
+    result["sample_segment"] = sample_segments(days, settings)
     result["symbol"] = cleaned["symbol"].iloc[0]
     return result.reset_index()
 

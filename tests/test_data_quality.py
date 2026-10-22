@@ -64,7 +64,9 @@ class QualityTests(unittest.TestCase):
         raw = bars([x.isoformat() for x in times])
         clean, _, normalized = self.clean(raw)
         settings = {"expected_bars_per_day": 288, "max_missing_fraction_for_review": 0.05,
-                    "research_start": "2019-01-01", "research_end": "2025-12-31"}
+                    "research_start": "2019-01-01", "research_end": "2025-12-31",
+                    "warmup_end": "2020-12-31", "evaluation_start": "2021-01-01",
+                    "holdout_start": "2026-01-01", "holdout_end": "2026-12-31"}
         quality = daily_quality(clean, normalized, pd.Timestamp("2024-12-31", tz="UTC"),
                                 pd.Timestamp("2025-01-01", tz="UTC"), settings)
         self.assertTrue(quality["eligible_rv"].iloc[1])

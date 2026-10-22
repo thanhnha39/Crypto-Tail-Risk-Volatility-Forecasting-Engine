@@ -1,7 +1,7 @@
 {
-  "generated_at_utc": "2026-10-18T08:10:16.085519+00:00",
+  "generated_at_utc": "2026-10-22T13:54:07.212731+00:00",
   "snapshot_id": "2026-10-18",
-  "config_sha256": "0e927faf1e9d16ab5ba17d9116005f5f57dd5c1dc06383550b86efc6a4d530f5",
+  "config_sha256": "79bbf4fa53bd42fded582b5f4526536ccd416f4772691127f2eacbaa31ee832c",
   "symbols": [
     {
       "symbol": "BTCUSDT",
@@ -24,22 +24,28 @@
       },
       "daily_quality_by_segment": [
         {
-          "sample_segment": "research_2019_2025",
-          "days": 2557,
-          "eligible_rv": 2536,
-          "missing_bars": 814
+          "sample_segment": "evaluation",
+          "days": 1826,
+          "eligible_rv": 1819,
+          "missing_bars": 213
         },
         {
-          "sample_segment": "update_2026",
+          "sample_segment": "holdout",
           "days": 290,
           "eligible_rv": 290,
           "missing_bars": 0
         },
         {
-          "sample_segment": "warmup",
+          "sample_segment": "pre_sample",
           "days": 31,
           "eligible_rv": 30,
           "missing_bars": 0
+        },
+        {
+          "sample_segment": "warmup",
+          "days": 731,
+          "eligible_rv": 717,
+          "missing_bars": 601
         }
       ]
     },
@@ -64,22 +70,28 @@
       },
       "daily_quality_by_segment": [
         {
-          "sample_segment": "research_2019_2025",
-          "days": 2557,
-          "eligible_rv": 2536,
-          "missing_bars": 814
+          "sample_segment": "evaluation",
+          "days": 1826,
+          "eligible_rv": 1819,
+          "missing_bars": 213
         },
         {
-          "sample_segment": "update_2026",
+          "sample_segment": "holdout",
           "days": 290,
           "eligible_rv": 290,
           "missing_bars": 0
         },
         {
-          "sample_segment": "warmup",
+          "sample_segment": "pre_sample",
           "days": 31,
           "eligible_rv": 30,
           "missing_bars": 0
+        },
+        {
+          "sample_segment": "warmup",
+          "days": 731,
+          "eligible_rv": 717,
+          "missing_bars": 601
         }
       ]
     }
@@ -125,5 +137,6 @@
     }
   ],
   "download_failures": [],
-  "scope": "source acquisition, normalization, QA references; no modeling dataset, lags, tuning or forecasts"
+  "scope": "source acquisition, normalization, QA references; no modeling dataset, lags, tuning or forecasts",
+  "period_labels": "pre_sample / warmup / evaluation / holdout; observation dates"
 }

@@ -1,0 +1,9 @@
+symbol,sample_segment,days,eligible_rv,missing_bars
+BTCUSDT,evaluation,1826,1819,213
+BTCUSDT,holdout,290,290,0
+BTCUSDT,pre_sample,31,30,0
+BTCUSDT,warmup,731,717,601
+ETHUSDT,evaluation,1826,1819,213
+ETHUSDT,holdout,290,290,0
+ETHUSDT,pre_sample,31,30,0
+ETHUSDT,warmup,731,717,601

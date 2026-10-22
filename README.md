@@ -1,5 +1,5 @@
 # Crypto-Tail-Risk-Volatility-Forecasting-Engine
-A cryptocurrency volatility forecasting and tail-risk analysis engine for BTC and ETH, combining GARCH, HAR-RV, and XGBoost models with VaR/ES backtesting and an interactive Streamlit dashboard.
+A cryptocurrency volatility forecasting and tail-risk analysis engine for BTC and ETH, combining GARCH, GJR-GARCH, HAR-RV, and XGBoost models with VaR/ES backtesting and an interactive Streamlit dashboard.
 
 
 ## Cấu trúc
@@ -42,10 +42,22 @@ Chạy từng bước bằng các module `src.data.download`, `src.data.clean`, 
 
 ## Trạng thái và giới hạn
 
-BTCUSDT/ETHUSDT spot 5 phút từ 01/12/2018 đến 17/10/2026 UTC, 828.050 nến mỗi coin; 12/2018 là warm-up. Mỗi coin có 21 ngày thiếu nến, không tự lấp giá hay RV bằng 0. RV tham chiếu chỉ có ở ngày đủ điều kiện; return qua khoảng trống không được tính như return 5 phút.
+BTCUSDT/ETHUSDT spot 5 phút từ 01/12/2018 đến 17/10/2026 UTC, 828.050 nến mỗi coin; 12/2018 là dữ liệu đệm; warmup 2019–2020, đánh giá 2021–2025, holdout 2026 (hiện đến 17/10/2026). Mỗi coin có 21 ngày thiếu nến, không tự lấp giá hay RV bằng 0. RV tham chiếu chỉ có ở ngày đủ điều kiện; return qua khoảng trống không được tính như return 5 phút.
 
-VIX/USD đã thu thập và có forward-fill cho mô tả, nhưng chưa xác minh thời điểm công bố/vintage lịch sử, nên chưa dùng làm feature dự báo. CoinGecko đối chiếu 365 ngày; các khác biệt nguồn được ghi trong quality report. Các bảng tham chiếu chưa phải dataset có lag/target/split đã được nhóm duyệt. Chưa chạy mô hình và chưa có `outputs/tables/robustness.csv`; phần này cần kết quả mô hình của nhóm.
+VIX/USD đã thu thập và có forward-fill cho mô tả, nhưng chưa xác minh thời điểm công bố/vintage lịch sử. Theo quy định nhóm, macro chỉ dành cho kiểm tra độ nhạy sau khi xác minh; không đưa vào mô hình chính. CoinGecko đối chiếu 365 ngày; các khác biệt nguồn được ghi trong quality report. Các bảng QA có nhãn ngày quan sát theo quy định nhóm; chưa phải dataset có feature/target. Chi tiết tại `docs/GROUP_PROTOCOL.md`. Chưa chạy mô hình và chưa có `outputs/tables/robustness.csv`; phần này cần kết quả mô hình của nhóm.
 
-Sáu unit test và kiểm tra dữ liệu bàn giao được dùng để xác nhận timestamp, return, điều kiện RV và hash nguồn; chưa thay thế kiểm tra leakage của feature/model.
+Unit test và kiểm tra dữ liệu bàn giao được dùng để xác nhận timestamp, return, điều kiện RV và hash nguồn; chưa thay thế kiểm tra leakage của feature/model.
 
 Nguồn chính thức: [Binance](https://github.com/binance/binance-public-data), [FRED VIX](https://fred.stlouisfed.org/series/VIXCLS), [FRED USD](https://fred.stlouisfed.org/series/DTWEXBGS), [Fed H.10](https://www.federalreserve.gov/releases/h10/about.htm), [CoinGecko](https://docs.coingecko.com/demo/reference/coins-id-market-chart). Chi tiết từng file nguồn có tại `docs/source_log.csv`.
+
+## Cập nhật thống nhất quy định nhóm
+
+Repo đang áp dụng `pre_sample` (12/2018), `warmup` (2019–2020), `evaluation` (2021–2025), `holdout` (2026). Cấu hình chung ở `config/data.toml`; quy định và giới hạn ở `docs/GROUP_PROTOCOL.md`. Phần backend, feature/target và chạy mô hình là bước tiếp theo.
+
+Cập nhật nhãn, bảng, hình và tài liệu từ dữ liệu đã có, không tải lại nguồn:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.data.refresh
+```
+
+Lệnh này giữ nguyên raw và nến sạch, kiểm tra giá/return/RV không đổi, tạo lại báo cáo rồi xác minh toàn bộ bộ bàn giao. `outputs/tables/sample_period_summary.csv` thống kê độ phủ và ngày đủ RV theo từng giai đoạn. Thống kê giá/return/RV không dùng holdout; ACF chỉ dùng warmup.

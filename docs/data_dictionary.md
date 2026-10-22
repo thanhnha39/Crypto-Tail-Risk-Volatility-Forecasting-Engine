@@ -1,6 +1,6 @@
+# Từ điển dữ liệu bàn giao của Huân
 
-
-Schema nến sạch dùng chung ở data/interim. Raw ZIP là bản nguồn nguyên gốc; raw Parquet tổng hợp giữ token gốc dưới dạng chuỗi để tránh làm tròn và giữ dấu vết.
+Schema nến sạch dùng chung ở data/interim. Raw ZIP là bản nguồn nguyên gốc; raw Parquet tổng hợp giữ token gốc dưới dạng chuỗi để tránh làm tròn và giữ dấu vết. Nhãn giai đoạn đã theo quy định nhóm trong config/data.toml; dataset có feature/target sẽ được xây ở bước sau.
 
 | Cột | Kiểu | Định nghĩa | Đơn vị / lưu ý |
 | --- | --- | --- | --- |
@@ -22,7 +22,7 @@ Schema nến sạch dùng chung ở data/interim. Raw ZIP là bản nguồn nguy
 | rv_reference_pct2 | float64 | Tổng bình phương 288 return 5 phút hợp lệ | %²; chỉ là tham chiếu QA |
 | volatility_reference_pct | float64 | Căn RV tham chiếu | %/ngày; không annualize |
 | return_daily_pct_qa | float64 | 100*ln(close cuối ngày/close cuối ngày trước) | % log return; giữ lưới ngày |
-| sample_segment | string | warmup / research_2019_2025 / update_2026 | Không phải train/validation/test đã được nhóm duyệt |
+| sample_segment | string | pre_sample / warmup / evaluation / holdout | 12/2018 / 2019–2020 / 2021–2025 / 2026; theo ngày quan sát |
 | quarantine_reason | string | Lý do loại khỏi nến sạch | Raw vẫn giữ nguyên |
 | observation_date | timestamp UTC | Ngày quan sát FRED | Không phải ngày công bố |
 | available_at | timestamp UTC | Thời điểm lịch sử có thể dùng | Để NaT khi chưa xác minh; không dùng predict |

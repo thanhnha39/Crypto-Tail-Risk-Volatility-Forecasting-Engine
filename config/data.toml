@@ -11,6 +11,10 @@ start = "2018-12-01"
 end = "2026-10-17"
 research_start = "2019-01-01"
 research_end = "2025-12-31"
+warmup_end = "2020-12-31"
+evaluation_start = "2021-01-01"
+holdout_start = "2026-01-01"
+holdout_end = "2026-12-31"
 expected_bars_per_day = 288
 max_missing_fraction_for_review = 0.05
 large_return_review_threshold_pct = 10.0
@@ -25,3 +29,41 @@ zero_volume = "retain_flag_and_review"
 large_returns = "retain_flag_and_review_no_winsorization"
 rv_policy = "complete_valid_day_with_previous_close_and_no_gap"
 macro = "observation_table_only_no_unverified_point_in_time_features"
+
+# Quy định nhóm; đây là cấu hình bàn giao, chưa triển khai backend/model.
+[study]
+models = ["HAR-RV", "GARCH(1,1)", "GJR-GARCH", "XGBoost"]
+target = "realized_variance"
+target_unit = "percent_squared"
+report_sqrt_rv = true
+main_window = "rolling"
+sensitivity_window = "expanding"
+window_days = 730
+refit_every_days = 5
+main_horizon_days = 1
+sensitivity_horizon_days = [7]
+xgboost_tuning_period = "warmup"
+xgboost_retune = false
+holdout_final_evaluation_only = true
+forecast_information = "through_end_of_origin_day_UTC"
+main_metric = "QLIKE"
+other_metrics = ["RMSE", "MAE"]
+comparison_test = "Diebold-Mariano"
+macro_in_main_model = false
+macro_role = "sensitivity_only_after_point_in_time_verification"
+
+[study.regime]
+rv_average_days = 22
+crisis_quantile = 0.90
+log_return_days = 90
+bull_threshold_pct = 10.0
+bear_threshold_pct = -10.0
+priority = ["crisis", "bear", "bull", "normal"]
+
+[study.risk]
+confidence_levels = [0.95, 0.99]
+garch_gjr_distribution = "Student-t"
+har_xgboost_method = "filtered_historical_simulation"
+backtests = ["Kupiec", "Christoffersen"]
+forecast_filename = "{symbol}_{model}.parquet"
+risk_filename = "{symbol}_{model}_risk.parquet"

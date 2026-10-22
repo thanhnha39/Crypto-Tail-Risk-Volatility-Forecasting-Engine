@@ -1,10 +1,10 @@
+# Báo cáo chất lượng dữ liệu và bàn giao thống nhất
 
-
-# Snapshot 2026-10-18; tạo báo cáo 2026-10-18T08:10:16.085519+00:00.
+Người chuẩn bị: Huân. Snapshot 2026-10-18; tạo báo cáo 2026-10-22T13:54:07.212731+00:00.
 
 ## Phạm vi và tình trạng
 
-BTCUSDT và ETHUSDT spot 5 phút, 01/12/2018–17/10/2026 UTC. Tháng 12/2018 là warm-up; số liệu mô tả chính 2019–2025; năm 2026 được ghi riêng. Không tự chốt train/validation/test. Đã tải VIXCLS, DTWEXBGS và giá CoinGecko trong phạm vi 365 ngày được API cung cấp. Không thu thập order-book/phái sinh và không chạy mô hình.
+BTCUSDT và ETHUSDT spot 5 phút, 01/12/2018–17/10/2026 UTC. Tháng 12/2018 là dữ liệu đệm (pre_sample); warmup 2019–2020; đánh giá 2021–2025; holdout 2026. Snapshot hiện chỉ đến 17/10/2026. Các thống kê giá/return/RV và hình mô tả không dùng holdout; kiểm tra chất lượng nguồn vẫn bao phủ toàn bộ snapshot. Đã tải VIXCLS, DTWEXBGS và giá CoinGecko trong phạm vi 365 ngày được API cung cấp. Không thu thập order-book/phái sinh và không chạy mô hình.
 
 Archive Binance đã khớp SHA256 từ nguồn: **222**. Số nguồn/file tải lỗi: **0**. Mỗi archive có URL, thời điểm tải, hash và row count trong source_log.csv.
 
@@ -41,12 +41,15 @@ Ngày lệch trên 2% đã được đối chiếu thêm với archive Binance 1
 | DTWEXBGS | 2050 | 1961 | 2026-10-09 00:00:00+00:00 |
 | VIXCLS | 2054 | 2010 | 2026-10-15 00:00:00+00:00 |
 
-**Đã thu thập, chưa đủ xác minh point-in-time để đưa vào feature dự báo.** FRED tải hiện tại có thể chứa sửa đổi; ngày quan sát không phải thời điểm công bố. H.10/USD được công bố theo tuần, vì vậy shift một ngày đơn thuần chưa đủ. Bảng observations để available_at trống và point_in_time_verified=False. Bản calendar forward-fill chỉ dành cho mô tả, tên file DESCRIPTIVE_ONLY và predictive_use_allowed=False; không backfill đầu chuỗi. Khi có lịch release/vintage kiểm chứng được, Châu/Huân mới ghép as-of để làm feature. Phần lõi có thể dùng OHLCV và volume trong lúc này.
+**Đã thu thập, chưa đủ xác minh point-in-time để đưa vào feature dự báo.** FRED tải hiện tại có thể chứa sửa đổi; ngày quan sát không phải thời điểm công bố. H.10/USD được công bố theo tuần, vì vậy shift một ngày đơn thuần chưa đủ. Bảng observations để available_at trống và point_in_time_verified=False. Bản calendar forward-fill chỉ dành cho mô tả, tên file DESCRIPTIVE_ONLY và predictive_use_allowed=False; không backfill đầu chuỗi. Khi có lịch release/vintage kiểm chứng được, Châu/Huân mới ghép as-of để làm feature. Theo quy định nhóm, macro bị loại khỏi mô hình chính; chỉ dùng kiểm tra độ nhạy sau khi xác minh release/vintage.
 
 ## Bảng và hình dùng cho chương 3
 
-Bảng nguồn: source_log.csv; từ điển biến: docs/data_dictionary.md; thống kê: descriptive_statistics.csv. Hình 3.1 giá và Hình 3.2 RV dùng mẫu mô tả 2019–2025. Hình 3.3 ACF chỉ tính trên đoạn lịch liên tục dài nhất có RV đủ điều kiện của từng coin, không nối qua ngày thiếu; đoạn và N nằm trong acf_rv.csv. Dải ±1.96/sqrt(N) chỉ là tham chiếu xấp xỉ dưới giả định nhiễu trắng. Các hình là kết quả tính từ dữ liệu thật, không phải hình minh họa trong brief.
+Bảng nguồn: source_log.csv; từ điển biến: docs/data_dictionary.md; thống kê: descriptive_statistics.csv. Hình 3.1 giá và Hình 3.2 RV dùng mẫu mô tả 2019–2025. Hình 3.3 ACF chỉ tính trên đoạn lịch liên tục dài nhất có RV đủ điều kiện trong warmup 2019–2020 của từng coin, không nối qua ngày thiếu; đoạn và N nằm trong acf_rv.csv. Dải ±1.96/sqrt(N) chỉ là tham chiếu xấp xỉ dưới giả định nhiễu trắng. Các hình là kết quả tính từ dữ liệu thật, không phải hình minh họa trong brief.
 
+## Bộ bàn giao và bước tiếp theo
+
+Nhận *_5m_clean.parquet, *_daily_quality.parquet, *_quarantine.parquet, QA daily reference, source log, dictionary, bảng thiếu/outlier và báo cáo này. Huân phụ trách tiếp phần chuẩn bị feature của Châu ở bước sau. Giữ ngày thiếu trên lịch, tạo feature đến hết ngày t UTC và target t+1; gán split của dataset mô hình theo target_date bằng cùng cấu hình giai đoạn. QA reference đã có nhãn ngày quan sát, chưa phải dataset feature/target và không có lệnh train. Quy định nhóm: HAR-RV, GARCH(1,1), GJR-GARCH, XGBoost; rolling 730 ngày, expanding để kiểm tra độ nhạy; ước lượng lại mỗi 5 ngày; horizon chính 1 ngày và kiểm tra độ nhạy 7 ngày; chỉ chọn siêu tham số XGBoost trên warmup. Xem docs/GROUP_PROTOCOL.md. Phần Huân còn lại là robustness và chương 3/7 theo tiến độ nhóm, sau khi có output mô hình.
 
 ## Nguồn và giới hạn
 
