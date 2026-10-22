@@ -1,6 +1,5 @@
 # Quy định thống nhất của nhóm
-
-Áp dụng cho phần dữ liệu từ yêu cầu nhóm do Huân cung cấp ngày 22/10/2026.
+Áp dụng cho phần dữ liệu từ yêu cầu nhóm .
 Nguồn cấu hình máy đọc: `config/data.toml`. Các mục model/risk dưới đây là quy định bàn giao cho bước sau.
 
 | # | Hạng mục | Quy định |
