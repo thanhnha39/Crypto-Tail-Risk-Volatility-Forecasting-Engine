@@ -38,7 +38,6 @@ RV = tổng bình phương các return `100*ln(P_j/P_{j-1})`. Nến mở 00:00�
 
 Holdout được kiểm tra chất lượng dữ liệu nguồn, nhưng không dùng chọn mô hình/siêu tham số. Báo cáo mô tả mới chỉ thống kê giá/return/RV theo warmup và evaluation; ACF chỉ dùng warmup. Các báo cáo cũ từng có thống kê mô tả 2026; không khẳng định rằng dữ liệu 2026 chưa từng được xem. Chưa chạy đánh giá mô hình holdout trong phần bàn giao này.
 
-## Bốn quyết định đã thống nhất
 
 ### 1. Cửa sổ là 730 ngày lịch
 
