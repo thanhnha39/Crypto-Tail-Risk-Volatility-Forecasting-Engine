@@ -63,6 +63,6 @@ Regime đi kèm dự báo t+1 dùng thông tin đến hết origin t: crisis n�
 
 ## Phạm vi triển khai hiện tại
 
-Bốn quyết định trên đã được ghi vào cấu hình và tài liệu bàn giao. Chưa tạo dataset feature/target 7 ngày, lịch dự báo, giá trị ngưỡng crisis hay backend/model. Bước tiếp theo triển khai theo các quy ước này và thống nhất schema cột của file dự báo với các thành viên. Ngưỡng regime, scaler và mọi bước hiệu chuẩn không được dùng dữ liệu tương lai/holdout.
+Chưa tạo dataset feature/target 7 ngày, lịch dự báo, giá trị ngưỡng crisis hay backend/model. Bước tiếp theo triển khai theo các quy ước này và thống nhất schema cột của file dự báo với các thành viên. Ngưỡng regime, scaler và mọi bước hiệu chuẩn không được dùng dữ liệu tương lai/holdout.
 
 Macro observations hiện chưa có release/vintage được xác minh; calendar forward-fill chỉ mô tả. Không đổi cờ `predictive_use_allowed=False` thành True để chạy sensitivity cho đủ bảng.
