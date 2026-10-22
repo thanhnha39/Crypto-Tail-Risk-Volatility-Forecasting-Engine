@@ -1,21 +1,22 @@
-"""Regime point-in-time (ĐỀ XUẤT, mọi tham số nằm trong config.regimes -> nhóm cần chốt).
-
-Tại ngày t, chỉ dùng thông tin tới hết ngày t:
-  crisis : RV TB 22 ngày > phân vị `crisis_quantile` EXPANDING (tính trên lịch sử tới t) của chính nó
-  bear   : return log `trend_window` ngày <= bear_threshold (%)   (nếu không crisis)
-  bull   : return log `trend_window` ngày >= bull_threshold (%)   (nếu không crisis/bear)
-  normal : còn lại.     'na' khi chưa đủ lịch sử.
-"""
+"""Fixed warmup calibration; evaluation regime uses information through the origin only."""
 import numpy as np
 import pandas as pd
 
-
-def label_regimes(close: pd.Series, rv_m: pd.Series, cfg_reg: dict) -> pd.Series:
-    thr = rv_m.expanding(min_periods=cfg_reg["min_history"]).quantile(cfg_reg["crisis_quantile"])
-    ret_trend = 100 * np.log(close / close.shift(cfg_reg["trend_window"]))
-    reg = pd.Series("normal", index=close.index, dtype=object)
-    reg[ret_trend >= cfg_reg["bull_threshold"]] = "bull"
-    reg[ret_trend <= cfg_reg["bear_threshold"]] = "bear"
-    reg[rv_m > thr] = "crisis"
-    reg[thr.isna() | ret_trend.isna() | rv_m.isna()] = "na"
-    return reg
+def label_regimes(daily, config):
+    r=config["study"]["regime"]
+    rv=daily["rv_reference_pct2"]
+    mean=rv.rolling(r["rv_average_days"],min_periods=r["rv_average_min_valid_days"]).mean()
+    warm=daily["sample_segment"].eq("warmup")
+    calibration=mean.loc[warm].dropna()
+    if calibration.empty: raise ValueError("No complete warmup observations for crisis threshold")
+    threshold=float(calibration.quantile(r["crisis_quantile"],interpolation="linear"))
+    trend=100*np.log(daily["close"]/daily["close"].shift(r["log_return_days"]))
+    labels=pd.Series(r["missing_history_label"],index=daily.index,dtype="str")
+    ready=(mean.notna() & trend.notna() & daily["date"].ge(pd.Timestamp(config["data"]["warmup_end"],tz="UTC")))
+    labels.loc[ready]="normal"
+    labels.loc[ready & trend.ge(r["bull_threshold_pct"]) ]="bull"
+    labels.loc[ready & trend.le(r["bear_threshold_pct"]) ]="bear"
+    labels.loc[ready & mean.gt(threshold)]="crisis"
+    return labels, mean, trend, {"symbol":str(daily["symbol"].iloc[0]),"crisis_threshold_pct2":threshold,
+        "quantile":r["crisis_quantile"],"quantile_interpolation":"linear","calibration_start":config["data"]["research_start"],
+        "calibration_end":config["data"]["warmup_end"],"n_calibration":len(calibration),"frozen":True}

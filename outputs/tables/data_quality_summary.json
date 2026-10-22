@@ -1,0 +1,218 @@
+{
+  "generated_at_utc": "2026-10-22T14:57:01.477019+00:00",
+  "snapshot_id": "2026-10-18",
+  "config_sha256": "0e10ddd2020c25d2cdb587feeff256f1477451d5b84b162a60d83f04e332a92b",
+  "symbols": [
+    {
+      "symbol": "BTCUSDT",
+      "raw_rows": 828050,
+      "clean_rows": 828050,
+      "quarantined_rows": 0,
+      "quarantine_reasons": {},
+      "coverage_start_utc": "2018-12-01 00:00:00+00:00",
+      "coverage_end_utc": "2026-10-17 23:55:00+00:00",
+      "expected_days": 2878,
+      "days_complete_bars": 2857,
+      "days_eligible_rv": 2856,
+      "incomplete_days": 21,
+      "missing_bars": 814,
+      "zero_volume_bars": 56,
+      "large_return_bars": 4,
+      "timestamp_units": {
+        "ms": 639410,
+        "us": 188640
+      },
+      "daily_quality_by_segment": [
+        {
+          "sample_segment": "evaluation",
+          "days": 1826,
+          "eligible_rv": 1819,
+          "missing_bars": 213
+        },
+        {
+          "sample_segment": "holdout",
+          "days": 290,
+          "eligible_rv": 290,
+          "missing_bars": 0
+        },
+        {
+          "sample_segment": "pre_sample",
+          "days": 31,
+          "eligible_rv": 30,
+          "missing_bars": 0
+        },
+        {
+          "sample_segment": "warmup",
+          "days": 731,
+          "eligible_rv": 717,
+          "missing_bars": 601
+        }
+      ]
+    },
+    {
+      "symbol": "ETHUSDT",
+      "raw_rows": 828050,
+      "clean_rows": 828050,
+      "quarantined_rows": 0,
+      "quarantine_reasons": {},
+      "coverage_start_utc": "2018-12-01 00:00:00+00:00",
+      "coverage_end_utc": "2026-10-17 23:55:00+00:00",
+      "expected_days": 2878,
+      "days_complete_bars": 2857,
+      "days_eligible_rv": 2856,
+      "incomplete_days": 21,
+      "missing_bars": 814,
+      "zero_volume_bars": 56,
+      "large_return_bars": 6,
+      "timestamp_units": {
+        "ms": 639410,
+        "us": 188640
+      },
+      "daily_quality_by_segment": [
+        {
+          "sample_segment": "evaluation",
+          "days": 1826,
+          "eligible_rv": 1819,
+          "missing_bars": 213
+        },
+        {
+          "sample_segment": "holdout",
+          "days": 290,
+          "eligible_rv": 290,
+          "missing_bars": 0
+        },
+        {
+          "sample_segment": "pre_sample",
+          "days": 31,
+          "eligible_rv": 30,
+          "missing_bars": 0
+        },
+        {
+          "sample_segment": "warmup",
+          "days": 731,
+          "eligible_rv": 717,
+          "missing_bars": 601
+        }
+      ]
+    }
+  ],
+  "macro": [
+    {
+      "series_id": "DTWEXBGS",
+      "status": "collected_not_verified_point_in_time",
+      "rows": 2050,
+      "nonmissing_values": 1961,
+      "last_observation_with_value": "2026-10-09 00:00:00+00:00"
+    },
+    {
+      "series_id": "VIXCLS",
+      "status": "collected_not_verified_point_in_time",
+      "rows": 2054,
+      "nonmissing_values": 2010,
+      "last_observation_with_value": "2026-10-15 00:00:00+00:00"
+    }
+  ],
+  "crosscheck": [
+    {
+      "symbol": "BTCUSDT",
+      "status": "compared",
+      "matched_days": 365,
+      "date_start": "2025-10-18 00:00:00+00:00",
+      "date_end": "2026-10-17 00:00:00+00:00",
+      "median_absolute_difference_pct": 0.06043389959737855,
+      "max_absolute_difference_pct": 3.759976996683978,
+      "days_above_review_threshold": 1,
+      "current_nonmidnight_points_excluded": 1
+    },
+    {
+      "symbol": "ETHUSDT",
+      "status": "compared",
+      "matched_days": 365,
+      "date_start": "2025-10-18 00:00:00+00:00",
+      "date_end": "2026-10-17 00:00:00+00:00",
+      "median_absolute_difference_pct": 0.059475199715874894,
+      "max_absolute_difference_pct": 4.514730459394256,
+      "days_above_review_threshold": 1,
+      "current_nonmidnight_points_excluded": 1
+    }
+  ],
+  "download_failures": [],
+  "scope": "source acquisition, normalization, QA references; no modeling dataset, lags, tuning or forecasts",
+  "period_labels": "pre_sample / warmup / evaluation / holdout; observation dates",
+  "study_protocol": {
+    "models": [
+      "HAR-RV",
+      "GARCH(1,1)",
+      "GJR-GARCH",
+      "XGBoost"
+    ],
+    "target": "realized_variance",
+    "target_unit": "percent_squared",
+    "report_sqrt_rv": true,
+    "main_window": "rolling",
+    "sensitivity_window": "expanding",
+    "window_days": 730,
+    "window_basis": "calendar_days",
+    "window_start_offset_days": -729,
+    "window_end": "forecast_origin_inclusive",
+    "refit_every_days": 5,
+    "refit_step_basis": "calendar_days",
+    "refit_anchor_target_date": "2021-01-01",
+    "refit_anchor_origin_date": "2020-12-31",
+    "reset_refit_at_holdout": false,
+    "forecast_every_days": 1,
+    "update_state_between_refits": true,
+    "main_horizon_days": 1,
+    "sensitivity_horizon_days": [
+      7
+    ],
+    "multi_day_target_aggregation": "sum",
+    "multi_day_target_requires_complete": true,
+    "training_targets_must_be_observed": true,
+    "xgboost_tuning_period": "warmup",
+    "xgboost_retune": false,
+    "holdout_final_evaluation_only": true,
+    "forecast_information": "through_end_of_origin_day_UTC",
+    "main_metric": "QLIKE",
+    "other_metrics": [
+      "RMSE",
+      "MAE"
+    ],
+    "comparison_test": "Diebold-Mariano",
+    "macro_in_main_model": false,
+    "macro_role": "sensitivity_only_after_point_in_time_verification",
+    "regime": {
+      "rv_average_days": 22,
+      "crisis_quantile": 0.9,
+      "crisis_calibration_segment": "warmup",
+      "crisis_calibration_per_symbol": true,
+      "freeze_crisis_threshold_after_warmup": true,
+      "rv_average_min_valid_days": 22,
+      "information_date": "forecast_origin",
+      "missing_history_label": "unclassified",
+      "log_return_days": 90,
+      "bull_threshold_pct": 10.0,
+      "bear_threshold_pct": -10.0,
+      "priority": [
+        "crisis",
+        "bear",
+        "bull",
+        "normal"
+      ]
+    },
+    "risk": {
+      "confidence_levels": [
+        0.95,
+        0.99
+      ],
+      "garch_gjr_distribution": "Student-t",
+      "har_xgboost_method": "filtered_historical_simulation",
+      "backtests": [
+        "Kupiec",
+        "Christoffersen"
+      ],
+      "forecast_filename": "{symbol}_{model}.parquet",
+      "risk_filename": "{symbol}_{model}_risk.parquet"
+    }
+  }
+}

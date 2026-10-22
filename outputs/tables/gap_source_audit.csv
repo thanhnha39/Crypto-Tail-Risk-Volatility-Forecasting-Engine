@@ -1,0 +1,43 @@
+symbol,date,monthly_clean_bars,daily_archive_bars,daily_extra_bars,daily_missing_vs_monthly,shared_ohlc_match,monthly_only_bar_times_utc,daily_only_bar_times_utc,status,source_file
+BTCUSDT,2019-03-12 00:00:00+00:00,216,216,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2019-03-12.zip
+BTCUSDT,2019-05-15 00:00:00+00:00,168,168,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2019-05-15.zip
+BTCUSDT,2019-06-07 00:00:00+00:00,276,276,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2019-06-07.zip
+BTCUSDT,2019-08-15 00:00:00+00:00,192,192,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2019-08-15.zip
+BTCUSDT,2019-11-13 00:00:00+00:00,260,260,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2019-11-13.zip
+BTCUSDT,2019-11-25 00:00:00+00:00,264,264,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2019-11-25.zip
+BTCUSDT,2020-02-09 00:00:00+00:00,276,276,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2020-02-09.zip
+BTCUSDT,2020-02-19 00:00:00+00:00,218,218,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2020-02-19.zip
+BTCUSDT,2020-03-04 00:00:00+00:00,263,263,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2020-03-04.zip
+BTCUSDT,2020-04-25 00:00:00+00:00,258,258,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2020-04-25.zip
+BTCUSDT,2020-06-28 00:00:00+00:00,246,246,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2020-06-28.zip
+BTCUSDT,2020-11-30 00:00:00+00:00,276,276,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2020-11-30.zip
+BTCUSDT,2020-12-21 00:00:00+00:00,242,238,0,4,False,2020-12-21 13:50:00+00:00|2020-12-21 13:55:00+00:00|2020-12-21 14:00:00+00:00|2020-12-21 14:05:00+00:00,,archive_disagreement_review,data/raw/audit/BTCUSDT/BTCUSDT-5m-2020-12-21.zip
+BTCUSDT,2020-12-25 00:00:00+00:00,276,276,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2020-12-25.zip
+BTCUSDT,2021-02-11 00:00:00+00:00,273,273,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2021-02-11.zip
+BTCUSDT,2021-03-06 00:00:00+00:00,270,270,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2021-03-06.zip
+BTCUSDT,2021-04-20 00:00:00+00:00,258,258,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2021-04-20.zip
+BTCUSDT,2021-04-25 00:00:00+00:00,232,232,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2021-04-25.zip
+BTCUSDT,2021-08-13 00:00:00+00:00,234,234,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2021-08-13.zip
+BTCUSDT,2021-09-29 00:00:00+00:00,264,264,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2021-09-29.zip
+BTCUSDT,2023-03-24 00:00:00+00:00,272,272,0,0,True,,,same_source_gap_confirmed,data/raw/audit/BTCUSDT/BTCUSDT-5m-2023-03-24.zip
+ETHUSDT,2019-03-12 00:00:00+00:00,216,216,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2019-03-12.zip
+ETHUSDT,2019-05-15 00:00:00+00:00,168,168,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2019-05-15.zip
+ETHUSDT,2019-06-07 00:00:00+00:00,276,276,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2019-06-07.zip
+ETHUSDT,2019-08-15 00:00:00+00:00,192,192,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2019-08-15.zip
+ETHUSDT,2019-11-13 00:00:00+00:00,260,260,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2019-11-13.zip
+ETHUSDT,2019-11-25 00:00:00+00:00,264,264,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2019-11-25.zip
+ETHUSDT,2020-02-09 00:00:00+00:00,276,276,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2020-02-09.zip
+ETHUSDT,2020-02-19 00:00:00+00:00,218,218,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2020-02-19.zip
+ETHUSDT,2020-03-04 00:00:00+00:00,263,263,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2020-03-04.zip
+ETHUSDT,2020-04-25 00:00:00+00:00,258,258,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2020-04-25.zip
+ETHUSDT,2020-06-28 00:00:00+00:00,246,246,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2020-06-28.zip
+ETHUSDT,2020-11-30 00:00:00+00:00,276,276,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2020-11-30.zip
+ETHUSDT,2020-12-21 00:00:00+00:00,242,238,0,4,False,2020-12-21 13:50:00+00:00|2020-12-21 13:55:00+00:00|2020-12-21 14:00:00+00:00|2020-12-21 14:05:00+00:00,,archive_disagreement_review,data/raw/audit/ETHUSDT/ETHUSDT-5m-2020-12-21.zip
+ETHUSDT,2020-12-25 00:00:00+00:00,276,276,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2020-12-25.zip
+ETHUSDT,2021-02-11 00:00:00+00:00,273,273,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2021-02-11.zip
+ETHUSDT,2021-03-06 00:00:00+00:00,270,270,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2021-03-06.zip
+ETHUSDT,2021-04-20 00:00:00+00:00,258,258,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2021-04-20.zip
+ETHUSDT,2021-04-25 00:00:00+00:00,232,232,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2021-04-25.zip
+ETHUSDT,2021-08-13 00:00:00+00:00,234,234,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2021-08-13.zip
+ETHUSDT,2021-09-29 00:00:00+00:00,264,264,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2021-09-29.zip
+ETHUSDT,2023-03-24 00:00:00+00:00,272,272,0,0,True,,,same_source_gap_confirmed,data/raw/audit/ETHUSDT/ETHUSDT-5m-2023-03-24.zip

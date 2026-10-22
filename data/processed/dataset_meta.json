@@ -1,17 +1,15 @@
 {
-  "data_source": "synthetic",
-  "assets": [
-    "BTCUSDT",
-    "ETHUSDT"
-  ],
-  "horizons": [
-    1,
-    7
-  ],
-  "rows": 5114,
-  "date_min": "2019-01-01",
-  "date_max": "2025-12-31",
-  "feature_cols": [
+  "created_at_utc": "2026-10-22T14:50:19.374874+00:00",
+  "data_source": "binance_spot_real_snapshot",
+  "snapshot_id": "2026-10-18",
+  "protocol_sha256": "7e0191870a5c7609ce0313e525d34e788a7fc75072a71c9727d1409900d9678b",
+  "dataset_sha256": "2025bf54f52f9bad444c8474cf3df3c7ca434c6884b06017c443d575cbbf4edd",
+  "inputs_sha256": {
+    "data\\interim\\BTCUSDT_daily_reference_qa.parquet": "4902970dbaa64a5263e0928a453b262e33d285374c35d5a749940ad55e01385d",
+    "data\\interim\\ETHUSDT_daily_reference_qa.parquet": "4eed5424e7c1f5727058eb5fcedb720dc395f1fb5734ff97ce261ec0b77c6985"
+  },
+  "rows": 5756,
+  "feature_columns": [
     "rv_d",
     "rv_w",
     "rv_m",
@@ -22,36 +20,50 @@
     "log_park",
     "ret_d",
     "log_qv",
-    "log_turn_rel",
+    "log_turn_rel"
+  ],
+  "macro_excluded_columns": [
     "log_vix_l1",
     "log_usd_l1"
   ],
-  "target_cols": [
-    "y_rv_h1",
-    "y_logrv_h1",
-    "y_rv_h7",
-    "y_logrv_h7"
-  ],
-  "regime_counts": {
-    "bear": 1659,
-    "normal": 1184,
-    "bull": 946,
-    "na": 858,
-    "crisis": 467
-  },
-  "nan_share": {
-    "rv_d": 0.0008,
-    "rv_w": 0.0055,
-    "rv_m": 0.0254,
-    "log_rv_d": 0.0008,
-    "log_rv_w": 0.0055,
-    "log_rv_m": 0.0254,
-    "park": 0.0008,
-    "log_park": 0.0008,
-    "ret_d": 0.0012,
-    "log_qv": 0.0008,
-    "log_turn_rel": 0.0254,
-    "log_vix_l1": 0.0004,
-    "log_usd_l1": 0.0004
+  "turnover_is_proxy": true,
+  "target_7d_aggregation": "sum",
+  "target_unit": "percent_squared",
+  "missing_data": "calendar retained; no RV filling/scaling; no winsorization",
+  "holdout_evaluated": false,
+  "column_dtypes": {
+    "symbol": "str",
+    "origin_date": "datetime64[us, UTC]",
+    "origin_segment": "str",
+    "feature_available_at": "datetime64[us, UTC]",
+    "close": "float64",
+    "n_ret": "int64",
+    "eligible_rv": "bool",
+    "rv_d": "float64",
+    "rv_w": "float64",
+    "rv_m": "float64",
+    "log_rv_d": "float64",
+    "log_rv_w": "float64",
+    "log_rv_m": "float64",
+    "park": "float64",
+    "log_park": "float64",
+    "ret_d": "float64",
+    "log_qv": "float64",
+    "log_turn_rel": "float64",
+    "regime": "str",
+    "regime_rv22_pct2": "float64",
+    "ret_90d_pct": "float64",
+    "y_rv_h1": "float64",
+    "y_logrv_h1": "float64",
+    "target_start_h1": "datetime64[us, UTC]",
+    "target_end_h1": "datetime64[us, UTC]",
+    "target_segment_h1": "str",
+    "target_valid_h1": "bool",
+    "y_rv_h7": "float64",
+    "y_logrv_h7": "float64",
+    "target_start_h7": "datetime64[us, UTC]",
+    "target_end_h7": "datetime64[us, UTC]",
+    "target_segment_h7": "str",
+    "target_valid_h7": "bool"
   }
 }

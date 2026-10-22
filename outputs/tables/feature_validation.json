@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "independent_intraday_rv_check": true,
+  "protocol_sha256": "7e0191870a5c7609ce0313e525d34e788a7fc75072a71c9727d1409900d9678b",
+  "dataset_sha256": "2025bf54f52f9bad444c8474cf3df3c7ca434c6884b06017c443d575cbbf4edd",
+  "checks": [
+    {
+      "symbol": "BTCUSDT",
+      "calendar_days": 2878,
+      "main_feature_complete": 2460,
+      "valid_h1_targets": 2856,
+      "valid_h7_targets": 2729
+    },
+    {
+      "symbol": "ETHUSDT",
+      "calendar_days": 2878,
+      "main_feature_complete": 2460,
+      "valid_h1_targets": 2856,
+      "valid_h7_targets": 2729
+    }
+  ],
+  "schedule_rows": 16880,
+  "holdout_scored": false
+}

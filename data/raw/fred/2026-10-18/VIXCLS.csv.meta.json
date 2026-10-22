@@ -1,0 +1,10 @@
+{
+  "dataset_id": "VIXCLS",
+  "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS&cosd=2018-12-01&coed=2026-10-17",
+  "path": "data/raw/fred/2026-10-18/VIXCLS.csv",
+  "status": "ok",
+  "sha256": "cd584d562e318348bfb495284206a3d9fbf06a28cd8edadd62af3ca166727a0a",
+  "downloaded_at_utc": "2026-10-18T08:01:38.262765+00:00",
+  "byte_count": 34722,
+  "checksum_status": "local_hash"
+}

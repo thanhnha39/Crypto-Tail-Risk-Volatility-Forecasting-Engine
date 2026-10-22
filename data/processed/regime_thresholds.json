@@ -1,0 +1,22 @@
+[
+  {
+    "symbol": "BTCUSDT",
+    "crisis_threshold_pct2": 25.450248039518435,
+    "quantile": 0.9,
+    "quantile_interpolation": "linear",
+    "calibration_start": "2019-01-01",
+    "calibration_end": "2020-12-31",
+    "n_calibration": 487,
+    "frozen": true
+  },
+  {
+    "symbol": "ETHUSDT",
+    "crisis_threshold_pct2": 35.50166161722138,
+    "quantile": 0.9,
+    "quantile_interpolation": "linear",
+    "calibration_start": "2019-01-01",
+    "calibration_end": "2020-12-31",
+    "n_calibration": 487,
+    "frozen": true
+  }
+]

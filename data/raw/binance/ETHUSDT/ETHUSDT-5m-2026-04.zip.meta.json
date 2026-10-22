@@ -1,0 +1,14 @@
+{
+  "dataset_id": "ETHUSDT_5m_2026-04",
+  "symbol": "ETHUSDT",
+  "frequency": "monthly",
+  "period": "2026-04",
+  "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/5m/ETHUSDT-5m-2026-04.zip",
+  "path": "data/raw/binance/ETHUSDT/ETHUSDT-5m-2026-04.zip",
+  "status": "ok",
+  "checksum_status": "verified",
+  "sha256": "0f46e600fe25093063277f570bce8839eaf8fb0adbc0c852aaa90b8b523e7cbc",
+  "downloaded_at_utc": "2026-10-18T08:01:00.815384+00:00",
+  "byte_count": 426654,
+  "cache_reused": false
+}

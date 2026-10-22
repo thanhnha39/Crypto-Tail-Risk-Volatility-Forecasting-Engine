@@ -1,0 +1,16 @@
+{
+  "dataset_id": "audit_BTCUSDT_1m_2021-09-07",
+  "symbol": "BTCUSDT",
+  "interval": "1m",
+  "period": "2021-09-07",
+  "purpose": "large_return_1m_corrob",
+  "frequency": "daily",
+  "path": "data/raw/audit/BTCUSDT/BTCUSDT-1m-2021-09-07.zip",
+  "url": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2021-09-07.zip",
+  "status": "ok",
+  "checksum_status": "verified",
+  "sha256": "563a4c28e67492cc2828d09a5da10cd1255a93bc925f9d6954dd52dc14c181fa",
+  "downloaded_at_utc": "2026-10-18T08:06:57.911008+00:00",
+  "byte_count": 75258,
+  "cache_reused": false
+}

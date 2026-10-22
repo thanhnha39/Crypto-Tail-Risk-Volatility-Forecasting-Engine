@@ -1,0 +1,5 @@
+model,status,note
+har_rv,available,HAR is an OLS reference implementation
+garch,awaiting_team_forecast,External backend adapter/file
+gjr_garch,awaiting_team_forecast,External backend adapter/file
+xgboost,awaiting_team_forecast,External backend adapter/file

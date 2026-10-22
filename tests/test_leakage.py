@@ -1,234 +1,148 @@
-"""Test chống leakage + sanity khung đánh giá.  Chạy: `pytest tests/` hoặc `python tests/test_leakage.py`.
-
-Ý tưởng chính: nếu feature/dự báo tại ngày T thực sự chỉ phụ thuộc thông tin <= T thì
-PHÁ HỎNG (thay bằng rác) toàn bộ dữ liệu sau T không được làm chúng thay đổi.
-"""
+"""Behavioral leakage tests; artificial daily fixtures are never used as research results."""
 import copy
 from functools import lru_cache
-
+import unittest
 import numpy as np
 import pandas as pd
-import pytest
-
-from src.data.synthetic import simulate_universe
-from src.evaluation.baselines import HARRV, HARRVLog, NaiveRW, HistMean
-from src.evaluation.dm import dm_test
-from src.evaluation.metrics import add_losses, qlike_loss, summarize
+from scipy import stats
+from src.utils.config import load_config,protocol_hash
+from src.features.build_features import build_features
+from src.features.schema import FEATURE_COLS,y_col
+from src.evaluation.walkforward import Task,walk_forward,select_training,refit_origin,BaseModel
+from src.evaluation.baselines import HARRV,NaiveRW
 from src.evaluation.validate import validate_forecasts
-from src.evaluation.walkforward import run_all_assets
-from src.features.build_features import build_dataset
-from src.features.schema import FEATURE_COLS, HAR_COLS, y_col, ylog_col
-from src.utils.config import load_config
+from src.evaluation.aggregate import build_eval_frame
+from src.evaluation.dm import dm_test
+from src.evaluation.metrics import qlike_loss
 
-CFG = copy.deepcopy(load_config())
-CFG["regimes"]["min_history"] = 100       # dataset test ngắn
-CFG["assets"] = ["BTCUSDT"]
-START, END = "2020-01-01", "2021-06-30"   # ~547 ngày
-ASSET = "BTCUSDT"
-T = pd.Timestamp("2020-12-10")            # ngày origin dùng để cắt/phá hỏng
-CHECK = FEATURE_COLS + ["regime", "close", "n_ret"]
+CFG=load_config()
 
-
-@lru_cache(maxsize=1)
-def _raw():
-    bars, macro = simulate_universe([ASSET], START, END, seed=7)
-    return bars[ASSET], macro
-
-
-def _build(bars, macro):
-    return build_dataset({ASSET: bars}, macro, CFG).set_index("date")
-
+def fixture():
+    dates=pd.date_range("2018-12-01","2022-06-30",tz="UTC",freq="D")
+    rng=np.random.default_rng(19);i=np.arange(len(dates));close=100*np.exp(.0002*i+.02*np.sin(i/30))
+    rv=4+.8*np.sin(i/7)+rng.uniform(0,.3,len(i))
+    return pd.DataFrame({"symbol":"BTCUSDT","date":dates,"close":close,"high":close*1.02,"low":close*.98,
+        "rv_reference_pct2":rv,"eligible_rv":True,"valid_bars":288,"valid_adjacent_returns":288,
+        "return_daily_pct_qa":pd.Series(100*np.log(close)).diff(),"quote_volume":1e6+1000*i})
 
 @lru_cache(maxsize=1)
-def _full():
-    return _build(*_raw())
+def dataset(): return build_features(fixture(),CFG)[0]
 
+class LeakageTests(unittest.TestCase):
+    def test_future_removal_and_corruption_leave_past_features_unchanged(self):
+        raw=fixture();cut=pd.Timestamp("2021-05-12",tz="UTC")
+        full,threshold=build_features(raw,CFG)
+        truncated,_=build_features(raw.loc[raw.date.le(cut)],CFG)
+        damaged=raw.copy();damaged.loc[damaged.date.gt(cut),["close","high","low","rv_reference_pct2","quote_volume"]]=1e8
+        changed,new_threshold=build_features(damaged,CFG)
+        columns=FEATURE_COLS+["regime","regime_rv22_pct2"]
+        pd.testing.assert_frame_equal(full.loc[full.origin_date.le(cut),columns].reset_index(drop=True),truncated[columns].reset_index(drop=True))
+        pd.testing.assert_frame_equal(full.loc[full.origin_date.le(cut),columns],changed.loc[changed.origin_date.le(cut),columns])
+        self.assertEqual(threshold,new_threshold)
 
-def _same(a, b):
-    pd.testing.assert_frame_equal(a[CHECK], b[CHECK], check_exact=False, rtol=1e-12, atol=1e-12)
+    def test_missing_calendar_day_is_not_skipped_or_scaled(self):
+        raw=fixture();day=pd.Timestamp("2021-02-10",tz="UTC");bad=raw.date.eq(day)
+        raw.loc[bad,"rv_reference_pct2"]=np.nan;raw.loc[bad,"eligible_rv"]=False;raw.loc[bad,"valid_bars"]=287
+        frame,_=build_features(raw,CFG)
+        self.assertEqual(len(frame),len(raw))
+        self.assertTrue(frame.loc[frame.origin_date.between(day,day+pd.Timedelta(days=21)),"rv_m"].isna().all())
+        self.assertTrue(frame.loc[frame.origin_date.eq(day-pd.Timedelta(days=1)),y_col(7)].isna().all())
+        with self.assertRaises(ValueError): build_features(raw.loc[~bad],CFG)
 
+    def test_targets_sum_and_cross_period_labels(self):
+        frame=dataset();pos=frame.index[frame.origin_date.eq(pd.Timestamp("2021-03-01",tz="UTC"))][0]
+        self.assertAlmostEqual(frame.loc[pos,y_col(7)],frame.loc[pos+1:pos+7,"rv_d"].sum())
+        self.assertAlmostEqual(frame.loc[pos,y_col(1)],frame.loc[pos+1,"rv_d"])
+        self.assertTrue(frame[y_col(7)].tail(7).isna().all())
+        self.assertEqual(frame.loc[frame.origin_date.eq(pd.Timestamp("2020-12-30",tz="UTC")),"target_segment_h7"].iloc[0],"cross_segment")
+        self.assertEqual(frame.loc[frame.origin_date.eq(pd.Timestamp("2020-12-31",tz="UTC")),"target_segment_h1"].iloc[0],"evaluation")
+        self.assertFalse(set(FEATURE_COLS)&{col for col in frame if col.startswith("y_")})
 
-def test_features_unchanged_when_future_removed():
-    bars, macro = _raw()
-    end = T + pd.Timedelta(days=1)
-    tr = _build(bars[bars["timestamp"] < end], macro[macro["date"] < end])
-    _same(_full().loc[:T], tr.loc[:T])
+    def test_macro_is_not_in_main_features(self):
+        self.assertFalse(any("vix" in col or "usd" in col for col in FEATURE_COLS))
 
+    def test_regime_threshold_is_frozen_and_unavailable_during_warmup(self):
+        raw=fixture();frame,threshold=build_features(raw,CFG)
+        self.assertTrue(frame.loc[frame.origin_date.lt(pd.Timestamp("2020-12-31",tz="UTC")),"regime"].eq("unclassified").all())
+        warm=raw.date.between(pd.Timestamp("2019-01-01",tz="UTC"),pd.Timestamp("2020-12-31",tz="UTC"))
+        expected=raw.rv_reference_pct2.rolling(22,min_periods=22).mean().loc[warm].quantile(.9)
+        self.assertAlmostEqual(threshold["crisis_threshold_pct2"],expected)
 
-def test_features_unchanged_when_future_corrupted():
-    bars, macro = _raw()
-    end = T + pd.Timedelta(days=1)
-    rng = np.random.default_rng(0)
-    b = bars.copy(); m = macro.copy()
-    fut = b["timestamp"] >= end
-    for c in ["open", "high", "low", "close", "volume", "quote_volume"]:
-        b.loc[fut, c] = rng.uniform(1, 1e6, fut.sum())
-    m.loc[m["date"] >= end, ["vix", "usd"]] = 1e3
-    _same(_full().loc[:T], _build(b, m).loc[:T])
+    def test_calendar_window_and_label_availability(self):
+        frame=dataset();fit=pd.Timestamp("2021-05-10",tz="UTC")
+        for h in [1,7]:
+            train,start,end=select_training(frame,Task(h),["rv_d"],fit,CFG,"rolling")
+            self.assertEqual(start,fit-pd.Timedelta(days=729))
+            self.assertLessEqual(end,fit)
+            self.assertTrue(train[f"target_end_h{h}"].le(fit).all())
+            damaged=frame.copy();damaged.loc[damaged[f"target_end_h{h}"].gt(fit),y_col(h)]=1e10
+            other,_,_=select_training(damaged,Task(h),["rv_d"],fit,CFG,"rolling")
+            pd.testing.assert_frame_equal(train,other)
 
+    def test_refit_clock_does_not_depend_on_missing_features(self):
+        c=copy.deepcopy(CFG);c["data"]["research_end"]="2021-01-15"
+        # Limit evaluation selection by deterministic task label for a short fixture run.
+        d=dataset().copy();d.loc[d.origin_date.gt(pd.Timestamp("2021-01-14",tz="UTC")),"target_segment_h1"]="holdout"
+        one=walk_forward(d,NaiveRW,Task(1),c)
+        d.loc[d.origin_date.eq(pd.Timestamp("2021-01-02",tz="UTC")),"rv_d"]=np.nan
+        two=walk_forward(d,NaiveRW,Task(1),c)
+        self.assertEqual(one.refit_origin.tolist(),two.refit_origin.tolist())
+        for day in two.origin_date:
+            self.assertEqual(refit_origin(day,c),pd.Timestamp("2020-12-31",tz="UTC")+pd.Timedelta(days=((day-pd.Timestamp("2020-12-31",tz="UTC")).days//5)*5))
 
-def test_macro_is_lagged_one_day():
-    bars, macro = _raw()
-    m = macro.copy()
-    day = pd.Timestamp("2020-11-12")                      # thứ Năm, có trong macro
-    assert day in set(m["date"])
-    m.loc[m["date"] == day, "vix"] = 500.0
-    new = _build(bars, m)
-    full = _full()
-    assert new.loc[day, "log_vix_l1"] == full.loc[day, "log_vix_l1"]            # cùng ngày: chưa thấy
-    assert np.isclose(new.loc[day + pd.Timedelta(days=1), "log_vix_l1"], np.log(500.0))  # hôm sau mới thấy
+    def test_forecasts_ignore_unobserved_targets_and_future_features(self):
+        cut=pd.Timestamp("2021-03-14",tz="UTC")
+        for h in [1,7]:
+            data=dataset().copy();data.loc[data.origin_date.gt(cut),f"target_segment_h{h}"]="holdout"
+            before=walk_forward(data,HARRV,Task(h),CFG)
+            changed=data.copy();changed.loc[changed[f"target_end_h{h}"].gt(cut),y_col(h)]=1e9
+            changed.loc[changed.origin_date.gt(cut),FEATURE_COLS]=1e7
+            after=walk_forward(changed,HARRV,Task(h),CFG)
+            pd.testing.assert_frame_equal(before,after)
 
+    def test_adapter_predict_and_history_do_not_receive_future_labels(self):
+        class Inspect(NaiveRW):
+            def predict(self,test,task,history=None):
+                assert not any(col.startswith(("y_","target_")) for col in test)
+                assert not any(col.startswith(("y_","target_")) for col in history)
+                assert history.origin_date.max()<=test.origin_date.iloc[0]
+                return super().predict(test,task,history)
+        d=dataset().copy();d.loc[d.origin_date.gt(pd.Timestamp("2021-01-10",tz="UTC")),"target_segment_h1"]="holdout"
+        self.assertGreater(len(walk_forward(d,Inspect,Task(1),CFG)),0)
 
-def test_macro_weekend_uses_past_only():
-    full = _full()
-    bars, macro = _raw()
-    sun = pd.Timestamp("2020-11-15")                      # Chủ nhật: dùng VIX thứ Sáu 13/11 (<= t-1)
-    fri = macro.set_index("date").loc["2020-11-13", "vix"]
-    assert np.isclose(full.loc[sun, "log_vix_l1"], np.log(fri))
+    def test_forecast_validator_and_naive_seven_day_units(self):
+        d=dataset().copy();d.loc[d.origin_date.gt(pd.Timestamp("2021-01-15",tz="UTC")),"target_segment_h7"]="holdout"
+        fc=walk_forward(d,NaiveRW,Task(7),CFG)
+        fc["protocol_sha256"]=protocol_hash(CFG);fc["dataset_sha256"]="fixture"
+        self.assertEqual(validate_forecasts(fc,d,CFG,"fixture"),[])
+        expected=d.set_index("origin_date").loc[fc.origin_date,"rv_d"].to_numpy()*7
+        np.testing.assert_allclose(fc.rv_forecast_pct2,expected)
+        bad=fc.copy();bad["train_end"]=bad["refit_origin"]+pd.Timedelta(days=1)
+        self.assertTrue(any("LEAKAGE" in error for error in validate_forecasts(bad,d,CFG,"fixture")))
+        bad=fc.copy();bad["protocol_sha256"]="wrong"
+        self.assertTrue(validate_forecasts(bad,d,CFG,"fixture"))
 
+    def test_common_sample_excludes_failed_model_dates(self):
+        d=dataset().copy();d.loc[d.origin_date.gt(pd.Timestamp("2021-01-15",tz="UTC")),"target_segment_h1"]="holdout"
+        fc=walk_forward(d,NaiveRW,Task(1),CFG);second=fc.copy();second["model"]="other"
+        second.loc[second.index[0],["rv_forecast_pct2","volatility_forecast_pct"]]=np.nan
+        second.loc[second.index[0],"status"]="missing_features"
+        ev,coverage=build_eval_frame(pd.concat([fc,second]),d)
+        self.assertFalse(ev.origin_date.eq(fc.origin_date.iloc[0]).any())
+        self.assertEqual(ev.groupby("model").size().nunique(),1)
 
-def test_rv_and_rolling_match_bruteforce():
-    bars, _ = _raw()
-    full = _full()
-    b = bars.set_index("timestamp")["close"]
-    # tìm 1 ngày đủ 288 bar liên tục -> RV brute-force phải khớp tuyệt đối
-    cnt = b.groupby(b.index.normalize()).size()
-    day = next(x for x in cnt.index if x >= pd.Timestamp("2020-09-01") and cnt[x] == 288 and
-               (x - pd.Timedelta(minutes=5)) in b.index)
-    c = b.loc[day:day + pd.Timedelta(hours=23, minutes=55)]
-    allc = pd.concat([b.loc[[day - pd.Timedelta(minutes=5)]], c])
-    r = 100 * np.log(allc).diff().dropna()
-    assert len(r) == 288
-    assert np.isclose(full.loc[day, "rv_d"], (r ** 2).sum())
-    rv = full["rv_d"]
-    t = full.index.get_loc(pd.Timestamp("2020-12-01"))
-    assert np.isclose(full["rv_w"].iloc[t], rv.iloc[t - 4:t + 1].mean())
-    assert np.isclose(full["rv_m"].iloc[t], rv.iloc[t - 21:t + 1].mean())
+    def test_hln_and_gap_aware_hac(self):
+        rng=np.random.default_rng(7);a=rng.normal(size=200)**2;b=rng.normal(size=200)**2
+        raw=dm_test(a,b,h=1,hln=False);adjusted=dm_test(a,b,h=1)
+        self.assertAlmostEqual(adjusted["stat"],raw["stat"]*np.sqrt(199/200))
+        self.assertAlmostEqual(adjusted["p_value"],2*stats.t.sf(abs(adjusted["stat"]),199))
+        identical=dm_test(a,a);self.assertEqual(identical["status"],"degenerate_loss_difference")
+        dates=pd.date_range("2021-01-01",periods=200,tz="UTC")
+        mask=np.ones(200,bool);mask[70:80]=False
+        sparse=dm_test(a[mask],b[mask],h=7,dates=dates[mask])
+        aa=a.copy();bb=b.copy();aa[~mask]=np.nan;bb[~mask]=np.nan
+        explicit=dm_test(aa,bb,h=7,dates=dates)
+        self.assertAlmostEqual(sparse["stat"],explicit["stat"])
+        self.assertEqual(float(qlike_loss(2.,2.)),0.)
 
-
-def test_target_is_future_and_features_are_not():
-    full = _full()
-    rv = full["rv_d"]
-    t = full.index.get_loc(pd.Timestamp("2020-12-01"))
-    assert np.isclose(full[y_col(1)].iloc[t], rv.iloc[t + 1])
-    assert np.isclose(full[y_col(7)].iloc[t], rv.iloc[t + 1:t + 8].mean())
-    assert np.isclose(full[ylog_col(1)].iloc[t], np.log(rv.iloc[t + 1]))
-    assert full[y_col(1)].iloc[-1] != full[y_col(1)].iloc[-1]    # NaN ở cuối mẫu: không backfill
-    assert not any(c.startswith("y_") for c in FEATURE_COLS)
-
-
-def test_target_at_T_depends_on_future_sanity():
-    """Kiểm tra bản thân phép thử có 'răng': target tại T PHẢI đổi khi phá dữ liệu sau T."""
-    bars, macro = _raw()
-    end = T + pd.Timedelta(days=1)
-    tr = _build(bars[bars["timestamp"] < end], macro)
-    assert np.isnan(tr.loc[T, y_col(1)]) and not np.isnan(_full().loc[T, y_col(1)])
-
-
-def _ds():
-    return _full().reset_index()
-
-
-@pytest.mark.parametrize("h", [1, 7])
-def test_walkforward_ignores_future_labels_and_features(h):
-    d = _ds()
-    C = T
-    kw = dict(scheme="expanding", min_train=120, window=None, refit_every=1, test_start="2020-08-01", test_end=None)
-    base = run_all_assets(d, HARRV, h, **kw)
-    base_log = run_all_assets(d, HARRVLog, h, **kw)
-    d2 = d.copy()
-    rng = np.random.default_rng(1)
-    ycols = [y_col(k) for k in CFG["horizons"]] + [ylog_col(k) for k in CFG["horizons"]]
-    # nhãn của các dòng có date > C - h chưa được biết tại origin <= C
-    late = d2["date"] > C - pd.Timedelta(days=h)
-    for c in ycols:
-        d2.loc[late, c] = rng.uniform(1, 100, late.sum())
-    # feature của các dòng sau C cũng phá hỏng
-    after = d2["date"] > C
-    for c in FEATURE_COLS:
-        if c in d2:
-            d2.loc[after, c] = rng.uniform(1, 100, after.sum())
-    for f, m in ((base, HARRV), (base_log, HARRVLog)):
-        new = run_all_assets(d2, m, h, **kw)
-        a = f[f["origin_date"] <= C].reset_index(drop=True)
-        b = new[new["origin_date"] <= C].reset_index(drop=True)
-        assert len(a) > 50 and a["origin_date"].max() == C   # có origin đúng tại mốc cắt
-        pd.testing.assert_frame_equal(a, b, check_exact=True)
-
-
-def test_forecast_validator_catches_leakage_and_bad_values():
-    d = _ds()
-    kw = dict(scheme="expanding", min_train=120, window=None, refit_every=5, test_start="2020-08-01", test_end=None)
-    fc = run_all_assets(d, HARRV, 1, **kw)
-    assert validate_forecasts(fc, d) == []
-    bad = fc.copy(); bad["train_end"] = bad["origin_date"]            # dùng nhãn chưa biết
-    assert any("LEAKAGE" in e for e in validate_forecasts(bad, d))
-    bad = fc.copy(); bad.loc[0, "y_pred"] = -1.0
-    assert validate_forecasts(bad, d)
-    assert validate_forecasts(pd.concat([fc, fc.iloc[:1]]), d)        # trùng
-
-
-def _eval(fc, d, h):
-    t = d[["asset", "date", y_col(h)]].rename(columns={"date": "origin_date", y_col(h): "y_true"})
-    return add_losses(fc.merge(t, on=["asset", "origin_date"]).dropna(subset=["y_true"]))
-
-
-def test_framework_sanity_naive_oracle_har():
-    d = _ds()
-    kw = dict(scheme="expanding", min_train=120, window=None, refit_every=5, test_start="2020-08-01", test_end=None)
-    naive = run_all_assets(d, NaiveRW, 1, **kw)
-    m = _eval(naive, d, 1)
-    rv = d.set_index("date")["rv_d"]
-    assert np.allclose(naive["y_pred"].values, rv.loc[naive["origin_date"]].values)   # naive = RV_t
-    # oracle: dự báo = thực tế -> loss = 0
-    o = m.copy(); o["y_pred"] = o["y_true"]; o = add_losses(o)
-    s = summarize(o)
-    assert s["RMSE"] == 0 and s["MAE"] == 0 and abs(s["QLIKE"]) < 1e-12
-    # QLIKE bất đối xứng: dự báo thấp bị phạt nặng hơn dự báo cao cùng tỷ lệ
-    assert qlike_loss(1.0, 0.5) > qlike_loss(1.0, 2.0)
-    # HAR phải thắng naive trên DGP có persistence + noise đo lường (khung không bị lỗi dấu/lệch pha)
-    har = _eval(run_all_assets(d, HARRV, 1, **kw), d, 1)
-    common = m.merge(har, on="origin_date", suffixes=("_n", "_h"))
-    assert common["qlike_h"].mean() < common["qlike_n"].mean()
-    assert common["se_h"].mean() < common["se_n"].mean()
-
-
-def test_dm_properties():
-    rng = np.random.default_rng(3)
-    a = rng.normal(1, 0.3, 400) ** 2
-    assert np.isnan(dm_test(a, a)["stat"])                             # forecast trùng -> không kiểm định
-    r = dm_test(a + 0.3, a + rng.normal(0, 0.05, 400))
-    assert r["stat"] > 3 and r["p_value"] < 0.01                        # A loss cao hơn rõ rệt
-    # HLN h=1: stat = DM * sqrt((n-1)/n)
-    x, y = rng.normal(size=300) ** 2, rng.normal(size=300) ** 2
-    raw, adj = dm_test(x, y, 1, hln=False), dm_test(x, y, 1, hln=True)
-    assert np.isclose(adj["stat"], raw["stat"] * np.sqrt(299 / 300))
-    # size: dưới H0 với h=1 tỷ lệ bác bỏ 5% xấp xỉ 5%
-    rej = np.mean([dm_test(rng.normal(size=250) ** 2, rng.normal(size=250) ** 2)["p_value"] < 0.05 for _ in range(400)])
-    assert 0.02 < rej < 0.09
-    # h=7 với d ~ MA(6): dùng lrv đa lag, size không phồng nặng
-    def ma6():
-        e = rng.normal(size=256)
-        return np.convolve(e, np.ones(7) / 7, "valid")[:250]
-    rej7 = np.mean([dm_test(ma6() + 5, np.full(250, 5.0), 7)["p_value"] < 0.05 for _ in range(400)])
-    assert rej7 < 0.12
-
-
-if __name__ == "__main__":
-    import inspect
-    import sys
-    fails = 0
-    for name, fn in list(globals().items()):
-        if not name.startswith("test_") or not callable(fn):
-            continue
-        marks = getattr(fn, "pytestmark", [])
-        params = [m.args[1] for m in marks if m.name == "parametrize"]
-        cases = params[0] if params else [None]
-        for c in cases:
-            try:
-                fn(c) if params else fn()
-                print(f"PASS {name}" + (f"[{c}]" if params else ""))
-            except Exception as e:  # noqa: BLE001
-                fails += 1
-                print(f"FAIL {name}: {type(e).__name__}: {e}")
-    sys.exit(1 if fails else 0)
+if __name__=="__main__": unittest.main()

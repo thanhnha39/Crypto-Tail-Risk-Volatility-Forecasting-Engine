@@ -1,0 +1,10 @@
+{
+  "dataset_id": "coingecko_ETHUSDT",
+  "url": "https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=365&interval=daily",
+  "path": "data/raw/coingecko/2026-10-18/ethereum_usd_daily.json",
+  "status": "ok",
+  "sha256": "61335536ccd7f898e16b3810112b94a9eb7a539b38e39692cff765c26fd8e880",
+  "downloaded_at_utc": "2026-10-18T08:01:40.297145+00:00",
+  "byte_count": 37940,
+  "checksum_status": "local_hash"
+}

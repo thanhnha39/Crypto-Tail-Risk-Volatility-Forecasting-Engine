@@ -1,0 +1,10 @@
+{
+  "dataset_id": "coingecko_BTCUSDT",
+  "url": "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=365&interval=daily",
+  "path": "data/raw/coingecko/2026-10-18/bitcoin_usd_daily.json",
+  "status": "ok",
+  "sha256": "2979d275074f450f0036183717a183d1be3e18777c5eabf07c7d97866c5709d6",
+  "downloaded_at_utc": "2026-10-18T08:01:38.833768+00:00",
+  "byte_count": 37753,
+  "checksum_status": "local_hash"
+}

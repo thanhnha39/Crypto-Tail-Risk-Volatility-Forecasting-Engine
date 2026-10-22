@@ -1,0 +1,64 @@
+{
+  "generated_at_utc": "2026-10-18T08:11:59.180416+00:00",
+  "archives_requested": 51,
+  "archives_ok": 51,
+  "gap_days_checked": 42,
+  "gap_days_matching_daily_source": 40,
+  "gap_days_daily_subset_monthly_priority": 0,
+  "gap_archive_disagreements": [
+    {
+      "symbol": "BTCUSDT",
+      "date": "2020-12-21 00:00:00+00:00",
+      "monthly_clean_bars": 242,
+      "daily_archive_bars": 238,
+      "daily_extra_bars": 0,
+      "daily_missing_vs_monthly": 4,
+      "shared_ohlc_match": false,
+      "monthly_only_bar_times_utc": "2020-12-21 13:50:00+00:00|2020-12-21 13:55:00+00:00|2020-12-21 14:00:00+00:00|2020-12-21 14:05:00+00:00",
+      "daily_only_bar_times_utc": "",
+      "status": "archive_disagreement_review",
+      "source_file": "data/raw/audit/BTCUSDT/BTCUSDT-5m-2020-12-21.zip"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "date": "2020-12-21 00:00:00+00:00",
+      "monthly_clean_bars": 242,
+      "daily_archive_bars": 238,
+      "daily_extra_bars": 0,
+      "daily_missing_vs_monthly": 4,
+      "shared_ohlc_match": false,
+      "monthly_only_bar_times_utc": "2020-12-21 13:50:00+00:00|2020-12-21 13:55:00+00:00|2020-12-21 14:00:00+00:00|2020-12-21 14:05:00+00:00",
+      "daily_only_bar_times_utc": "",
+      "status": "archive_disagreement_review",
+      "source_file": "data/raw/audit/ETHUSDT/ETHUSDT-5m-2020-12-21.zip"
+    }
+  ],
+  "shared_bar_ohlc_disagreement_count": 14,
+  "large_return_bars_checked": 10,
+  "large_return_bars_ohlc_confirmed": 10,
+  "cross_source_discrepancies": [
+    {
+      "symbol": "BTCUSDT",
+      "date": "2026-02-22 00:00:00+00:00",
+      "close_from_5m": 67643.4,
+      "close_from_1d_archive": 67643.4,
+      "coingecko_price_usd": 65192.18870120006,
+      "signed_difference_pct": 3.759976996683978,
+      "binance_close_confirmed": true,
+      "status": "binance_aggregation_confirmed_cross_source_difference_unresolved",
+      "source_file": "data/raw/audit/BTCUSDT/BTCUSDT-1d-2026-02.zip"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "date": "2026-02-22 00:00:00+00:00",
+      "close_from_5m": 1957.82,
+      "close_from_1d_archive": 1957.82,
+      "coingecko_price_usd": 1873.2479061988745,
+      "signed_difference_pct": 4.514730459394256,
+      "binance_close_confirmed": true,
+      "status": "binance_aggregation_confirmed_cross_source_difference_unresolved",
+      "source_file": "data/raw/audit/ETHUSDT/ETHUSDT-1d-2026-02.zip"
+    }
+  ],
+  "failures": []
+}

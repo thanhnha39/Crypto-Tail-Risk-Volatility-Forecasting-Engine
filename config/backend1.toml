@@ -1,0 +1,16 @@
+[features]
+har_week_days = 5
+har_month_days = 22
+relative_volume_days = 22
+macro_in_main = false
+turnover_definition = "quote_volume_divided_by_trailing_22day_mean_proxy"
+
+[evaluation]
+min_train_rows = 365
+variance_floor = 1e-10
+benchmark = "har_rv"
+rolling_loss_days = 90
+dm_min_observations = 30
+dm_hac = "bartlett_calendar_lags"
+default_segment = "evaluation"
+baseline_models = ["naive_rw", "hist_mean", "har_rv"]

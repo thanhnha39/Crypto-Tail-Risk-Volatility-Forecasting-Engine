@@ -1,0 +1,46 @@
+{
+  "file": "{symbol}_{model}.parquet",
+  "columns": [
+    "symbol",
+    "model",
+    "horizon_days",
+    "window",
+    "origin_date",
+    "target_start",
+    "target_date",
+    "forecast_available_at",
+    "rv_forecast_pct2",
+    "volatility_forecast_pct",
+    "refit_origin",
+    "train_start",
+    "train_end",
+    "train_feature_end",
+    "n_train",
+    "training_kind",
+    "status",
+    "protocol_sha256",
+    "dataset_sha256"
+  ],
+  "key": [
+    "symbol",
+    "model",
+    "horizon_days",
+    "window",
+    "origin_date"
+  ],
+  "time_zone": "UTC",
+  "target_unit": "percent_squared",
+  "horizon_7_aggregation": "sum",
+  "valid_status": [
+    "ok",
+    "missing_features",
+    "insufficient_train"
+  ],
+  "core_models": [
+    "har_rv",
+    "garch",
+    "gjr_garch",
+    "xgboost"
+  ],
+  "risk_file_excluded": "{symbol}_{model}_risk.parquet"
+}
