@@ -36,7 +36,6 @@ Mặc định chỉ chấm điểm evaluation 2021–2025. Pipeline không tạo
 | `outputs/tables/model_availability.csv` | Mô hình đã có hoặc còn chờ thành viên |
 | `outputs/tables/backend1_validation.json` | Kết quả xác minh luồng thật và provenance |
 | `outputs/figures/backend1_*.png` | Forecast/actual RV và căn RV, rolling QLIKE, so sánh theo regime |
-| `outputs/legacy_synthetic/` | Các ví dụ mô phỏng cũ kế thừa từ main, không được đọc vào tổng hợp hiện tại |
 
 ## Định nghĩa feature/target
 

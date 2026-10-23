@@ -95,7 +95,9 @@ Hướng dẫn chính: **[docs/backend2.md](docs/backend2.md)**. Chạy sau khi 
 
 Đã có HAR-RV OLS, GARCH(1,1)-t, GJR-GARCH-t, tổ hợp ba mô hình, chẩn đoán tham số/residual và bản xuất σ cho risk backend. Kết quả thật 2021–2025 ở `outputs/forecasts/`, `outputs/volatility/`, `outputs/diagnostics/`; bảng/hình đánh giá dùng chung với Backend 1. XGBoost đã được tích hợp tại Backend 3; VaR/ES thuộc Backend 4. Holdout 2026 chưa chấm điểm. Ghi chú kiểm tra kỹ thuật tại `docs/backend2_review.md`.
 
-## Backend 3: điểm bắt đầu hiện tại
+## Bản tích hợp trên main: Data và Backend 1–3
+
+`main` hiện dùng bản đã kiểm tra từ `backend-3`; phần output mô phỏng cũ đã được dọn. Thành viên làm tiếp bắt đầu từ `main` và đọc **[docs/HANDOFF.md](docs/HANDOFF.md)**. Lịch sử các phiên bản cũ vẫn nằm trong Git.
 
 Đọc **[docs/backend3.md](docs/backend3.md)** → **[docs/GROUP_PROTOCOL.md](docs/GROUP_PROTOCOL.md)** → **[docs/forecast_format.md](docs/forecast_format.md)**.
 

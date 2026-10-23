@@ -1,6 +1,8 @@
 # Bàn giao tích hợp Data → Backend 1 → Backend 2 → Backend 3
 
-Điểm bắt đầu hiện tại là nhánh `backend-3`, kế thừa Data, Backend 1 và Backend 2. Đã có dataset feature/target, lịch dự báo, regime, HAR-RV/GARCH/GJR-GARCH/XGBoost và Elastic Net. Bảng so sánh đủ bốn mô hình chính nằm tại `outputs/tables/model_comparison.csv`; hợp đồng đầu ra ở `docs/forecast_format.md`.
+Điểm bắt đầu hiện tại là nhánh `main`, đã tích hợp bản `backend-3` gồm Data, Backend 1, Backend 2 và Backend 3. Đã có dataset feature/target, lịch dự báo, regime, HAR-RV/GARCH/GJR-GARCH/XGBoost và Elastic Net. Bảng so sánh đủ bốn mô hình chính nằm tại `outputs/tables/model_comparison.csv`; hợp đồng đầu ra ở `docs/forecast_format.md`.
+
+Bản mô phỏng cũ, script tạo dữ liệu mô phỏng và cấu hình YAML đã ngừng dùng được dọn khỏi cây file hiện tại. Lịch sử Git vẫn giữ các phiên bản trước. Các fixture mô phỏng trong unit test được giữ để kiểm tra công thức và leakage; dữ liệu/kết quả nghiên cứu dùng snapshot thật.
 
 Đọc `docs/backend3.md` để chạy ML/SHAP/ablation; `docs/backend2.md` để dùng volatility đầu vào cho Backend 4. `outputs/tables/robustness.csv` tổng hợp rolling/expanding và h1/h7 từ dự báo thật, cùng ngày khi so sánh hai cửa sổ. `outputs/tables/feature_sets.csv` liệt kê nhóm biến. Macro được xử lý riêng theo `docs/macro_sensitivity.md`, không đưa vào mô hình chính. Holdout 2026 dành cho lượt tích hợp cuối; không chạy để hoàn thiện bảng trung gian.
 
