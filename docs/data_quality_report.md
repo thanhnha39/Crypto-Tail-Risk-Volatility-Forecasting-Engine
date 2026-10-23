@@ -1,6 +1,6 @@
 # Báo cáo chất lượng dữ liệu và bàn giao thống nhất
 
-Người chuẩn bị: Huân. Snapshot 2026-10-18; tạo báo cáo 2026-10-22T14:57:01.477019+00:00.
+Snapshot 2026-10-18; tạo báo cáo 2026-10-22T14:57:01.477019+00:00.
 
 ## Phạm vi và tình trạng
 
