@@ -19,6 +19,47 @@ GROUP = ["symbol", "window", "horizon_days"]
 KEY = GROUP + ["origin_date"]
 
 
+def macro_results_ready():
+    from src.data.macro_vintages import OUTPUT
+    directory = ROOT/"outputs/sensitivity/macro"
+    path = directory/"validation.json"
+    if not path.exists():
+        return False
+    result = json.loads(path.read_text(encoding="utf-8"))
+    if result["status"] != "passed" or result["macro_dataset_sha256"] != sha256(OUTPUT) or result["selection_sha256"] != sha256(LOCK):
+        raise ValueError("Stale macro sensitivity metadata")
+    if result["dataset_sha256"] != sha256(ROOT/"data/processed/dataset.parquet") or result["ml_config_sha256"] != ml_config_hash():
+        raise ValueError("Stale macro sensitivity inputs")
+    if result.get("fit_diagnostics_sha256") and result["fit_diagnostics_sha256"] != sha256(directory/"fit_diagnostics.csv"):
+        raise ValueError("Changed macro fit diagnostics")
+    for name, digest in result["inputs"].items():
+        if sha256(directory/"forecasts"/name) != digest:
+            raise ValueError("Changed macro sensitivity forecasts")
+    return True
+
+
+def feature_sets(options):
+    """Describe implemented ablations and explicitly blocked macro extensions."""
+    core = options["features"]["core"]
+    full = core + options["features"]["volume"]
+    records = []
+    for model in ["enet", "xgboost"]:
+        for variant, predictors in [("core", core), ("volume", full)]:
+            records.append(dict(model=model, feature_set=variant, status="completed",
+                predictors="|".join(predictors), eligibility_features="|".join(full),
+                hyperparameters="shared_full_model_warmup_lock",
+                note="Same eligible training rows for the paired volume ablation"))
+    ready = macro_results_ready()
+    for variable, added in [("macro_base", []), ("VIX", ["log_vix_l1"]), ("USD", ["log_usd_l1"]), ("VIX_USD", ["log_vix_l1", "log_usd_l1"])]:
+        records.append(dict(model="enet|xgboost", feature_set=variable,
+            status="completed_sensitivity_only" if ready else "blocked_unverified_point_in_time",
+            predictors="|".join(full+added) if ready else "",
+            eligibility_features="|".join(full+["log_vix_l1", "log_usd_l1"]) if ready else "",
+            hyperparameters="shared_full_model_warmup_lock" if ready else "",
+            note="Verified ALFRED vintages; matched macro baseline; excluded from main models" if ready else "Historical release/vintage results not verified"))
+    return pd.DataFrame(records)
+
+
 def volume_ablation(dataset, frames, config, segment="evaluation"):
     records = []
     for name in ["enet", "xgboost"]:
@@ -147,9 +188,13 @@ def main(argv=None):
         pd.testing.assert_frame_equal(left[["train_rows_sha256", "n_train"]], right[["train_rows_sha256", "n_train"]])
     ablation = volume_ablation(dataset, frames, config, segment)
     ablation.to_csv(tables/"backend3_volume_ablation.csv", index=False)
+    feature_sets(options).to_csv(tables/"feature_sets.csv", index=False)
+    macro_ready = macro_results_ready()
+    macro_status = "completed_sensitivity_only" if macro_ready else "blocked_unverified_point_in_time"
+    macro_reason = "ALFRED historical vintages; conservative availability; matched samples" if macro_ready else "historical release/vintage unavailable"
     statuses = [{"variables": "volume", "status": "completed", "reason": "matched rows and fixed full-model settings"},
-                {"variables": "VIX", "status": "blocked_unverified_point_in_time", "reason": "historical release/vintage unavailable"},
-                {"variables": "USD", "status": "blocked_unverified_point_in_time", "reason": "historical release/vintage unavailable"},
+                {"variables": "VIX", "status": macro_status, "reason": macro_reason},
+                {"variables": "USD", "status": macro_status, "reason": macro_reason},
                 {"variables": "GRU", "status": "excluded_user_scope", "reason": "optional work deferred by user"}]
     pd.DataFrame(statuses).to_csv(tables/"backend3_scope_status.csv", index=False)
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 9})
@@ -187,7 +232,7 @@ def main(argv=None):
               "fit_failures": int(fit.fit_status.ne("ok").sum()), "shap_rows": len(shap),
               "shap_max_identity_error": float(shap.shap_identity_error.max()),
               "matched_ablation_training_rows": True, "selection_uses_evaluation": False,
-              "macro_predictive_use": False, "macro_ablation_status": "blocked_unverified_point_in_time",
+              "macro_predictive_use": False, "macro_ablation_status": macro_status,
               "gru_status": "excluded_user_scope", "holdout_scored": args.final_holdout,
               "external_independent_review": "pending_team_review"}
     save_json(dirs["diagnostics"]/"validation.json", result)

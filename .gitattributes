@@ -1,9 +1,11 @@
 # Keep original source snapshots byte-for-byte for SHA256 validation.
 * text=auto
 data/raw/** -text
+data/raw/alfred/*_vintage_listing.html -text -diff -merge
 data/interim/** -text
 # Frozen model selection is hashed byte-for-byte by forecast provenance.
 outputs/model_selection/backend3_locked.json -text
+outputs/sensitivity/macro/fit_diagnostics.csv -text
 *.parquet -text -diff -merge
 *.zip -text -diff -merge
 *.py text eol=lf

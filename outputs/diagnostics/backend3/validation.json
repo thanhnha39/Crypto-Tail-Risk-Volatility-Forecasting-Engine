@@ -84,7 +84,7 @@
   "matched_ablation_training_rows": true,
   "selection_uses_evaluation": false,
   "macro_predictive_use": false,
-  "macro_ablation_status": "blocked_unverified_point_in_time",
+  "macro_ablation_status": "completed_sensitivity_only",
   "gru_status": "excluded_user_scope",
   "holdout_scored": false,
   "external_independent_review": "pending_team_review"

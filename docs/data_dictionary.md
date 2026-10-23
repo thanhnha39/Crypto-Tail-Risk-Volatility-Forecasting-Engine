@@ -1,6 +1,6 @@
 # Từ điển dữ liệu bàn giao của Huân
 
-Schema nến sạch dùng chung ở data/interim. Raw ZIP là bản nguồn nguyên gốc; raw Parquet tổng hợp giữ token gốc dưới dạng chuỗi để tránh làm tròn và giữ dấu vết. Nhãn giai đoạn đã theo quy định nhóm trong config/data.toml; dataset có feature/target sẽ được xây ở bước sau.
+Schema nến sạch dùng chung ở data/interim. Raw ZIP là bản nguồn nguyên gốc; raw Parquet tổng hợp giữ token gốc dưới dạng chuỗi để tránh làm tròn và giữ dấu vết. Nhãn giai đoạn theo config/data.toml; dataset feature/target hiện đã có ở data/processed, được mô tả thêm trong docs/backend1.md.
 
 | Cột | Kiểu | Định nghĩa | Đơn vị / lưu ý |
 | --- | --- | --- | --- |
@@ -32,3 +32,19 @@ Schema nến sạch dùng chung ở data/interim. Raw ZIP là bản nguồn nguy
 RV được tính bằng return đã nhân 100, nên phương sai có đơn vị %². Không so với variance từ return dạng số thập phân nếu chưa đổi đơn vị. Ngày chứa nến mở 00:00–23:55 UTC; nến cuối kết thúc tại biên 00:00 ngày sau.
 
 CoinGecko có giá USD tại 00:00 UTC, được ghép với close Binance của NGÀY TRƯỚC; bỏ điểm cập nhật intraday cuối chuỗi. Chênh lệch còn phản ánh USDT/USD và giá tổng hợp nhiều sàn.
+
+## Bộ macro vintage bổ sung
+
+`data/interim/macro_vintages.parquet` tách khỏi observations/calendar FRED gốc:
+
+| Cột | Ý nghĩa |
+|---|---|
+| `series_id` | VIXCLS hoặc DTWEXBGS |
+| `vintage_date` | Ngày snapshot lịch sử tại ALFRED |
+| `observation_date` | Ngày quan sát gần nhất có giá trị, không sau vintage |
+| `value` | Chỉ số tại đúng vintage, chưa lấy log |
+| `available_at` | Vintage + 2 ngày UTC, quy tắc khả dụng bảo thủ |
+| `point_in_time_verified` | Snapshot đã qua kiểm tra mã chuỗi/ngày vintage; không khẳng định giờ công bố chính xác |
+| `excluded_future_observations` | Số ô nguồn có ngày quan sát sau vintage, đã loại khỏi feature |
+
+Nhánh sensitivity nối as-of tại đầu ngày UTC của origin, tạo `log_vix_l1`, `log_usd_l1` và các cột `_available_at`. Tên l1 kế thừa schema; độ trễ thực tế theo availability, không phải shift một hàng. Dataset macro được tạo trong bộ nhớ, không ghi đè dataset chính. Manifest/hash nguồn và chi tiết ở `docs/macro_sensitivity.md`.

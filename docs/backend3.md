@@ -30,6 +30,10 @@ Luồng: xác minh dataset và đầu ra Backend 2 → chọn/reuse cấu hình 
 | `outputs/diagnostics/backend3/oos_standardized_residuals.parquet` | Residual ngoài mẫu với thời điểm được phép quan sát |
 | `outputs/diagnostics/backend3/validation.json` | Kiểm tra hash, forecast, σ, ablation và SHAP |
 | `outputs/tables/backend3_volume_ablation.csv` | QLIKE/RMSE/MAE và DM-HLN khi thêm/bỏ volume |
+| `outputs/tables/feature_sets.csv` | Nhóm biến thực sự dùng cho từng model/biến thể, điều kiện cùng mẫu và trạng thái VIX/USD |
+| `outputs/tables/robustness.csv`, `robustness.json` | Rolling/expanding và h1/h7; so sánh cửa sổ trên cùng ngày, kèm provenance |
+| `outputs/tables/backend3_macro_ablation.csv` | Sensitivity baseline/VIX/USD/cả hai với vintage ALFRED và tham số cố định |
+| `outputs/sensitivity/macro/` | Dự báo, diagnostics và validation của macro, tách khỏi model chính |
 | `outputs/tables/backend3_scope_status.csv` | Trạng thái volume, VIX/USD và GRU |
 | `outputs/tables/backend3_shap_importance.csv` | Mean absolute SHAP, theo coin/window/horizon |
 | `outputs/figures/backend3_*` | SHAP và ablation; các hình so sánh chung giữ prefix backend1 |
@@ -60,7 +64,7 @@ So sánh bản chính với bản core bỏ hai biến volume. Hai bản có **c
 
 `QLIKE_full_minus_core < 0` nghĩa là thêm volume có loss thấp hơn trên mẫu cặp đó. DM-HLN là kiểm tra loss cặp theo ngày lịch, không chứng minh quan hệ nhân quả và không được dùng để tune lại. Nếu fit một bản thất bại thì điểm cặp dùng những ngày cả hai thành công; coverage cần được đọc kèm.
 
-**VIX/USD chưa được chạy ablation.** Data backend mới có calendar mô tả và chưa xác minh release/vintage lịch sử. Theo GROUP_PROTOCOL, macro bị loại khỏi model chính và chỉ chạy sensitivity sau khi xác minh point-in-time. Bảng scope ghi `blocked_unverified_point_in_time`; không tạo kết quả giả hoặc coi lag một ngày là đủ xác minh. Do đó hiện chỉ trả lời phần incremental predictive power của volume, chưa trả lời đầy đủ RQ2 với macro.
+**VIX/USD được bổ sung bằng sensitivity riêng**, dùng snapshot ALFRED lịch sử và quy tắc thời điểm khả dụng bảo thủ. Chạy baseline không macro, thêm VIX, thêm USD và thêm cả hai, với cùng mẫu train/test và siêu tham số chính đã khóa. Bộ FRED/calendar mô tả cũ vẫn không được dùng dự báo. Chi tiết nguồn, độ trễ và lệnh chạy ở `docs/macro_sensitivity.md`; kết quả ở `outputs/tables/backend3_macro_ablation.csv`. Scope chỉ ghi hoàn tất khi manifest/forecast macro đã qua kiểm tra hash. Không đưa macro vào model chính và không tune lại sau khi xem evaluation.
 
 ## SHAP
 
@@ -72,6 +76,8 @@ Hình tổng hợp là thống kê các local explanations từ nhiều estimato
 
 Snapshot evaluation đã kiểm tra: 47 tests qua; 11.680 fit cho hai model và hai biến thể feature, không có lỗi fit; 13.360 local SHAP explanations. Độ lệch tái tạo raw log prediction tối đa 5,67×10⁻⁶. Validator xác nhận đủ lịch dự báo, đơn vị σ²=variance, cùng dòng train khi ablation và nguyên trạng đầu vào Backend 2. Chi tiết máy đọc ở validation.json; đây là kiểm tra kỹ thuật, chưa thay review độc lập.
 
+Bản bổ sung: bộ kiểm tra hiện có 53 tests qua. Macro sensitivity hoàn tất 23.360 fit, không lỗi fit; 16 file forecast, 64 dòng so sánh có/không VIX/USD. Robustness có 72 dòng tổng hợp. Dataset chính, manifest chọn siêu tham số và 18 file dự báo chính không đổi. Các kết quả kiểm tra chi tiết của macro ở `outputs/sensitivity/macro/validation.json`.
+
 Đọc `docs/forecast_format.md` khi thêm model và `docs/GROUP_PROTOCOL.md` để giữ quy tắc nghiên cứu. ML xuất mean=0 theo quy ước FHS; không khẳng định return có phân phối Student-t. Residual ngoài mẫu chỉ dùng được sau `observable_at`; không dùng toàn bộ residual 2021–2025 làm pool cho mọi origin.
 
 Chỉ tạo lại bảng/hình từ các dự báo đã có:
@@ -79,6 +85,7 @@ Chỉ tạo lại bảng/hình từ các dự báo đã có:
 ```powershell
 .\.venv\Scripts\python.exe -m src.evaluation.aggregate
 .\.venv\Scripts\python.exe -m src.models.ml_analysis
+.\.venv\Scripts\python.exe -m src.evaluation.robustness
 ```
 
 Holdout 2026 chưa chạy trong bàn giao mặc định. `--final-holdout` chỉ dùng trong lượt tích hợp cuối khi các model đã khóa và đã có các file holdout từ backend trước; nó có lock riêng. Review độc lập của thành viên nhóm vẫn là `pending_team_review`. Tests và validation kỹ thuật không chứng minh mô hình vượt benchmark hay risk calibration tốt.

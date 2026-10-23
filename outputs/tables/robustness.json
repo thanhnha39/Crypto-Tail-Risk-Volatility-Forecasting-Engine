@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "segment": "evaluation",
+  "rows": 72,
+  "dataset_sha256": "2025bf54f52f9bad444c8474cf3df3c7ca434c6884b06017c443d575cbbf4edd",
+  "protocol_sha256": "7e0191870a5c7609ce0313e525d34e788a7fc75072a71c9727d1409900d9678b",
+  "input_forecast_sha256": {
+    "BTCUSDT_combo_core4.parquet": "b878fc2796d9e49a688fe8e2b5939c58922489290d2c3ecbdf209fc50afd8f74",
+    "BTCUSDT_combo_econ.parquet": "d736174093ab448bcc8d4d1290189548ef58e4233ed75802e308ac1e33412d00",
+    "BTCUSDT_enet.parquet": "9b21b0a717ce242f9026df3b63bc641910fdde05779b67e5538128d53fbaa683",
+    "BTCUSDT_garch.parquet": "c0d55b4dee4b62c33e0b954f660ed48135b2107c094089ee3cc79a0cc3d3382c",
+    "BTCUSDT_gjr_garch.parquet": "d89895d3e97e93f912d92c9758f29a493d3b7323b54d36f8f452b6a1de7b1278",
+    "BTCUSDT_har_rv.parquet": "8dcea33686b60b4538b8360ab56897cfeb9e14dbbf3b73dba5b86ab19628bd5e",
+    "BTCUSDT_hist_mean.parquet": "75463f6aa5f7a0cf1073a19a39dbdb1bf1810f29b71b6d05f6c7e3a23d7ea68d",
+    "BTCUSDT_naive_rw.parquet": "05f8f3ac8177d4b92dd002a0458fbaa9b240512ba842dfbd2f5adb7265f19b7b",
+    "BTCUSDT_xgboost.parquet": "c15e508f900535ba2fa915f0676665dbc58d2be556c5fcd9c10c8122c68139c7",
+    "ETHUSDT_combo_core4.parquet": "f1854f15aead30fe520c6139b5aa32ae6ec43c26b7f35029a376172b6a1b4a44",
+    "ETHUSDT_combo_econ.parquet": "213c1a44fa35e4f19eb00f4f7de4f60c5fde6611873551cd4b9d6849be865538",
+    "ETHUSDT_enet.parquet": "16cec9302d1b61926575e3c56c893a3d80797e79c668bc87767db37c7ed15839",
+    "ETHUSDT_garch.parquet": "1aecd3a629acf0d81f1bf53ca35077501cca35d81b0eb10980bc9aa5ce9f9cd9",
+    "ETHUSDT_gjr_garch.parquet": "dd0eb95e1228ab89e6b0530cf9cae0ef96015a89eade119aeaf2dfac795c1c9d",
+    "ETHUSDT_har_rv.parquet": "5b7e0784fe1831d44024e0c3e785a22013d58d0decf4372bc1198e38b1e3cdcf",
+    "ETHUSDT_hist_mean.parquet": "8ee368497317743ccd89664246dfe30fb93c116f7baca7127dd8d483290ce037",
+    "ETHUSDT_naive_rw.parquet": "54bf51a00ae4980a629d404a6f0779601f78ffea2ea8a320149560c6bf314248",
+    "ETHUSDT_xgboost.parquet": "80cd9812f1e77d651426f6d11c8479d2476c5418ff4f7d3643c4e8d723c4572b"
+  },
+  "compared_windows": [
+    "rolling",
+    "expanding"
+  ],
+  "horizons": [
+    1,
+    7
+  ],
+  "window_comparisons_use_identical_dates": true,
+  "cross_horizon_loss_difference_computed": false,
+  "holdout_scored": false,
+  "numerical_result_used_for_retuning": false
+}

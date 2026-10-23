@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 import numpy as np
 import pandas as pd
-from src.features.schema import FEATURE_COLS,y_col,ylog_col
+from src.features.schema import FEATURE_COLS,MACRO_COLS,y_col,ylog_col
 
 FORECAST_COLS=["symbol","model","horizon_days","window","origin_date","target_start","target_date",
     "forecast_available_at","rv_forecast_pct2","volatility_forecast_pct","refit_origin","train_start",
@@ -38,9 +38,18 @@ def refit_origin(origin,config):
     step=config["study"]["refit_every_days"]
     return anchor+pd.Timedelta(days=((origin-anchor).days//step)*step)
 
-def select_training(data,task,features,fit_origin,config,scheme="rolling",requires_target=True):
+def select_training(data,task,features,fit_origin,config,scheme="rolling",requires_target=True,verified_macro=False):
     if scheme not in ("rolling","expanding"): raise ValueError("Unknown window")
-    if not set(features).issubset(FEATURE_COLS): raise ValueError("Only declared causal main features are allowed")
+    allowed=list(FEATURE_COLS)
+    if verified_macro:
+        if not data.attrs.get("verified_macro_features") or not data.attrs.get("macro_dataset_sha256"):
+            raise ValueError("Macro sensitivity requires verified vintage provenance")
+        for name in MACRO_COLS:
+            available=data[name+"_available_at"]
+            if available.gt(data.origin_date).any() or (data[name].notna() & available.isna()).any():
+                raise ValueError("Future or missing macro availability")
+        allowed+=MACRO_COLS
+    if not set(features).issubset(allowed): raise ValueError("Only declared causal features are allowed")
     lower=pd.Timestamp(config["data"]["research_start"],tz="UTC")
     if scheme=="rolling": lower=max(lower,fit_origin-pd.Timedelta(days=config["study"]["window_days"]-1))
     if requires_target:
@@ -63,7 +72,7 @@ def select_training(data,task,features,fit_origin,config,scheme="rolling",requir
         train=train[[c for c in train.columns if not c.startswith(("y_","target_")) or c in keep]]
     return train,lower,label_end
 
-def iter_splits(data,task,features,config,scheme="rolling",segment="evaluation",requires_target=True):
+def iter_splits(data,task,features,config,scheme="rolling",segment="evaluation",requires_target=True,verified_macro=False):
     if segment not in ("evaluation","holdout"): raise ValueError("Choose evaluation or explicit final holdout")
     d=data.sort_values("origin_date").reset_index(drop=True)
     if d["origin_date"].duplicated().any(): raise ValueError("One symbol per split, unique UTC origins required")
@@ -74,7 +83,7 @@ def iter_splits(data,task,features,config,scheme="rolling",segment="evaluation",
         fit=refit_origin(row["origin_date"],config)
         changed=fit!=last
         if changed:
-            cache=select_training(d,task,features,fit,config,scheme,requires_target)
+            cache=select_training(d,task,features,fit,config,scheme,requires_target,verified_macro)
             last=fit
         train,lower,label_end=cache
         yield train,row,{"refit_origin":fit,"train_start":lower,"train_end":label_end,"is_refit":row["origin_date"]==fit,"needs_fit":changed}
@@ -83,7 +92,8 @@ def walk_forward(data,model_factory,task,config,scheme="rolling",segment="evalua
     template=model_factory();features=list(template.features);requires_target=template.requires_target
     d=data.sort_values("origin_date").reset_index(drop=True)
     model=None;rows=[];n_train=0;feature_end=pd.NaT;fit_error=""
-    for train,row,meta in iter_splits(d,task,features,config,scheme,segment,requires_target):
+    for train,row,meta in iter_splits(d,task,features,config,scheme,segment,requires_target,
+                                   getattr(template,"verified_macro",False)):
         if meta["needs_fit"]:
             n_train=len(train);feature_end=train["origin_date"].max() if n_train else pd.NaT
             model=None;fit_error=""

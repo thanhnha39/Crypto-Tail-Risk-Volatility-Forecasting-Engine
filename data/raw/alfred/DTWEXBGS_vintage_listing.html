@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>
+        Download Data for Nominal Broad U.S. Dollar Index (DTWEXBGS) | ALFRED | St. Louis Fed
+    </title>
+            <meta name="description" content="Download Data - Series: DTWEXBGS, Index Jan 2006=100, Daily, NSA, First Vintage: 2019-02-04, ALFRED: Download and graph real-time economic data.">
+                <meta name="keywords" content="Economic Data, ALFRED, Archival, Vintage, Real Time, Revisions, St. Louis Fed, Federal Reserve">
+        <script>
+        dataLayer = [];
+        fed__header_format = 'alfred';
+        fed__is_page_specific_css = '';
+        fed__page_style_path = 'css/pages/series/downloaddata.css';
+    </script>
+    <!-- Google Tag Manager -->
+    <script>
+        if (!window.location.origin.includes('local')) {
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-PRNMX7Z');
+        }
+    </script>
+    <!-- End Google Tag Manager -->
+              <script type="application/ld+json">
+  {
+      "@content": "http://schema.org",
+      "@type": "DataCatalog",
+      "name": "ALFRED",
+      "alternateName": "Archival Federal Reserve Economic Data",
+      "url": "https://alfred.stlouisfed.org/series/downloaddata?seid=DTWEXBGS",
+      "publisher": {
+          "@type": "Organization",
+          "name": "Federal Reserve Bank of St. Louis",
+          "url": "https://www.stlouisfed.org/"
+      }
+  }
+  </script>
+        <meta name="apple-itunes-app" content="app-id=451715489">
+    <meta name="google-play-app" content="app-id=org.stlouisfed.research.fred">
+                <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="stylesheet" href="/assets/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="/assets/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css?date=20261023">
+    <link rel="stylesheet" type="text/css" href="/css/fed.css?date=20261023">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <style type="text/css">
+            #tooltip{
+                z-index: 100;
+                position:absolute;
+                border:1px solid #333;
+                background:#f7f5d1;
+                padding:2px 5px;
+                color:#333;
+                width: 400px;
+                display:none;
+            }
+
+            #series-download-data-form {
+                display: inline;
+            }
+
+            #series-download-data-form li {
+                color: #cc0000;
+            }
+
+            label.required{
+            font-weight: bold;
+            }
+
+            #form_download_data{
+                border: 1px solid #6c757d;
+                border-radius: 3px;
+                color: #333;
+                margin: 0;
+
+            }
+
+        </style>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="https://alfred.stlouisfed.org/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+</head>
+<body id="alfred-site">
+<!-- pingdom_uptime_check=uXCPjTUzTxL7ULra -->
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PRNMX7Z"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!--googleoff: snippet-->
+<a href="#content-container" class="sr-only sr-only-focusable">Skip to main content</a>
+<!--googleon: snippet-->
+<a name="top" id="top"></a>
+<header fed="top" class="fed__top_bar">
+    <div class="fed__max_width">
+                    <nav fed="top_bar">
+                <a href="https://stlouisfed.org"
+                   target="_blank"
+                   title="stlouisfed.org"
+                >
+                    <img id="frb-logo"
+                         src="/svgs/STLFED__SmallText.svg"
+                         alt="St. Louis Fed"/>
+                </a>
+            </nav>
+                <nav fed="top"
+             id="header"
+             class="float-end col-12">
+            <div fed="header_top_container">
+                <div fed="hidden-user"
+                     id="hidden-user"
+                     class='hide'></div>
+                <div fed="action-modal"
+                     id="action-modal"></div>
+                <div fed="head__left"
+                     class="float-start col-10 col-sm-6">
+                    <a fed="logo"
+                       href="/"
+                       title="home">
+                        <img fed="logo"
+                             src="/svgs/ALFRED_Logo__mobile.svg"
+                             alt="ALFRED: Archival Federal Reserve Economic Data, Economic Data Time Travel from the St. Louis Fed"/>
+                    </a>
+                </div>
+                <div fed="head__right">
+                    <button fed="hamburger"
+                            class="btn hamburger"
+                            href="javascript:void(0);">
+                        <i fed="menu__closed" class="fa fa-bars" title="menu"></i>
+                    </button>
+                    <button fed="search" class="btn">
+                        <i fed="search" class="fa fa-search" title="search"></i>
+                    </button>
+                    <button fed="explore_our_apps"
+                            fed__status="0">
+                        <img fed="waffle"
+                             src="/svgs/menu__waffle__off.svg"
+                             alt="menu">
+                    </button>
+                                            <form fed="search"
+                              id="head-search-form"
+                              action="/search"
+                              class="">
+                            <div fed="search" id="head-search-container">
+                                <select fed="search"
+                                        id="head-search"
+                                        name="head-search">
+                                    <option></option>
+                                </select>
+                                <input fed="search"
+                                       type="hidden"
+                                       name="st"
+                                       class="search-text-input"
+                                       title="Search Series">
+                            </div>
+                        </form>
+                                    </div>
+            </div>
+            <div id="notifications-container"></div>
+        </nav>
+        <nav fed="explore_our_apps">
+            <h3>explore our apps</h3>
+            <hr>
+            <menu fed="explore_our_apps">
+                <li>
+                    <a href="https://fred.stlouisfed.org" target="_blank">
+                        <div>
+                            <img src="/svgs/waffle__fred.svg" alt="fred">
+                        </div>
+                        <div>
+                            <span>fred</span>
+                            <span>Tools and resources to find and use economic data worldwide</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://fraser.stlouisfed.org" target="_blank">
+                        <div>
+                            <img src="/svgs/waffle__fraser.svg" alt="fraser">
+                        </div>
+                        <div>
+                            <span>fraser</span>
+                            <span>U.S. financial, economic, and banking history</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/" target="_blank">
+                        <div>
+                            <img src="/svgs/waffle__alfred.svg" alt="alfred">
+                        </div>
+                        <div>
+                            <span>alfred</span>
+                            <span>Vintages of economic data from specific dates in history</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://cassidi.stlouisfed.org/" target="_blank">
+                        <div>
+                            <img src="/svgs/waffle__cassidi.svg" alt="cassidi">
+                        </div>
+                        <div>
+                            <span>cassidi</span>
+                            <span>View banking market concentrations and perform HHI analysis</span>
+                        </div>
+                    </a>
+                </li>
+            </menu>
+        </nav>
+    </div>
+</header>
+<nav fed="research"
+     id="research-nav"
+     class="col-xs-12 navbar"
+     role="navigation">
+    <div class="fed__max_width">
+        <div fed="nav__research__inner"
+             id="nav-inner"
+             class="navbar-collapse collapse">
+                        <ul fed="main_nav"
+                id="main-nav"
+                class="navbar-nav col-xs-12">
+                <li>
+                    <a fed="releases_calendar" href="/releases/calendar">Release Calendar</a>
+                </li>
+                <li>
+                    <a fed="api" href="https://fred.stlouisfed.org/docs/api/fred/" target="_blank">API</a>
+                </li>
+                <li>
+                    <a fed="categories" href="/categories">Categories</a>
+                </li>
+                <li>
+                    <a fed="sources" href="/sources">Sources</a>
+                </li>
+                <li fed="about">
+                    <a fed="about" href="javascript:void(0);">
+                        <span>About</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+                </li>
+                <li fed="frb_stl_home" id="frb-stl-home-link" style="border:0">
+                    <a fed="frb_stl_home" href="http://www.stlouisfed.org">St. Louis Fed Home</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <nav fed="about">
+        <menu fed="about">
+            <li>
+                <a href="/help">What is ALFRED</a>
+            </li>
+            <li>
+                               <a href="https://fred.stlouisfed.org/digital-badges/">Digital Badges</a>
+            <li>
+                <a href="https://fred.stlouisfed.org/contactus/">Contact Us</a>
+            </li>
+        </menu>
+    </nav>
+</nav>
+<nav fed="mobile__search">
+
+</nav>
+<dialog fed="mobile">
+    <div fed="dialog__mobile__content">
+        <button fed="dialog__mobile__close" class="btn">
+            <i class="fa fa-times"></i>
+        </button>
+        <button fed="dialog__mobile__search" class="btn">
+            <i class="fa fa-search" title="search"></i>
+        </button>
+        <div fed="mobile__spacer"></div>
+        <nav fed="mobile">
+            <ul fed="mobile">
+                <!-- dynamically filled -->
+            </ul>
+        </nav>
+    </div>
+</dialog>
+
+<!-- End Google Tag Manager (noscript) -->
+<!--[if lt IE 7 ]>
+<div id="container" class="ie6 "><![endif]-->
+<!--[if IE 7 ]>
+<div id="container" class="ie7 "><![endif]-->
+<!--[if IE 8 ]>
+<div id="container" class="ie8 "><![endif]-->
+<!--[if IE 9 ]>
+<div id="container" class="ie9 "><![endif]-->
+<!--[if IE]>
+<div id="container" class="ie "><![endif]-->
+<!--[if !(IE)]><!-->
+<div fed="container" id="container" class=""><!--<![endif]-->
+            <div fed="container__breadcrumbs">
+            <div class="fed__max_width">
+                <p fed="breadcrumbs">
+                <span>
+                  <a href="/">Home</a>&nbsp;<i>&gt;</i>&nbsp;<a href="/releases">Releases</a>&nbsp;<i>&gt;</i>&nbsp;<a href="/release?rid=17">H.10 Foreign Exchange Rates</a>&nbsp;<i>&gt;</i>&nbsp;<a href="/series?seid=DTWEXBGS">Nominal Broad U.S. Dollar Index</a>&nbsp;<i>&gt;</i>&nbsp;Download Data
+                </span>
+                </p>
+            </div>
+        </div>
+                <div fed="container__page_title">
+            <div class="fed__max_width">
+                <div fed="page_title" id="page-title">
+                    <h1>Download Data for Nominal Broad U.S. Dollar Index (DTWEXBGS)</h1>
+
+                </div>
+            </div>
+        </div>
+        <main fed="content_container"
+          id="content-container"
+          class="clear row gx-0">
+        <div class="fed__max_width">
+                                        <div fed="main_content_column"
+                    id="main-content-column"
+                    class="col-12">
+                    <p>
+Select or enter vintage dates to download data for this series that actually existed on those past dates in history. 
+In general, economic data for past observation periods are revised as more accurate estimates become available. 
+Entering vintage dates allows you to retrieve past revisions of economic data that were actually available as of specific dates. 
+</p>
+<p> 
+Read <a href="/help/downloaddata">Download Data Help</a> for more information about the options on this form.  
+Note that files <strong>may take a while to download</strong> depending on the number of observations and vintage dates. 
+</p>
+
+<div id="series-download-data-form">
+  <form name="form" method="post">
+    <p>
+      <strong>
+        <label for="form_units" class="required">Units:</label>
+      </strong>
+    </p>
+    <p>
+      <select id="form_units" name="form[units]">
+                              <option value="lin" selected="selected">Levels</option>
+                                        <option value="chg">Change</option>
+                                        <option value="ch1">Change from Year Ago</option>
+                                        <option value="pch">Percent Change</option>
+                                        <option value="pc1">Percent Change from Year Ago</option>
+                                        <option value="pca">Compounded Annual Rate of Change</option>
+                                        <option value="cch">Continuously Compounded Rate of Change</option>
+                                        <option value="cca">Continuously Compounded Annual Rate of Change</option>
+                                        <option value="log">Natural Log</option>
+                        </select>
+    </p>
+    <p>
+      <a href="/help#growth_formulas">Description of growth rate formulas</a>
+      <label for="form_unitz" class="required">Note that units other than "Levels" are only available with output format "Observations by Vintage Date, All Observations"</label>
+    </p>
+    <p>
+      <strong>
+        <label for="form_obs_start_date" class="required">Observation Range:</label>
+      </strong>
+    </p>
+    <p>
+      <ul>
+                              </ul>
+      <input type="text" id="form_obs_start_date" name="form[obs_start_date]" required="required" maxlength="10" value="2006-01-02">
+      to
+      <input type="text" id="form_obs_end_date" name="form[obs_end_date]" required="required" maxlength="10" value="2026-10-16">
+    </p>
+    <p>
+      <strong>
+        <label for="form_selected_vintage_dates">Select Vintage Dates When Data Were Revised:</label>
+      </strong>
+    </p>
+    <ul>
+          </ul>
+    <p>
+      <script type="text/javascript" language="javascript">
+        function listbox_selectall(listID, isSelect) {
+          var listbox = document.getElementById(listID);
+          for(var count=0; count < listbox.options.length; count++) {
+            listbox.options[count].selected = isSelect;
+          }
+        }
+      </script>
+    </p>
+    <div id="svd">
+      Select: <span onclick="listbox_selectall('form_selected_vintage_dates', true);" class="link svd">All</span>,
+      <span onclick="listbox_selectall('form_selected_vintage_dates', false);" class="link">None</span>
+    </div>
+    <select id="form_selected_vintage_dates" name="form[selected_vintage_dates][]" size="10" style="height: 200px" multiple="multiple">
+                        <option value="2019-02-04">2019-02-04</option>
+                                <option value="2019-02-11">2019-02-11</option>
+                                <option value="2019-02-19">2019-02-19</option>
+                                <option value="2019-02-25">2019-02-25</option>
+                                <option value="2019-03-04">2019-03-04</option>
+                                <option value="2019-03-11">2019-03-11</option>
+                                <option value="2019-03-18">2019-03-18</option>
+                                <option value="2019-03-25">2019-03-25</option>
+                                <option value="2019-04-01">2019-04-01</option>
+                                <option value="2019-04-08">2019-04-08</option>
+                                <option value="2019-04-15">2019-04-15</option>
+                                <option value="2019-04-22">2019-04-22</option>
+                                <option value="2019-04-29">2019-04-29</option>
+                                <option value="2019-05-06">2019-05-06</option>
+                                <option value="2019-05-13">2019-05-13</option>
+                                <option value="2019-05-20">2019-05-20</option>
+                                <option value="2019-05-28">2019-05-28</option>
+                                <option value="2019-06-03">2019-06-03</option>
+                                <option value="2019-06-10">2019-06-10</option>
+                                <option value="2019-06-17">2019-06-17</option>
+                                <option value="2019-06-24">2019-06-24</option>
+                                <option value="2019-07-01">2019-07-01</option>
+                                <option value="2019-07-08">2019-07-08</option>
+                                <option value="2019-07-15">2019-07-15</option>
+                                <option value="2019-07-22">2019-07-22</option>
+                                <option value="2019-07-29">2019-07-29</option>
+                                <option value="2019-08-05">2019-08-05</option>
+                                <option value="2019-08-12">2019-08-12</option>
+                                <option value="2019-08-19">2019-08-19</option>
+                                <option value="2019-08-26">2019-08-26</option>
+                                <option value="2019-09-03">2019-09-03</option>
+                                <option value="2019-09-09">2019-09-09</option>
+                                <option value="2019-09-16">2019-09-16</option>
+                                <option value="2019-09-23">2019-09-23</option>
+                                <option value="2019-09-30">2019-09-30</option>
+                                <option value="2019-10-07">2019-10-07</option>
+                                <option value="2019-10-15">2019-10-15</option>
+                                <option value="2019-10-21">2019-10-21</option>
+                                <option value="2019-10-28">2019-10-28</option>
+                                <option value="2019-11-04">2019-11-04</option>
+                                <option value="2019-11-12">2019-11-12</option>
+                                <option value="2019-11-18">2019-11-18</option>
+                                <option value="2019-11-25">2019-11-25</option>
+                                <option value="2019-12-02">2019-12-02</option>
+                                <option value="2019-12-09">2019-12-09</option>
+                                <option value="2019-12-16">2019-12-16</option>
+                                <option value="2019-12-23">2019-12-23</option>
+                                <option value="2019-12-30">2019-12-30</option>
+                                <option value="2020-01-06">2020-01-06</option>
+                                <option value="2020-01-13">2020-01-13</option>
+                                <option value="2020-01-21">2020-01-21</option>
+                                <option value="2020-01-27">2020-01-27</option>
+                                <option value="2020-02-03">2020-02-03</option>
+                                <option value="2020-02-10">2020-02-10</option>
+                                <option value="2020-02-18">2020-02-18</option>
+                                <option value="2020-02-24">2020-02-24</option>
+                                <option value="2020-03-02">2020-03-02</option>
+                                <option value="2020-03-09">2020-03-09</option>
+                                <option value="2020-03-16">2020-03-16</option>
+                                <option value="2020-03-23">2020-03-23</option>
+                                <option value="2020-03-30">2020-03-30</option>
+                                <option value="2020-04-06">2020-04-06</option>
+                                <option value="2020-04-13">2020-04-13</option>
+                                <option value="2020-04-20">2020-04-20</option>
+                                <option value="2020-04-27">2020-04-27</option>
+                                <option value="2020-05-04">2020-05-04</option>
+                                <option value="2020-05-11">2020-05-11</option>
+                                <option value="2020-05-18">2020-05-18</option>
+                                <option value="2020-05-26">2020-05-26</option>
+                                <option value="2020-06-01">2020-06-01</option>
+                                <option value="2020-06-08">2020-06-08</option>
+                                <option value="2020-06-15">2020-06-15</option>
+                                <option value="2020-06-22">2020-06-22</option>
+                                <option value="2020-06-29">2020-06-29</option>
+                                <option value="2020-07-06">2020-07-06</option>
+                                <option value="2020-07-13">2020-07-13</option>
+                                <option value="2020-07-20">2020-07-20</option>
+                                <option value="2020-07-27">2020-07-27</option>
+                                <option value="2020-08-03">2020-08-03</option>
+                                <option value="2020-08-10">2020-08-10</option>
+                                <option value="2020-08-17">2020-08-17</option>
+                                <option value="2020-08-24">2020-08-24</option>
+                                <option value="2020-08-31">2020-08-31</option>
+                                <option value="2020-09-08">2020-09-08</option>
+                                <option value="2020-09-14">2020-09-14</option>
+                                <option value="2020-09-21">2020-09-21</option>
+                                <option value="2020-09-28">2020-09-28</option>
+                                <option value="2020-10-05">2020-10-05</option>
+                                <option value="2020-10-13">2020-10-13</option>
+                                <option value="2020-10-19">2020-10-19</option>
+                                <option value="2020-10-26">2020-10-26</option>
+                                <option value="2020-11-02">2020-11-02</option>
+                                <option value="2020-11-09">2020-11-09</option>
+                                <option value="2020-11-16">2020-11-16</option>
+                                <option value="2020-11-23">2020-11-23</option>
+                                <option value="2020-11-30">2020-11-30</option>
+                                <option value="2020-12-07">2020-12-07</option>
+                                <option value="2020-12-14">2020-12-14</option>
+                                <option value="2020-12-21">2020-12-21</option>
+                                <option value="2020-12-28">2020-12-28</option>
+                                <option value="2021-01-04">2021-01-04</option>
+                                <option value="2021-01-11">2021-01-11</option>
+                                <option value="2021-01-19">2021-01-19</option>
+                                <option value="2021-01-25">2021-01-25</option>
+                                <option value="2021-02-01">2021-02-01</option>
+                                <option value="2021-02-08">2021-02-08</option>
+                                <option value="2021-02-16">2021-02-16</option>
+                                <option value="2021-02-22">2021-02-22</option>
+                                <option value="2021-03-01">2021-03-01</option>
+                                <option value="2021-03-08">2021-03-08</option>
+                                <option value="2021-03-15">2021-03-15</option>
+                                <option value="2021-03-22">2021-03-22</option>
+                                <option value="2021-03-29">2021-03-29</option>
+                                <option value="2021-04-05">2021-04-05</option>
+                                <option value="2021-04-12">2021-04-12</option>
+                                <option value="2021-04-19">2021-04-19</option>
+                                <option value="2021-04-26">2021-04-26</option>
+                                <option value="2021-05-03">2021-05-03</option>
+                                <option value="2021-05-10">2021-05-10</option>
+                                <option value="2021-05-17">2021-05-17</option>
+                                <option value="2021-05-24">2021-05-24</option>
+                                <option value="2021-06-01">2021-06-01</option>
+                                <option value="2021-06-07">2021-06-07</option>
+                                <option value="2021-06-14">2021-06-14</option>
+                                <option value="2021-06-21">2021-06-21</option>
+                                <option value="2021-06-28">2021-06-28</option>
+                                <option value="2021-07-06">2021-07-06</option>
+                                <option value="2021-07-12">2021-07-12</option>
+                                <option value="2021-07-19">2021-07-19</option>
+                                <option value="2021-07-26">2021-07-26</option>
+                                <option value="2021-08-02">2021-08-02</option>
+                                <option value="2021-08-09">2021-08-09</option>
+                                <option value="2021-08-16">2021-08-16</option>
+                                <option value="2021-08-23">2021-08-23</option>
+                                <option value="2021-08-30">2021-08-30</option>
+                                <option value="2021-09-07">2021-09-07</option>
+                                <option value="2021-09-13">2021-09-13</option>
+                                <option value="2021-09-20">2021-09-20</option>
+                                <option value="2021-09-27">2021-09-27</option>
+                                <option value="2021-10-04">2021-10-04</option>
+                                <option value="2021-10-12">2021-10-12</option>
+                                <option value="2021-10-18">2021-10-18</option>
+                                <option value="2021-10-25">2021-10-25</option>
+                                <option value="2021-11-01">2021-11-01</option>
+                                <option value="2021-11-08">2021-11-08</option>
+                                <option value="2021-11-15">2021-11-15</option>
+                                <option value="2021-11-22">2021-11-22</option>
+                                <option value="2021-11-29">2021-11-29</option>
+                                <option value="2021-12-06">2021-12-06</option>
+                                <option value="2021-12-13">2021-12-13</option>
+                                <option value="2021-12-20">2021-12-20</option>
+                                <option value="2021-12-27">2021-12-27</option>
+                                <option value="2022-01-03">2022-01-03</option>
+                                <option value="2022-01-10">2022-01-10</option>
+                                <option value="2022-01-18">2022-01-18</option>
+                                <option value="2022-01-24">2022-01-24</option>
+                                <option value="2022-01-31">2022-01-31</option>
+                                <option value="2022-02-07">2022-02-07</option>
+                                <option value="2022-02-14">2022-02-14</option>
+                                <option value="2022-02-22">2022-02-22</option>
+                                <option value="2022-02-28">2022-02-28</option>
+                                <option value="2022-03-07">2022-03-07</option>
+                                <option value="2022-03-14">2022-03-14</option>
+                                <option value="2022-03-21">2022-03-21</option>
+                                <option value="2022-03-28">2022-03-28</option>
+                                <option value="2022-04-04">2022-04-04</option>
+                                <option value="2022-04-11">2022-04-11</option>
+                                <option value="2022-04-18">2022-04-18</option>
+                                <option value="2022-04-25">2022-04-25</option>
+                                <option value="2022-05-02">2022-05-02</option>
+                                <option value="2022-05-09">2022-05-09</option>
+                                <option value="2022-05-16">2022-05-16</option>
+                                <option value="2022-05-23">2022-05-23</option>
+                                <option value="2022-05-31">2022-05-31</option>
+                                <option value="2022-06-06">2022-06-06</option>
+                                <option value="2022-06-13">2022-06-13</option>
+                                <option value="2022-06-21">2022-06-21</option>
+                                <option value="2022-06-27">2022-06-27</option>
+                                <option value="2022-07-05">2022-07-05</option>
+                                <option value="2022-07-11">2022-07-11</option>
+                                <option value="2022-07-18">2022-07-18</option>
+                                <option value="2022-07-25">2022-07-25</option>
+                                <option value="2022-08-01">2022-08-01</option>
+                                <option value="2022-08-08">2022-08-08</option>
+                                <option value="2022-08-15">2022-08-15</option>
+                                <option value="2022-08-22">2022-08-22</option>
+                                <option value="2022-08-29">2022-08-29</option>
+                                <option value="2022-09-06">2022-09-06</option>
+                                <option value="2022-09-12">2022-09-12</option>
+                                <option value="2022-09-19">2022-09-19</option>
+                                <option value="2022-09-26">2022-09-26</option>
+                                <option value="2022-10-03">2022-10-03</option>
+                                <option value="2022-10-11">2022-10-11</option>
+                                <option value="2022-10-17">2022-10-17</option>
+                                <option value="2022-10-24">2022-10-24</option>
+                                <option value="2022-10-31">2022-10-31</option>
+                                <option value="2022-11-07">2022-11-07</option>
+                                <option value="2022-11-14">2022-11-14</option>
+                                <option value="2022-11-21">2022-11-21</option>
+                                <option value="2022-11-28">2022-11-28</option>
+                                <option value="2022-12-05">2022-12-05</option>
+                                <option value="2022-12-12">2022-12-12</option>
+                                <option value="2022-12-19">2022-12-19</option>
+                                <option value="2022-12-27">2022-12-27</option>
+                                <option value="2023-01-03">2023-01-03</option>
+                                <option value="2023-01-09">2023-01-09</option>
+                                <option value="2023-01-17">2023-01-17</option>
+                                <option value="2023-01-23">2023-01-23</option>
+                                <option value="2023-01-30">2023-01-30</option>
+                                <option value="2023-02-06">2023-02-06</option>
+                                <option value="2023-02-13">2023-02-13</option>
+                                <option value="2023-02-21">2023-02-21</option>
+                                <option value="2023-02-27">2023-02-27</option>
+                                <option value="2023-03-06">2023-03-06</option>
+                                <option value="2023-03-13">2023-03-13</option>
+                                <option value="2023-03-20">2023-03-20</option>
+                                <option value="2023-03-27">2023-03-27</option>
+                                <option value="2023-04-03">2023-04-03</option>
+                                <option value="2023-04-10">2023-04-10</option>
+                                <option value="2023-04-17">2023-04-17</option>
+                                <option value="2023-04-24">2023-04-24</option>
+                                <option value="2023-05-01">2023-05-01</option>
+                                <option value="2023-05-08">2023-05-08</option>
+                                <option value="2023-05-15">2023-05-15</option>
+                                <option value="2023-05-22">2023-05-22</option>
+                                <option value="2023-05-30">2023-05-30</option>
+                                <option value="2023-06-05">2023-06-05</option>
+                                <option value="2023-06-12">2023-06-12</option>
+                                <option value="2023-06-20">2023-06-20</option>
+                                <option value="2023-06-26">2023-06-26</option>
+                                <option value="2023-07-03">2023-07-03</option>
+                                <option value="2023-07-10">2023-07-10</option>
+                                <option value="2023-07-17">2023-07-17</option>
+                                <option value="2023-07-24">2023-07-24</option>
+                                <option value="2023-07-31">2023-07-31</option>
+                                <option value="2023-08-07">2023-08-07</option>
+                                <option value="2023-08-14">2023-08-14</option>
+                                <option value="2023-08-21">2023-08-21</option>
+                                <option value="2023-08-28">2023-08-28</option>
+                                <option value="2023-09-05">2023-09-05</option>
+                                <option value="2023-09-11">2023-09-11</option>
+                                <option value="2023-09-18">2023-09-18</option>
+                                <option value="2023-09-25">2023-09-25</option>
+                                <option value="2023-10-02">2023-10-02</option>
+                                <option value="2023-10-10">2023-10-10</option>
+                                <option value="2023-10-16">2023-10-16</option>
+                                <option value="2023-10-23">2023-10-23</option>
+                                <option value="2023-10-30">2023-10-30</option>
+                                <option value="2023-11-06">2023-11-06</option>
+                                <option value="2023-11-13">2023-11-13</option>
+                                <option value="2023-11-20">2023-11-20</option>
+                                <option value="2023-11-27">2023-11-27</option>
+                                <option value="2023-12-04">2023-12-04</option>
+                                <option value="2023-12-11">2023-12-11</option>
+                                <option value="2023-12-18">2023-12-18</option>
+                                <option value="2023-12-26">2023-12-26</option>
+                                <option value="2024-01-02">2024-01-02</option>
+                                <option value="2024-01-08">2024-01-08</option>
+                                <option value="2024-01-16">2024-01-16</option>
+                                <option value="2024-01-22">2024-01-22</option>
+                                <option value="2024-01-29">2024-01-29</option>
+                                <option value="2024-02-05">2024-02-05</option>
+                                <option value="2024-02-12">2024-02-12</option>
+                                <option value="2024-02-20">2024-02-20</option>
+                                <option value="2024-02-26">2024-02-26</option>
+                                <option value="2024-03-04">2024-03-04</option>
+                                <option value="2024-03-11">2024-03-11</option>
+                                <option value="2024-03-18">2024-03-18</option>
+                                <option value="2024-03-25">2024-03-25</option>
+                                <option value="2024-04-01">2024-04-01</option>
+                                <option value="2024-04-08">2024-04-08</option>
+                                <option value="2024-04-15">2024-04-15</option>
+                                <option value="2024-04-22">2024-04-22</option>
+                                <option value="2024-04-29">2024-04-29</option>
+                                <option value="2024-05-06">2024-05-06</option>
+                                <option value="2024-05-13">2024-05-13</option>
+                                <option value="2024-05-20">2024-05-20</option>
+                                <option value="2024-05-28">2024-05-28</option>
+                                <option value="2024-06-03">2024-06-03</option>
+                                <option value="2024-06-10">2024-06-10</option>
+                                <option value="2024-06-17">2024-06-17</option>
+                                <option value="2024-06-24">2024-06-24</option>
+                                <option value="2024-07-01">2024-07-01</option>
+                                <option value="2024-07-08">2024-07-08</option>
+                                <option value="2024-07-15">2024-07-15</option>
+                                <option value="2024-07-22">2024-07-22</option>
+                                <option value="2024-07-29">2024-07-29</option>
+                                <option value="2024-08-05">2024-08-05</option>
+                                <option value="2024-08-12">2024-08-12</option>
+                                <option value="2024-08-19">2024-08-19</option>
+                                <option value="2024-08-26">2024-08-26</option>
+                                <option value="2024-09-03">2024-09-03</option>
+                                <option value="2024-09-09">2024-09-09</option>
+                                <option value="2024-09-16">2024-09-16</option>
+                                <option value="2024-09-23">2024-09-23</option>
+                                <option value="2024-09-30">2024-09-30</option>
+                                <option value="2024-10-07">2024-10-07</option>
+                                <option value="2024-10-15">2024-10-15</option>
+                                <option value="2024-10-21">2024-10-21</option>
+                                <option value="2024-10-28">2024-10-28</option>
+                                <option value="2024-11-04">2024-11-04</option>
+                                <option value="2024-11-12">2024-11-12</option>
+                                <option value="2024-11-18">2024-11-18</option>
+                                <option value="2024-11-25">2024-11-25</option>
+                                <option value="2024-12-02">2024-12-02</option>
+                                <option value="2024-12-09">2024-12-09</option>
+                                <option value="2024-12-16">2024-12-16</option>
+                                <option value="2024-12-23">2024-12-23</option>
+                                <option value="2024-12-30">2024-12-30</option>
+                                <option value="2025-01-06">2025-01-06</option>
+                                <option value="2025-01-13">2025-01-13</option>
+                                <option value="2025-01-21">2025-01-21</option>
+                                <option value="2025-01-27">2025-01-27</option>
+                                <option value="2025-02-03">2025-02-03</option>
+                                <option value="2025-02-10">2025-02-10</option>
+                                <option value="2025-02-18">2025-02-18</option>
+                                <option value="2025-02-24">2025-02-24</option>
+                                <option value="2025-03-03">2025-03-03</option>
+                                <option value="2025-03-10">2025-03-10</option>
+                                <option value="2025-03-17">2025-03-17</option>
+                                <option value="2025-03-24">2025-03-24</option>
+                                <option value="2025-03-31">2025-03-31</option>
+                                <option value="2025-04-07">2025-04-07</option>
+                                <option value="2025-04-14">2025-04-14</option>
+                                <option value="2025-04-21">2025-04-21</option>
+                                <option value="2025-04-28">2025-04-28</option>
+                                <option value="2025-05-05">2025-05-05</option>
+                                <option value="2025-05-12">2025-05-12</option>
+                                <option value="2025-05-19">2025-05-19</option>
+                                <option value="2025-05-27">2025-05-27</option>
+                                <option value="2025-06-02">2025-06-02</option>
+                                <option value="2025-06-09">2025-06-09</option>
+                                <option value="2025-06-16">2025-06-16</option>
+                                <option value="2025-06-23">2025-06-23</option>
+                                <option value="2025-06-30">2025-06-30</option>
+                                <option value="2025-07-07">2025-07-07</option>
+                                <option value="2025-07-14">2025-07-14</option>
+                                <option value="2025-07-21">2025-07-21</option>
+                                <option value="2025-07-28">2025-07-28</option>
+                                <option value="2025-08-04">2025-08-04</option>
+                                <option value="2025-08-11">2025-08-11</option>
+                                <option value="2025-08-18">2025-08-18</option>
+                                <option value="2025-08-25">2025-08-25</option>
+                                <option value="2025-09-02">2025-09-02</option>
+                                <option value="2025-09-08">2025-09-08</option>
+                                <option value="2025-09-15">2025-09-15</option>
+                                <option value="2025-09-22">2025-09-22</option>
+                                <option value="2025-09-29">2025-09-29</option>
+                                <option value="2025-10-06">2025-10-06</option>
+                                <option value="2025-10-14">2025-10-14</option>
+                                <option value="2025-10-20">2025-10-20</option>
+                                <option value="2025-10-27">2025-10-27</option>
+                                <option value="2025-11-03">2025-11-03</option>
+                                <option value="2025-11-10">2025-11-10</option>
+                                <option value="2025-11-17">2025-11-17</option>
+                                <option value="2025-11-24">2025-11-24</option>
+                                <option value="2025-12-01">2025-12-01</option>
+                                <option value="2025-12-08">2025-12-08</option>
+                                <option value="2025-12-15">2025-12-15</option>
+                                <option value="2025-12-22">2025-12-22</option>
+                                <option value="2025-12-29">2025-12-29</option>
+                                <option value="2026-01-05">2026-01-05</option>
+                                <option value="2026-01-12">2026-01-12</option>
+                                <option value="2026-01-20">2026-01-20</option>
+                                <option value="2026-01-26">2026-01-26</option>
+                                <option value="2026-02-02">2026-02-02</option>
+                                <option value="2026-02-09">2026-02-09</option>
+                                <option value="2026-02-17">2026-02-17</option>
+                                <option value="2026-02-23">2026-02-23</option>
+                                <option value="2026-03-02">2026-03-02</option>
+                                <option value="2026-03-09">2026-03-09</option>
+                                <option value="2026-03-16">2026-03-16</option>
+                                <option value="2026-03-23">2026-03-23</option>
+                                <option value="2026-03-30">2026-03-30</option>
+                                <option value="2026-04-06">2026-04-06</option>
+                                <option value="2026-04-13">2026-04-13</option>
+                                <option value="2026-04-20">2026-04-20</option>
+                                <option value="2026-04-27">2026-04-27</option>
+                                <option value="2026-05-04">2026-05-04</option>
+                                <option value="2026-05-11">2026-05-11</option>
+                                <option value="2026-05-18">2026-05-18</option>
+                                <option value="2026-05-26">2026-05-26</option>
+                                <option value="2026-06-01">2026-06-01</option>
+                                <option value="2026-06-08">2026-06-08</option>
+                                <option value="2026-06-15">2026-06-15</option>
+                                <option value="2026-06-22">2026-06-22</option>
+                                <option value="2026-06-29">2026-06-29</option>
+                                <option value="2026-07-06">2026-07-06</option>
+                                <option value="2026-07-13">2026-07-13</option>
+                                <option value="2026-07-20">2026-07-20</option>
+                                <option value="2026-07-27">2026-07-27</option>
+                                <option value="2026-08-03">2026-08-03</option>
+                                <option value="2026-08-10">2026-08-10</option>
+                                <option value="2026-08-17">2026-08-17</option>
+                                <option value="2026-08-24">2026-08-24</option>
+                                <option value="2026-08-31">2026-08-31</option>
+                                <option value="2026-09-08">2026-09-08</option>
+                                <option value="2026-09-14">2026-09-14</option>
+                                <option value="2026-09-21">2026-09-21</option>
+                                <option value="2026-09-28">2026-09-28</option>
+                                <option value="2026-10-05">2026-10-05</option>
+                                <option value="2026-10-13">2026-10-13</option>
+                                <option value="2026-10-19">2026-10-19</option>
+                  </select>
+    <p>
+      <label for="form_vintage_datez" class="required">Use the "Ctrl" key with the mouse pointer to select and deselect multiple vintage dates.  Use the "Shift" key with the mouse pointer to select the first and last vintage dates in a range.</label>
+    </p>
+    <p>
+      <strong>
+        <label for="form_entered_vintage_dates">AND\OR Enter Vintage Dates:</label>
+      </strong>
+    </p>
+    <p>
+      <input type="text" id="form_entered_vintage_dates" name="form[entered_vintage_dates]" maxlength="500">
+    </p>
+    <p>
+      <strong>
+        <label for="form_file_type" class="required">Output Format:</label>
+      </strong>
+    </p>
+    <p>
+      <select id="form_file_type" name="form[file_type]">
+                              <option value="2" selected="selected">Observations by Vintage Date, All Observations</option>
+          }
+                              <option value="3">Observations by Vintage Date, New and Revised Observations Only</option>
+          }
+                              <option value="1">Observations by Real-Time Period</option>
+          }
+                              <option value="4">Observations, Initial Release Only</option>
+          }
+              </select>
+    </p>
+    <p>
+      <strong>
+        <label for="form_file_format" class="required">File Format:</label>
+      </strong>
+    </p>
+    <p>
+      <select id="form_file_format" name="form[file_format]">
+                              <option value="xlsx" selected="selected">Excel</option>
+                                        <option value="csv">Zipped CSV</option>
+                        </select>
+    </p>
+    <p>
+      <button type="submit" id="form_download_data" name="form[download_data]">Download data</button>
+    </p>
+  </form>
+</div>
+
+<script type="text/javascript" src="/assets/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+$(function(){
+    
+    var fevd = $('#form_entered_vintage_dates');
+    var ipt = 'f';
+    
+    /*
+    * Tooltip script 
+    * powered by jQuery (http://www.jquery.com)
+    * 
+    * written by Alen Grakalic (http://cssglobe.com)
+    * 
+    * for more info visit http://cssglobe.com/post/1695/easiest-tooltip-and-image-preview-using-jquery
+    *
+    * Modified to add live event binding.
+    */
+
+    // these 2 variable determine popup's distance from the cursor
+    // you might want to adjust to get the right result    
+    tt_xOffset = 10;
+    tt_yOffset = 20;    
+    
+    $('a.tooltip').on('mouseenter', function (e) {
+            this.t = this.title;
+            this.title = "";
+            $("body").append("<p id='tooltip'>"+ this.t +"</p>");
+            $("#tooltip")
+                .css("top",(e.pageY - tt_xOffset) + "px")
+                .css("left",(e.pageX + tt_yOffset) + "px")
+                .fadeIn("fast");        
+    });
+    
+    $('a.tooltip').on('mouseleave', function () {
+        this.title = this.t;        
+        $("#tooltip").remove();
+    }); 
+
+    $('a.tooltip').on('mousemove', function(e) {
+        $("#tooltip")
+            .css("top",(e.pageY - tt_xOffset) + "px")
+            .css("left",(e.pageX + tt_yOffset) + "px");
+    });
+    
+    $('#form_download_data').on('click', function() {
+        ga('send', 'event', 'download', 'click', document.location.pathname);
+    });
+  
+});
+</script>
+
+                </div>
+                    
+        <br class="clear">
+        </div>
+    </main>
+        <footer fed="footer"
+            class="row">
+        <div class="fed__max_width">
+            <div fed="footer__col__left"
+                 class="col-sm-12 col-md-6">
+                <div fed="newsletter">
+                    <div class="col-sm-12">
+                        <h3>Subscribe to the FRED newsletter</h3>
+                        <form fed="newsletter"
+                              role="form"
+                              method="post"
+                              class="form-horizontal newsletter-form"
+                        >
+                            <div>
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input fed="email"
+                                               type="text"
+                                               name="email"
+                                               class="form-control email"
+                                               placeholder="Email">
+                                        <button type="submit" class="btn">
+                                            Subscribe
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div fed="social">
+                    <h3>Follow us</h3>
+                    <div fed="social_icons"
+                         class="col-12">
+                    <span fed="icon__linkedin"
+                          class="icon-container">
+                        <a href="http://bit.ly/d056zL"
+                           target="_blank">
+                            <img fed="icon__linkedin"
+                                 src="/svgs/social_icons/linkedin__off.svg"
+                                 alt="LinkedIn">
+                        </a>
+                    </span>
+                        <span fed="icon__facebook"
+                              class="icon-container">
+                        <a href="http://bit.ly/HeaderFB"
+                           target="_blank">
+                            <img fed="icon__facebook"
+                                 src="/svgs/social_icons/facebook__off.svg"
+                                 alt="Facebook">
+                        </a>
+                    </span>
+                        <span fed="icon__x"
+                              class="icon-container">
+                        <a href="http://bit.ly/9ngC3L"
+                           target="_blank">
+                            <img fed="icon__x"
+                                 src="/svgs/social_icons/x__off.svg"
+                                 alt="X">
+                        </a>
+                    </span>
+                        <span fed="icon__youtube"
+                              class="icon-container">
+                        <a href="http://bit.ly/aY9TVF"
+                           target="_blank">
+                            <img fed="icon__youtube"
+                                 src="/svgs/social_icons/youtube__off.svg"
+                                 alt="YouTube">
+                        </a>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div fed="footer__col__right"
+                 class="col-sm-12 col-md-6">
+                <h3>Need Help?</h3>
+                <div>
+                    <a href="https://fred.stlouisfed.org/contactus/">Questions or Comments</a>
+                </div>
+                <div style="padding: 10px 0;">
+                    <a href="/help">ALFRED Help</a>
+                </div>
+                <hr fed="fcr">
+                <div class="mt-3">
+                    <a href="//fred.stlouisfed.org/legal/">Legal</a>
+                </div>
+                <div class="mt-3">
+                    <a href="//www.stlouisfed.org/research/privacy.html">Privacy Notice & Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+<a fed="back_to_top"
+   href="javascript:void(0);">
+    <i class="fa fa-chevron-up"></i>
+</a>
+<script src="/js/fed.js"></script>
+    <script src="/assets/bootstrap/dist/js/1792642242.bootstrap.bundle.min.js"></script>
+<script src="//www.google.com/jsapi?key=ABQIAAAAPelFyeCz0PpV85SR5rWaqRRhAb2Ap3qYoysH45CbGq2mti5UQBSkEmzrEopuvbJMUl_7-XoJ24PVBg"></script>
+<script src="/assets/jquery/dist/1792642242.jquery.min.js" type="text/javascript"></script>
+<script src="/assets/popperjs/dist/umd/1792642242.popper.min.js"></script>
+<script src="/assets/select2/dist/js/1792642242.select2.min.js"></script>
+<script src="/assets/jquery-hoverintent/1792642242.jquery.hoverIntent.min.js"></script>
+<script src="/js/common.js"></script>
+<script>
+    function getCookie(name) {
+        var cookies = document.cookie.split(';');
+        for (var i in cookies) {
+            var cookie = cookies[i].trim().split('=');
+            if (cookie[0] == name) {
+                return cookie[1];
+            }
+        }
+        return null;
+    }
+
+    var appConfig = {
+        research_host: 'https://www.stlouisfed.org/research',
+        fred_host: 'https://fred.stlouisfed.org',
+        alfred_host: 'https://alfred.stlouisfed.org',
+        gsi_client_id: '115290014367-vpb89b600koe9kn0njeeq38c1unfr3gk.apps.googleusercontent.com',
+        fred_account_host: 'https://fredaccount.stlouisfed.org',
+    };
+    var domain_suffix = (window.location.hostname.split(".")[0].split("-")[1] || '');
+    appConfig.logged_in = getCookie('research-lirua' + (domain_suffix ? '-' + domain_suffix : '')) !== null && getCookie('research-lirua' + (domain_suffix ? '-' + domain_suffix : '')) !== undefined;
+    var getAuth = function (callback) {
+        if (typeof callback === 'function') {
+            callback();
+        }
+        return;
+    };
+    window.getAuth = getAuth;
+</script>
+<script src="/assets/dompurify/dist/1792642242.purify.min.js"></script>
+<script defer src="/js/1792641192.banner.js"></script>
+<script src="//accounts.google.com/gsi/client" async defer></script>
+
+</div>
+<script>
+    $(window).on('load', function (e) {
+        if (typeof fredgraphUi !== "undefined") {
+            var graph,
+                container;
+            graph = {
+                'selector': '#resizable-graph-container',
+                'width': 0,
+                'original_width': 0
+            };
+            container = {
+                'selector': '#zoom-and-share',
+                'width': 0
+            };
+        }
+        setTimeout(function () {
+            $(document).data('redraw', false);
+        }, 1500);
+        $('#input-cosd, #input-coed').on('click', function () {
+            $('.datepicker-years').css('display', 'block');
+        });
+    });
+    $('.select-all-checkboxes').on('click', function () {
+        $('input:checkbox').prop('checked', $(this).prop('checked'));
+    });
+    $('.pager-item-checkbox').on('click', function () {
+        if ($(this).prop('checked')) {
+            return true;
+        }
+        $('.select-all-checkboxes').prop('checked', false);
+    });
+    $('.help-question span.link').on('click', function () {
+        $(this).parent('.help-question').next('.help-answer').toggle();
+    });
+    var getUserBrowserDetails = function () {
+        var nVer = navigator.appVersion;
+        var nAgt = navigator.userAgent;
+        var browserName = navigator.appName;
+        var fullVersion = '' + parseFloat(navigator.appVersion);
+        var nameOffset, verOffset, ix;
+        // In Opera, the true version is after "Opera" or after "Version"
+        if ((verOffset = nAgt.indexOf("Opera")) != -1) {
+            browserName = "Opera";
+            fullVersion = nAgt.substring(verOffset + 6);
+            if ((verOffset = nAgt.indexOf("Version")) != -1)
+                fullVersion = nAgt.substring(verOffset + 8);
+        }
+        // In MSIE, the true version is after "MSIE" in userAgent
+        else if ((verOffset = nAgt.indexOf("MSIE")) != -1) {
+            browserName = "Microsoft Internet Explorer";
+            fullVersion = nAgt.substring(verOffset + 5);
+        }
+        // Other versions of IE
+        else if ((nAgt.indexOf(".NET")) != -1 || (nAgt.indexOf("Media Center")) != -1) {
+            browserName = "Microsoft Internet Explorer";
+            var rvIndex = nAgt.indexOf("rv:");
+            fullVersion = nAgt.substring(rvIndex + 3);
+        }
+        // In Chrome, the true version is after "Chrome" 
+        else if ((verOffset = nAgt.indexOf("Chrome")) != -1) {
+            browserName = "Chrome";
+            fullVersion = nAgt.substring(verOffset + 7);
+        }
+        // In Safari, the true version is after "Safari" or after "Version" 
+        else if ((verOffset = nAgt.indexOf("Safari")) != -1) {
+            browserName = "Safari";
+            fullVersion = nAgt.substring(verOffset + 7);
+            if ((verOffset = nAgt.indexOf("Version")) != -1)
+                fullVersion = nAgt.substring(verOffset + 8);
+        }
+        // In Firefox, the true version is after "Firefox" 
+        else if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
+            browserName = "Firefox";
+            fullVersion = nAgt.substring(verOffset + 8);
+        }
+        // In most other browsers, "name/version" is at the end of userAgent 
+        else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) <
+            (verOffset = nAgt.lastIndexOf('/'))) {
+            browserName = nAgt.substring(nameOffset, verOffset);
+            fullVersion = nAgt.substring(verOffset + 1);
+            if (browserName.toLowerCase() == browserName.toUpperCase()) {
+                browserName = navigator.appName;
+            }
+        }
+        // trim the fullVersion string at semicolon/space/closing parenthesis if present
+        if ((ix = fullVersion.indexOf(";")) != -1)
+            fullVersion = fullVersion.substring(0, ix);
+        if ((ix = fullVersion.indexOf(" ")) != -1)
+            fullVersion = fullVersion.substring(0, ix);
+        if ((ix = fullVersion.indexOf(")")) != -1)
+            fullVersion = fullVersion.substring(0, ix);
+        // This script sets OSName variable as follows:
+        // "Windows"    for all versions of Windows
+        // "MacOS"      for all versions of Macintosh OS
+        // "Linux"      for all versions of Linux
+        // "UNIX"       for all other UNIX flavors 
+        // "Unknown OS" indicates failure to detect the OS
+        var OSName = "Unknown OS";
+        if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
+        if (navigator.appVersion.indexOf("Mac") != -1) OSName = "MacOS";
+        if (navigator.appVersion.indexOf("X11") != -1) OSName = "UNIX";
+        if (navigator.appVersion.indexOf("Linux") != -1) OSName = "Linux";
+        // Viewport size
+        var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        return {
+            name: browserName,
+            version: fullVersion,
+            userAgent: navigator.userAgent,
+            os: OSName,
+            viewportSize: w + ' x ' + h,
+        };
+    };
+</script>
+
+<script type="text/javascript"  src="/oYdg/bQeN/mlb6W/S_zPQ/9ci3bhhGmch0t61Q/bXBh/GGBXJwA/KAEM"></script></body>
+</html>

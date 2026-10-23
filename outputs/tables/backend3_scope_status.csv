@@ -1,5 +1,5 @@
 variables,status,reason
 volume,completed,matched rows and fixed full-model settings
-VIX,blocked_unverified_point_in_time,historical release/vintage unavailable
-USD,blocked_unverified_point_in_time,historical release/vintage unavailable
+VIX,completed_sensitivity_only,ALFRED historical vintages; conservative availability; matched samples
+USD,completed_sensitivity_only,ALFRED historical vintages; conservative availability; matched samples
 GRU,excluded_user_scope,optional work deferred by user

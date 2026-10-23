@@ -47,9 +47,9 @@ Chạy từng bước bằng các module `src.data.download`, `src.data.clean`, 
 
 BTCUSDT/ETHUSDT spot 5 phút từ 01/12/2018 đến 17/10/2026 UTC, 828.050 nến mỗi coin; 12/2018 là dữ liệu đệm; warmup 2019–2020, đánh giá 2021–2025, holdout 2026 (hiện đến 17/10/2026). Mỗi coin có 21 ngày thiếu nến, không tự lấp giá hay RV bằng 0. RV tham chiếu chỉ có ở ngày đủ điều kiện; return qua khoảng trống không được tính như return 5 phút.
 
-VIX/USD đã thu thập và có forward-fill cho mô tả, nhưng chưa xác minh thời điểm công bố/vintage lịch sử. Theo quy định nhóm, macro chỉ dành cho kiểm tra độ nhạy sau khi xác minh; không đưa vào mô hình chính. CoinGecko đối chiếu 365 ngày; các khác biệt nguồn được ghi trong quality report. QA ngày và dataset feature/target được lưu riêng. Chi tiết tại `docs/GROUP_PROTOCOL.md`. Backend 3 bổ sung Elastic Net và XGBoost vào HAR/GARCH/GJR; xem trạng thái và giới hạn hiện tại trong `docs/backend3.md`.
+VIX/USD trong bộ FRED cũ chỉ dùng mô tả. Bộ ALFRED bổ sung có snapshot vintage lịch sử, hash và quy tắc khả dụng bảo thủ; chỉ dùng sensitivity, không đưa vào mô hình chính. Xem `docs/macro_sensitivity.md`. CoinGecko đối chiếu 365 ngày; các khác biệt nguồn được ghi trong quality report. QA ngày và dataset feature/target được lưu riêng. Chi tiết tại `docs/GROUP_PROTOCOL.md`. Backend 3 bổ sung Elastic Net và XGBoost vào HAR/GARCH/GJR; xem `docs/backend3.md`.
 
-Unit test và kiểm tra dữ liệu bàn giao được dùng để xác nhận timestamp, return, điều kiện RV và hash nguồn; chưa thay thế kiểm tra leakage của feature/model.
+Unit test bao phủ timestamp, return, điều kiện RV, hash nguồn và leakage của feature/model; các bước validation kiểm tra thêm dự báo thật và provenance. Kết quả kiểm tra kỹ thuật không chứng minh mô hình có lợi thế dự báo hoặc hiệu quả kinh tế.
 
 Nguồn chính thức: [Binance](https://github.com/binance/binance-public-data), [FRED VIX](https://fred.stlouisfed.org/series/VIXCLS), [FRED USD](https://fred.stlouisfed.org/series/DTWEXBGS), [Fed H.10](https://www.federalreserve.gov/releases/h10/about.htm), [CoinGecko](https://docs.coingecko.com/demo/reference/coins-id-market-chart). Chi tiết từng file nguồn có tại `docs/source_log.csv`.
 
@@ -93,7 +93,7 @@ Hướng dẫn chính: **[docs/backend2.md](docs/backend2.md)**. Chạy sau khi 
 .\.venv\Scripts\python.exe -m src.backend2
 ```
 
-Đã có HAR-RV OLS, GARCH(1,1)-t, GJR-GARCH-t, tổ hợp ba mô hình, chẩn đoán tham số/residual và bản xuất σ cho risk backend. Kết quả thật 2021–2025 ở `outputs/forecasts/`, `outputs/volatility/`, `outputs/diagnostics/`; bảng/hình đánh giá dùng chung với Backend 1. XGBoost và VaR/ES thuộc phần tiếp theo. Holdout 2026 chưa chấm điểm. Review độc lập của thành viên nhóm còn chờ; ghi chú tại `docs/backend2_review.md`.
+Đã có HAR-RV OLS, GARCH(1,1)-t, GJR-GARCH-t, tổ hợp ba mô hình, chẩn đoán tham số/residual và bản xuất σ cho risk backend. Kết quả thật 2021–2025 ở `outputs/forecasts/`, `outputs/volatility/`, `outputs/diagnostics/`; bảng/hình đánh giá dùng chung với Backend 1. XGBoost đã được tích hợp tại Backend 3; VaR/ES thuộc Backend 4. Holdout 2026 chưa chấm điểm. Ghi chú kiểm tra kỹ thuật tại `docs/backend2_review.md`.
 
 ## Backend 3: điểm bắt đầu hiện tại
 
@@ -103,4 +103,4 @@ Hướng dẫn chính: **[docs/backend2.md](docs/backend2.md)**. Chạy sau khi 
 .\.venv\Scripts\python.exe -m src.backend3
 ```
 
-Có Elastic Net, XGBoost với cấu hình khóa từ warmup, TreeSHAP tại các origin ngoài mẫu, ablation volume trên cùng dòng train và tổ hợp HAR/GARCH/GJR/XGBoost. File dự báo/σ dùng chung hợp đồng với Backend 2; bản ablation nằm riêng. Kết quả VIX/USD chưa được tạo vì chưa xác minh historical release/vintage. GRU tùy chọn được hoãn theo lựa chọn của người dùng. Phần tiếp theo là Backend 4: VaR/ES và backtesting; holdout 2026 vẫn giữ cho bước cuối. Không viết chương báo cáo học thuật.
+Có Elastic Net, XGBoost với cấu hình khóa từ warmup, TreeSHAP tại các origin ngoài mẫu, ablation volume trên cùng dòng train và tổ hợp HAR/GARCH/GJR/XGBoost. File dự báo/σ dùng chung hợp đồng với Backend 2; bản ablation nằm riêng. Sensitivity VIX/USD dùng snapshot ALFRED, so sánh baseline/VIX/USD/cả hai trên cùng mẫu và giữ nguyên siêu tham số; xem `docs/macro_sensitivity.md`. `outputs/tables/feature_sets.csv` mô tả các nhóm biến; `outputs/tables/robustness.csv` tổng hợp rolling/expanding và h1/h7. GRU tùy chọn được hoãn theo lựa chọn của người dùng. Phần tiếp theo là Backend 4: VaR/ES và backtesting; holdout 2026 vẫn giữ cho bước cuối. Không viết chương báo cáo học thuật.

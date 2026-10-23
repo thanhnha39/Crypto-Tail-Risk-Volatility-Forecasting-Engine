@@ -69,4 +69,4 @@ Cập nhật backend-2: đã triển khai HAR OLS, GARCH/GJR Student-t, tổ h�
 
 Cập nhật backend-3: bổ sung Elastic Net, XGBoost, TreeSHAP ngoài mẫu, ablation volume và tổ hợp bốn mô hình. Siêu tham số chỉ chọn trên validation nằm trong warmup; GRU tùy chọn được hoãn theo lựa chọn của người dùng. Hướng dẫn ở `docs/backend3.md`; VaR/ES thuộc Backend 4. Macro sensitivity vẫn chờ xác minh release/vintage.
 
-Macro observations hiện chưa có release/vintage được xác minh; calendar forward-fill chỉ mô tả. Không đổi cờ `predictive_use_allowed=False` thành True để chạy sensitivity cho đủ bảng.
+Macro observations/calendar FRED cũ vẫn chỉ dùng mô tả, giữ cờ `predictive_use_allowed=False`. Bộ snapshot ALFRED bổ sung có ngày vintage và hash riêng; chỉ nhánh sensitivity được opt-in sau kiểm tra provenance và thời điểm khả dụng. Không thay dataset hoặc cấu hình mô hình chính. Xem `docs/macro_sensitivity.md`.

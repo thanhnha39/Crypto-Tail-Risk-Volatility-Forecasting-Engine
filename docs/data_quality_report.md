@@ -41,7 +41,7 @@ Ngày lệch trên 2% đã được đối chiếu thêm với archive Binance 1
 | DTWEXBGS | 2050 | 1961 | 2026-10-09 00:00:00+00:00 |
 | VIXCLS | 2054 | 2010 | 2026-10-15 00:00:00+00:00 |
 
-**Đã thu thập, chưa đủ xác minh point-in-time để đưa vào feature dự báo.** FRED tải hiện tại có thể chứa sửa đổi; ngày quan sát không phải thời điểm công bố. H.10/USD được công bố theo tuần, vì vậy shift một ngày đơn thuần chưa đủ. Bảng observations để available_at trống và point_in_time_verified=False. Bản calendar forward-fill chỉ dành cho mô tả, tên file DESCRIPTIVE_ONLY và predictive_use_allowed=False; không backfill đầu chuỗi. Khi có lịch release/vintage kiểm chứng được, Châu/Huân mới ghép as-of để làm feature. Theo quy định nhóm, macro bị loại khỏi mô hình chính; chỉ dùng kiểm tra độ nhạy sau khi xác minh release/vintage.
+**Bộ FRED snapshot gốc chỉ dành cho mô tả.** Bộ ALFRED vintage bổ sung được mô tả riêng ở docs/macro_sensitivity.md; các giới hạn dưới đây vẫn áp dụng cho observations/calendar FRED cũ. FRED tải hiện tại có thể chứa sửa đổi; ngày quan sát không phải thời điểm công bố. H.10/USD được công bố theo tuần, vì vậy shift một ngày đơn thuần chưa đủ. Bảng observations để available_at trống và point_in_time_verified=False. Bản calendar forward-fill chỉ dành cho mô tả, tên file DESCRIPTIVE_ONLY và predictive_use_allowed=False; không backfill đầu chuỗi. Khi có lịch release/vintage kiểm chứng được, Châu/Huân mới ghép as-of để làm feature. Theo quy định nhóm, macro bị loại khỏi mô hình chính; chỉ dùng kiểm tra độ nhạy sau khi xác minh release/vintage.
 
 ## Bốn quy ước đã thống nhất
 
@@ -52,7 +52,7 @@ Ngày lệch trên 2% đã được đối chiếu thêm với archive Binance 1
 | Target 7 ngày | Tổng RV(t+1)...RV(t+7), %²; yêu cầu đủ 7 RV; chỉ fit target đã quan sát đầy đủ |
 | Crisis | Phân vị 90% của RV trung bình 22 ngày; hiệu chuẩn warmup riêng coin rồi cố định; chỉ dùng thông tin đến origin |
 
-Chi tiết: docs/GROUP_PROTOCOL.md. Mới ghi quy định bàn giao; backend, target 7 ngày và ngưỡng crisis chưa được triển khai.
+Chi tiết: docs/GROUP_PROTOCOL.md. Tài liệu này mô tả bước Data; trạng thái tích hợp feature/target, regime và mô hình hiện tại xem docs/HANDOFF.md.
 
 ## Bảng và hình dùng cho chương 3
 
@@ -60,7 +60,7 @@ Bảng nguồn: source_log.csv; từ điển biến: docs/data_dictionary.md; th
 
 ## Bộ bàn giao và bước tiếp theo
 
-Nhận *_5m_clean.parquet, *_daily_quality.parquet, *_quarantine.parquet, QA daily reference, source log, dictionary, bảng thiếu/outlier và báo cáo này. Huân phụ trách tiếp phần chuẩn bị feature của Châu ở bước sau. Giữ ngày thiếu trên lịch, tạo feature đến hết ngày t UTC và target t+1; gán split của dataset mô hình theo target_date bằng cùng cấu hình giai đoạn. QA reference đã có nhãn ngày quan sát, chưa phải dataset feature/target và không có lệnh train. Quy định nhóm: HAR-RV, GARCH(1,1), GJR-GARCH, XGBoost; rolling 730 ngày, expanding để kiểm tra độ nhạy; ước lượng lại mỗi 5 ngày; horizon chính 1 ngày và kiểm tra độ nhạy 7 ngày; chỉ chọn siêu tham số XGBoost trên warmup. Xem docs/GROUP_PROTOCOL.md. Phần Huân còn lại là robustness và chương 3/7 theo tiến độ nhóm, sau khi có output mô hình.
+Nhận *_5m_clean.parquet, *_daily_quality.parquet, *_quarantine.parquet, QA daily reference, source log, dictionary, bảng thiếu/outlier và báo cáo này. Huân phụ trách tiếp phần chuẩn bị feature của Châu ở bước sau. Giữ ngày thiếu trên lịch, tạo feature đến hết ngày t UTC và target t+1; gán split của dataset mô hình theo target_date bằng cùng cấu hình giai đoạn. QA reference đã có nhãn ngày quan sát, chưa phải dataset feature/target và không có lệnh train. Quy định nhóm: HAR-RV, GARCH(1,1), GJR-GARCH, XGBoost; rolling 730 ngày, expanding để kiểm tra độ nhạy; ước lượng lại mỗi 5 ngày; horizon chính 1 ngày và kiểm tra độ nhạy 7 ngày; chỉ chọn siêu tham số XGBoost trên warmup. Xem docs/GROUP_PROTOCOL.md. Robustness của các mô hình đã tích hợp được xuất riêng ở outputs/tables/robustness.csv; các chương học thuật không nằm trong đợt triển khai code.
 
 ## Nguồn và giới hạn
 
@@ -72,4 +72,4 @@ Fed H.10: https://www.federalreserve.gov/releases/h10/about.htm
 
 CoinGecko API: https://docs.coingecko.com/demo/reference/coins-id-market-chart
 
-Số liệu trong báo cáo do nhóm tính từ các snapshot có hash; không khẳng định lịch sử Binance là toàn thị trường. Outlier chưa có bằng chứng độc lập không bị tự loại. Macro chưa được chứng minh availability/vintage nên bị chặn khỏi predictive core.
+Số liệu trong báo cáo do nhóm tính từ các snapshot có hash; không khẳng định lịch sử Binance là toàn thị trường. Outlier chưa có bằng chứng độc lập không bị tự loại. Bộ FRED cũ không dùng dự báo; bộ ALFRED vintage bổ sung chỉ dùng sensitivity theo docs/macro_sensitivity.md, không đưa vào predictive core.

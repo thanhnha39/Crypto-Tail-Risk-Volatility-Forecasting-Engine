@@ -1,6 +1,8 @@
-# Ghi chú trạng thái trên backend-1
+# Bàn giao tích hợp Data → Backend 1 → Backend 2 → Backend 3
 
-Phần bên dưới giữ quy tắc bàn giao dữ liệu nguồn. Backend 1 hiện đã tạo dataset feature/target, lịch chạy và regime; đọc docs/backend1.md cùng docs/forecast_format.md để sử dụng. Kết quả hiện có là baseline/HAR tham chiếu, chưa phải so sánh đủ bốn mô hình chính.
+Điểm bắt đầu hiện tại là nhánh `backend-3`, kế thừa Data, Backend 1 và Backend 2. Đã có dataset feature/target, lịch dự báo, regime, HAR-RV/GARCH/GJR-GARCH/XGBoost và Elastic Net. Bảng so sánh đủ bốn mô hình chính nằm tại `outputs/tables/model_comparison.csv`; hợp đồng đầu ra ở `docs/forecast_format.md`.
+
+Đọc `docs/backend3.md` để chạy ML/SHAP/ablation; `docs/backend2.md` để dùng volatility đầu vào cho Backend 4. `outputs/tables/robustness.csv` tổng hợp rolling/expanding và h1/h7 từ dự báo thật, cùng ngày khi so sánh hai cửa sổ. `outputs/tables/feature_sets.csv` liệt kê nhóm biến. Macro được xử lý riêng theo `docs/macro_sensitivity.md`, không đưa vào mô hình chính. Holdout 2026 dành cho lượt tích hợp cuối; không chạy để hoàn thiện bảng trung gian.
 
 
 
@@ -43,7 +45,7 @@ CoinGecko có 365 ngày đối chiếu/coin. Ngày 22/02/2026 lệch trên 2% v�
 
 ## Vĩ mô
 
-VIXCLS/DTWEXBGS đã có bảng observations. Chưa xác minh release/vintage lịch sử nên `available_at` trống, `point_in_time_verified=False`. Không dùng `macro_calendar_DESCRIPTIVE_ONLY.parquet` để huấn luyện; forward-fill ở đó chỉ phục vụ mô tả. H.10/USD có lịch công bố theo tuần, shift một ngày đơn thuần chưa đủ. Theo quy định nhóm, macro không nằm trong mô hình chính; chỉ dùng kiểm tra độ nhạy sau khi xác minh availability/vintage.
+Các bảng FRED observations cũ vẫn chưa xác minh vintage; không dùng `macro_calendar_DESCRIPTIVE_ONLY.parquet` để huấn luyện. Bộ bổ sung `data/interim/macro_vintages.parquet` lấy từ snapshot ALFRED lịch sử, có manifest/hash và quy tắc khả dụng bảo thủ riêng. Sensitivity có/không VIX/USD nằm trong `outputs/sensitivity/macro/` và `outputs/tables/backend3_macro_ablation.csv`; xem `docs/macro_sensitivity.md`. Macro không nằm trong mô hình chính.
 
 ## Cách mở nhanh
 
@@ -70,4 +72,4 @@ Chạy `python -m src.data.refresh` từ gốc repo trong môi trường đã c�
 - Target 7 ngày: tổng RV của t+1 đến t+7 (%²), yêu cầu đủ bảy ngày; chỉ fit nhãn đã quan sát đầy đủ.
 - Crisis: phân vị 90% của RV trung bình 22 ngày trong warmup 2019–2020, riêng từng coin, cố định sau warmup; regime dự báo chỉ dùng dữ liệu đến origin.
 
-Chi tiết và ví dụ: `docs/GROUP_PROTOCOL.md`. Đây là quy ước bàn giao; dataset feature/target, lịch chạy và ngưỡng số cụ thể sẽ được triển khai ở bước tiếp theo.
+Chi tiết và ví dụ: `docs/GROUP_PROTOCOL.md`. Dataset feature/target, lịch chạy và ngưỡng crisis cụ thể đã có trong `data/processed/`. Bước tiếp theo là Backend 4 (VaR/ES và backtesting), sử dụng dự báo/volatility hiện có.

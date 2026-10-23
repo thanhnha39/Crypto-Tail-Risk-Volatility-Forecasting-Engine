@@ -46,7 +46,7 @@ Mặc định chỉ chấm điểm evaluation 2021–2025. Pipeline không tạo
 - `log_turn_rel`: log tỷ số quote volume hiện tại/trung bình quote volume 22 ngày. **Chỉ là proxy hoạt động giao dịch**, không phải turnover/market capitalization vì chưa có market cap lịch sử đồng nhất.
 - `y_rv_h1=RV(t+1)`; `y_rv_h7=sum(RV(t+1)..RV(t+7))`, đơn vị %². `y_logrv_h*` là log target cho ML. Thiếu bất kỳ RV trong target thì để NaN; log chỉ xác định khi RV dương.
 - Nhãn giai đoạn theo toàn bộ khoảng target; target băng qua hai giai đoạn được gắn `cross_segment` và không dùng để đánh giá riêng giai đoạn đó.
-- Macro không nằm trong `FEATURE_COLS`. FRED observations/calendar cũ chưa được xác minh release/vintage; lag một ngày không làm chúng đủ điều kiện dự báo. Sensitivity macro đang chờ dữ liệu point-in-time được xác minh.
+- Macro không nằm trong `FEATURE_COLS` của mô hình chính. FRED observations/calendar cũ không được đưa vào dự báo. Bộ snapshot ALFRED mới chỉ được phép đi qua nhánh sensitivity có kiểm tra provenance và availability riêng; xem `docs/macro_sensitivity.md`.
 
 ## Lịch và cách fit
 
@@ -62,7 +62,9 @@ Ngưỡng là phân vị 90% của RV trung bình 22 ngày, lấy các giá tr�
 
 ## Baseline và khả năng so sánh
 
-Đã có naive `h*RV_t`, historical mean target và HAR-RV OLS tham chiếu. HAR trả variance mức dương, sàn kỹ thuật 1e-10. Các mô hình này kiểm tra luồng đánh giá; không giả lập đầu ra GARCH/GJR/XGBoost. Bảng so sánh bốn mô hình chính chỉ hoàn chỉnh sau khi các thành viên đưa file hợp lệ vào. `model_availability.csv` và `core_models_complete` công khai trạng thái này.
+Đã có naive `h*RV_t`, historical mean target và HAR-RV OLS. HAR trả variance mức dương, sàn kỹ thuật 1e-10. Backend 2 bổ sung GARCH/GJR thật; Backend 3 bổ sung Elastic Net/XGBoost và tổ hợp bốn mô hình. Bảng so sánh hiện đủ bốn mô hình chính; `model_availability.csv` và `core_models_complete` xác nhận trạng thái theo từng tác vụ. Không dùng output mô phỏng cũ làm kết quả nghiên cứu.
+
+`python -m src.evaluation.robustness` tạo `outputs/tables/robustness.csv` và manifest `.json` từ các dự báo evaluation đã có. Cả rolling và expanding dùng giao ngày hợp lệ của tất cả mô hình, riêng từng coin/horizon. DM trong bảng này so expanding với rolling của cùng model/cùng horizon. Không trừ loss h7 cho loss h1 vì hai biến mục tiêu khác nhau; bảng trình bày riêng sensitivity h7. Đây là hậu xử lý, không dùng kết quả để chọn lại cấu hình.
 
 So sánh trên giao các ngày mà tất cả model hiện có trong một tác vụ đều dự báo thành công và target dương hợp lệ. Luôn đọc kèm coverage vì mẫu giao có thể nhỏ hơn lịch gốc. QLIKE chuẩn hóa = y/f − ln(y/f) − 1; RMSE/MAE trên RV %². DM dùng d = loss(model) − loss(HAR), âm là model có loss thấp hơn; Bartlett HAC đến lag h−1 **theo ngày lịch**, hiệu chỉnh HLN và p-value Student-t(n−1). Mẫu ít hơn 30 hoặc phương sai loss sai khác bằng 0 có trạng thái rõ ràng, không gán p giả. Lag h−1 là quy ước kiểm định; dependence dài hơn do refit/regime vẫn là hạn chế cần kiểm tra khi có mô hình cuối.
 

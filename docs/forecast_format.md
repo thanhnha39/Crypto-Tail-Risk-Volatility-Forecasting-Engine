@@ -76,3 +76,5 @@ Bản xuất σ nằm ở `outputs/volatility/{symbol}_{model}.parquet`, có `va
 `enet` và `xgboost` dùng log RV với train-residual smearing để trả variance %². Cột bổ sung: `raw_log_rv_forecast`, `log_smearing_factor`, `predictors`, `selection_sha256`, `feature_variant`; `model_config_sha256` của chúng trỏ tới backend3.toml. ML dùng mean=0 theo quy ước FHS, không có ν/Student-t scale.
 
 `combo_core4` trung bình đều variance của HAR/GARCH/GJR/XGBoost và giữ riêng `combo_econ`. Biến thể không volume nằm trong outputs/ablation/forecasts và không tự nạp vào so sánh chính. Hướng dẫn tuning, SHAP, ablation và giới hạn macro: `docs/backend3.md`.
+
+Sensitivity macro nằm riêng tại `outputs/sensitivity/macro/forecasts/`, không tự nạp vào tổng hợp model chính. Tên model là `enet_macro_base`, `enet_vix`, `enet_usd`, `enet_vix_usd` và tương tự cho `xgboost`. Các file giữ schema thời gian/đơn vị chung, thêm `macro_dataset_sha256` trỏ tới bộ ALFRED và `selection_sha256` của lock warmup không đổi. `dataset_sha256` vẫn trỏ dataset cơ sở; cần cả hash macro để tái lập sensitivity. Không dùng file macro thay cho đầu vào risk chính nếu chưa thiết kế thí nghiệm risk sensitivity riêng.
