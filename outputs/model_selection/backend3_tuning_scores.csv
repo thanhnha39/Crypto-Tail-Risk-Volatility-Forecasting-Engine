@@ -1,0 +1,69 @@
+symbol,horizon_days,model,candidate,settings,validation_QLIKE,n_train,n_validation
+BTCUSDT,1,enet,0,"{""alpha"": 0.001, ""l1_ratio"": 0.1}",0.2517510627316196,347,132
+BTCUSDT,1,enet,1,"{""alpha"": 0.001, ""l1_ratio"": 0.5}",0.25177903004742674,347,132
+BTCUSDT,1,enet,2,"{""alpha"": 0.001, ""l1_ratio"": 0.9}",0.2518073496394161,347,132
+BTCUSDT,1,enet,3,"{""alpha"": 0.01, ""l1_ratio"": 0.1}",0.25182413660777503,347,132
+BTCUSDT,1,enet,4,"{""alpha"": 0.01, ""l1_ratio"": 0.5}",0.25215728190285197,347,132
+BTCUSDT,1,enet,5,"{""alpha"": 0.01, ""l1_ratio"": 0.9}",0.2525311283949548,347,132
+BTCUSDT,1,enet,6,"{""alpha"": 0.1, ""l1_ratio"": 0.1}",0.2528716033574655,347,132
+BTCUSDT,1,enet,7,"{""alpha"": 0.1, ""l1_ratio"": 0.5}",0.257331897416968,347,132
+BTCUSDT,1,enet,8,"{""alpha"": 0.1, ""l1_ratio"": 0.9}",0.2612385920234868,347,132
+BTCUSDT,1,xgboost,0,"{""learning_rate"": 0.03, ""max_depth"": 2, ""num_boost_round"": 100}",0.28381359570963904,347,132
+BTCUSDT,1,xgboost,1,"{""learning_rate"": 0.03, ""max_depth"": 2, ""num_boost_round"": 250}",0.2779943909581595,347,132
+BTCUSDT,1,xgboost,2,"{""learning_rate"": 0.1, ""max_depth"": 2, ""num_boost_round"": 100}",0.2812411387368394,347,132
+BTCUSDT,1,xgboost,3,"{""learning_rate"": 0.1, ""max_depth"": 2, ""num_boost_round"": 250}",0.34808143800651176,347,132
+BTCUSDT,1,xgboost,4,"{""learning_rate"": 0.03, ""max_depth"": 3, ""num_boost_round"": 100}",0.2781318804897109,347,132
+BTCUSDT,1,xgboost,5,"{""learning_rate"": 0.03, ""max_depth"": 3, ""num_boost_round"": 250}",0.29355554594783323,347,132
+BTCUSDT,1,xgboost,6,"{""learning_rate"": 0.1, ""max_depth"": 3, ""num_boost_round"": 100}",0.3127121278501511,347,132
+BTCUSDT,1,xgboost,7,"{""learning_rate"": 0.1, ""max_depth"": 3, ""num_boost_round"": 250}",0.4003573906064221,347,132
+BTCUSDT,7,enet,0,"{""alpha"": 0.001, ""l1_ratio"": 0.1}",0.19857284912770878,305,126
+BTCUSDT,7,enet,1,"{""alpha"": 0.001, ""l1_ratio"": 0.5}",0.19835331395122172,305,126
+BTCUSDT,7,enet,2,"{""alpha"": 0.001, ""l1_ratio"": 0.9}",0.19813484093308625,305,126
+BTCUSDT,7,enet,3,"{""alpha"": 0.01, ""l1_ratio"": 0.1}",0.1969524369233759,305,126
+BTCUSDT,7,enet,4,"{""alpha"": 0.01, ""l1_ratio"": 0.5}",0.1950701908939888,305,126
+BTCUSDT,7,enet,5,"{""alpha"": 0.01, ""l1_ratio"": 0.9}",0.19335712140347938,305,126
+BTCUSDT,7,enet,6,"{""alpha"": 0.1, ""l1_ratio"": 0.1}",0.18989941709482566,305,126
+BTCUSDT,7,enet,7,"{""alpha"": 0.1, ""l1_ratio"": 0.5}",0.18663170414487104,305,126
+BTCUSDT,7,enet,8,"{""alpha"": 0.1, ""l1_ratio"": 0.9}",0.1864253157438944,305,126
+BTCUSDT,7,xgboost,0,"{""learning_rate"": 0.03, ""max_depth"": 2, ""num_boost_round"": 100}",0.2276955922029309,305,126
+BTCUSDT,7,xgboost,1,"{""learning_rate"": 0.03, ""max_depth"": 2, ""num_boost_round"": 250}",0.2842920920730811,305,126
+BTCUSDT,7,xgboost,2,"{""learning_rate"": 0.1, ""max_depth"": 2, ""num_boost_round"": 100}",0.3208826309153787,305,126
+BTCUSDT,7,xgboost,3,"{""learning_rate"": 0.1, ""max_depth"": 2, ""num_boost_round"": 250}",0.38040014263718497,305,126
+BTCUSDT,7,xgboost,4,"{""learning_rate"": 0.03, ""max_depth"": 3, ""num_boost_round"": 100}",0.26633262612082487,305,126
+BTCUSDT,7,xgboost,5,"{""learning_rate"": 0.03, ""max_depth"": 3, ""num_boost_round"": 250}",0.3181932519623989,305,126
+BTCUSDT,7,xgboost,6,"{""learning_rate"": 0.1, ""max_depth"": 3, ""num_boost_round"": 100}",0.34479166701984165,305,126
+BTCUSDT,7,xgboost,7,"{""learning_rate"": 0.1, ""max_depth"": 3, ""num_boost_round"": 250}",0.38807963718077676,305,126
+ETHUSDT,1,enet,0,"{""alpha"": 0.001, ""l1_ratio"": 0.1}",0.182865951168556,347,132
+ETHUSDT,1,enet,1,"{""alpha"": 0.001, ""l1_ratio"": 0.5}",0.1825874357855712,347,132
+ETHUSDT,1,enet,2,"{""alpha"": 0.001, ""l1_ratio"": 0.9}",0.1823386926432261,347,132
+ETHUSDT,1,enet,3,"{""alpha"": 0.01, ""l1_ratio"": 0.1}",0.18195246607545285,347,132
+ETHUSDT,1,enet,4,"{""alpha"": 0.01, ""l1_ratio"": 0.5}",0.18179834892522845,347,132
+ETHUSDT,1,enet,5,"{""alpha"": 0.01, ""l1_ratio"": 0.9}",0.1825853503713648,347,132
+ETHUSDT,1,enet,6,"{""alpha"": 0.1, ""l1_ratio"": 0.1}",0.1838256048327618,347,132
+ETHUSDT,1,enet,7,"{""alpha"": 0.1, ""l1_ratio"": 0.5}",0.19347966439470196,347,132
+ETHUSDT,1,enet,8,"{""alpha"": 0.1, ""l1_ratio"": 0.9}",0.20263541060760187,347,132
+ETHUSDT,1,xgboost,0,"{""learning_rate"": 0.03, ""max_depth"": 2, ""num_boost_round"": 100}",0.1914583858404299,347,132
+ETHUSDT,1,xgboost,1,"{""learning_rate"": 0.03, ""max_depth"": 2, ""num_boost_round"": 250}",0.18796802353126904,347,132
+ETHUSDT,1,xgboost,2,"{""learning_rate"": 0.1, ""max_depth"": 2, ""num_boost_round"": 100}",0.20295788672856493,347,132
+ETHUSDT,1,xgboost,3,"{""learning_rate"": 0.1, ""max_depth"": 2, ""num_boost_round"": 250}",0.2210859683184343,347,132
+ETHUSDT,1,xgboost,4,"{""learning_rate"": 0.03, ""max_depth"": 3, ""num_boost_round"": 100}",0.19136520852556474,347,132
+ETHUSDT,1,xgboost,5,"{""learning_rate"": 0.03, ""max_depth"": 3, ""num_boost_round"": 250}",0.2021345257279225,347,132
+ETHUSDT,1,xgboost,6,"{""learning_rate"": 0.1, ""max_depth"": 3, ""num_boost_round"": 100}",0.2086108320369812,347,132
+ETHUSDT,1,xgboost,7,"{""learning_rate"": 0.1, ""max_depth"": 3, ""num_boost_round"": 250}",0.23264551836770986,347,132
+ETHUSDT,7,enet,0,"{""alpha"": 0.001, ""l1_ratio"": 0.1}",0.19590147350690634,305,126
+ETHUSDT,7,enet,1,"{""alpha"": 0.001, ""l1_ratio"": 0.5}",0.19442193997647592,305,126
+ETHUSDT,7,enet,2,"{""alpha"": 0.001, ""l1_ratio"": 0.9}",0.1929720161840401,305,126
+ETHUSDT,7,enet,3,"{""alpha"": 0.01, ""l1_ratio"": 0.1}",0.18869910763352998,305,126
+ETHUSDT,7,enet,4,"{""alpha"": 0.01, ""l1_ratio"": 0.5}",0.1776330804774491,305,126
+ETHUSDT,7,enet,5,"{""alpha"": 0.01, ""l1_ratio"": 0.9}",0.1738488340707386,305,126
+ETHUSDT,7,enet,6,"{""alpha"": 0.1, ""l1_ratio"": 0.1}",0.1757132325202043,305,126
+ETHUSDT,7,enet,7,"{""alpha"": 0.1, ""l1_ratio"": 0.5}",0.1836628826560514,305,126
+ETHUSDT,7,enet,8,"{""alpha"": 0.1, ""l1_ratio"": 0.9}",0.19098498283678114,305,126
+ETHUSDT,7,xgboost,0,"{""learning_rate"": 0.03, ""max_depth"": 2, ""num_boost_round"": 100}",0.25589142867846804,305,126
+ETHUSDT,7,xgboost,1,"{""learning_rate"": 0.03, ""max_depth"": 2, ""num_boost_round"": 250}",0.31548611346920463,305,126
+ETHUSDT,7,xgboost,2,"{""learning_rate"": 0.1, ""max_depth"": 2, ""num_boost_round"": 100}",0.33107558720208424,305,126
+ETHUSDT,7,xgboost,3,"{""learning_rate"": 0.1, ""max_depth"": 2, ""num_boost_round"": 250}",0.36484758475135093,305,126
+ETHUSDT,7,xgboost,4,"{""learning_rate"": 0.03, ""max_depth"": 3, ""num_boost_round"": 100}",0.2885432293997359,305,126
+ETHUSDT,7,xgboost,5,"{""learning_rate"": 0.03, ""max_depth"": 3, ""num_boost_round"": 250}",0.33645727500830214,305,126
+ETHUSDT,7,xgboost,6,"{""learning_rate"": 0.1, ""max_depth"": 3, ""num_boost_round"": 100}",0.35558799379398887,305,126
+ETHUSDT,7,xgboost,7,"{""learning_rate"": 0.1, ""max_depth"": 3, ""num_boost_round"": 250}",0.38856577601104414,305,126

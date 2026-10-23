@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "segment": "evaluation",
+  "protocol_sha256": "7e0191870a5c7609ce0313e525d34e788a7fc75072a71c9727d1409900d9678b",
+  "dataset_sha256": "2025bf54f52f9bad444c8474cf3df3c7ca434c6884b06017c443d575cbbf4edd",
+  "ml_config_sha256": "c7abeb13241203fd87ad4c5bfc04f4f9818911e0913bd2f8fe5098c0bd2134e6",
+  "selection_sha256": "4b585b406def3fa671ad5aded2b7aaa41cc0616e64720553e825d561a821578f",
+  "checks": [
+    {
+      "symbol": "BTCUSDT",
+      "model": "enet",
+      "rows": 7292,
+      "successful": 6680,
+      "sha256": "9b21b0a717ce242f9026df3b63bc641910fdde05779b67e5538128d53fbaa683"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "enet",
+      "rows": 7292,
+      "successful": 6680,
+      "sha256": "16cec9302d1b61926575e3c56c893a3d80797e79c668bc87767db37c7ed15839"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "model": "xgboost",
+      "rows": 7292,
+      "successful": 6680,
+      "sha256": "c15e508f900535ba2fa915f0676665dbc58d2be556c5fcd9c10c8122c68139c7"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "xgboost",
+      "rows": 7292,
+      "successful": 6680,
+      "sha256": "80cd9812f1e77d651426f6d11c8479d2476c5418ff4f7d3643c4e8d723c4572b"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "model": "enet_core",
+      "rows": 7292,
+      "successful": 6680,
+      "sha256": "02055d0c1811e631b246e089fd74c540cc0c8b41c41fc0f7ca45ec92b70b9e27"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "enet_core",
+      "rows": 7292,
+      "successful": 6680,
+      "sha256": "e3e8b682da977dafb945a8d46e7c78cc1bec9c3235445c0d13221c1a3293ac2b"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "model": "xgboost_core",
+      "rows": 7292,
+      "successful": 6680,
+      "sha256": "06a27b09724105dd5974b05117bf0aba31101dff23d76d7b9d35c51136d767ab"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "xgboost_core",
+      "rows": 7292,
+      "successful": 6680,
+      "sha256": "a8714252604fb8269b33a5fa2b730a0dd44a1ceacf4783524f2a58d340468197"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "model": "combo_core4",
+      "rows": 7292,
+      "successful": 6680,
+      "sha256": "b878fc2796d9e49a688fe8e2b5939c58922489290d2c3ecbdf209fc50afd8f74"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "combo_core4",
+      "rows": 7292,
+      "successful": 6680,
+      "sha256": "f1854f15aead30fe520c6139b5aa32ae6ec43c26b7f35029a376172b6a1b4a44"
+    }
+  ],
+  "fit_count": 11680,
+  "fit_failures": 0,
+  "shap_rows": 13360,
+  "shap_max_identity_error": 5.66430389881134e-06,
+  "matched_ablation_training_rows": true,
+  "selection_uses_evaluation": false,
+  "macro_predictive_use": false,
+  "macro_ablation_status": "blocked_unverified_point_in_time",
+  "gru_status": "excluded_user_scope",
+  "holdout_scored": false,
+  "external_independent_review": "pending_team_review"
+}

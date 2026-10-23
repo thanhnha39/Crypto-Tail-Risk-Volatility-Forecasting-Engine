@@ -2,4 +2,4 @@ model,status,note
 har_rv,available,Backend 2 OLS
 garch,available,Backend 2 arch Student-t
 gjr_garch,available,Backend 2 arch Student-t
-xgboost,awaiting_team_forecast,External backend adapter/file
+xgboost,available,Backend 3 seeded CPU XGBoost

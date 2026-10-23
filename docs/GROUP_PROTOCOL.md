@@ -67,4 +67,6 @@ Trên nhánh backend-1 đã tạo dataset feature/target 1/7 ngày, lịch dự 
 
 Cập nhật backend-2: đã triển khai HAR OLS, GARCH/GJR Student-t, tổ hợp ba mô hình, chẩn đoán và bản xuất σ; hướng dẫn tại `docs/backend2.md`. XGBoost và phần VaR/ES chưa thuộc bàn giao này. Các quy tắc nghiên cứu ở trên giữ nguyên.
 
+Cập nhật backend-3: bổ sung Elastic Net, XGBoost, TreeSHAP ngoài mẫu, ablation volume và tổ hợp bốn mô hình. Siêu tham số chỉ chọn trên validation nằm trong warmup; GRU tùy chọn được hoãn theo lựa chọn của người dùng. Hướng dẫn ở `docs/backend3.md`; VaR/ES thuộc Backend 4. Macro sensitivity vẫn chờ xác minh release/vintage.
+
 Macro observations hiện chưa có release/vintage được xác minh; calendar forward-fill chỉ mô tả. Không đổi cờ `predictive_use_allowed=False` thành True để chạy sensitivity cho đủ bảng.

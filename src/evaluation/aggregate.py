@@ -138,7 +138,7 @@ def main(argv=None):
     for model in ["har_rv","garch","gjr_garch","xgboost"]:
         availability.append({"model":model,"status":"available" if model in set(fc["model"]) else "awaiting_team_forecast",
             "note":"Backend 2 OLS" if model=="har_rv" else
-                "Backend 2 arch Student-t" if model in ["garch","gjr_garch"] else "External backend adapter/file"})
+                "Backend 2 arch Student-t" if model in ["garch","gjr_garch"] else "Backend 3 seeded CPU XGBoost"})
     pd.DataFrame(availability).to_csv(out/"model_availability.csv",index=False)
     counts=ev.drop_duplicates(GROUP+["origin_date"]).groupby(GROUP+["regime"]).size().rename("n_common_dates").reset_index()
     counts.to_csv(out/"regime_counts.csv",index=False)
@@ -146,7 +146,7 @@ def main(argv=None):
     save_json(out/"backend1_validation.json",{"status":"passed","data_source":meta["data_source"],
         "protocol_sha256":protocol_hash(cfg),"dataset_sha256":meta["dataset_sha256"],"segment":segment,
         "forecast_rows":len(fc),"common_scored_rows":len(ev),"models":sorted(fc["model"].unique()),
-        "full_core_comparison_ready":all(x["status"]=="available" for x in availability),
+        "full_core_comparison_ready":all(x["status"]=="available" for x in availability) and bool(coverage["core_models_complete"].all()),
         "macro_predictive_use":False,"turnover_is_proxy":True,"holdout_scored":args.final_holdout})
     if args.final_holdout: save_json(lock,{"state":"completed","protocol_sha256":protocol_hash(cfg)})
     print(comparison.round(4).to_string(index=False),flush=True)

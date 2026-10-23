@@ -1,0 +1,16 @@
+"""ML forecasts, numerical comparison, SHAP and volume ablation; no academic chapters."""
+import sys
+from src.models.run_ml import main as models
+from src.evaluation.aggregate import main as aggregate
+from src.models.ml_analysis import main as analysis
+
+
+def main():
+    models()
+    args = ["--final-holdout"] if "--final-holdout" in sys.argv else []
+    aggregate(args)
+    analysis(args)
+
+
+if __name__ == "__main__":
+    main()

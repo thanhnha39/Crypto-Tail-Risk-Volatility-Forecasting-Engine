@@ -26,6 +26,7 @@ class BaseModel:
     name="base"
     features=[]
     requires_target=True
+    needs_history=True
     def set_context(self,context): self.context=dict(context)
     def forecast_metadata(self,task): return {}
     def fit(self,train,task): raise NotImplementedError
@@ -97,8 +98,9 @@ def walk_forward(data,model_factory,task,config,scheme="rolling",segment="evalua
         else:
             columns=["symbol","origin_date",*features]
             test=pd.DataFrame([row[columns]])
-            history=d.loc[d["origin_date"].le(row["origin_date"]),
+            history=(d.loc[d["origin_date"].le(row["origin_date"]),
                 [c for c in d.columns if not c.startswith(("y_","target_"))]].copy()
+                if model.needs_history else None)
             try:
                 values=np.asarray(model.predict(test,task,history=history),dtype=float)
                 if values.shape!=(1,): raise ValueError("predict must return exactly one variance for each input row")

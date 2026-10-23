@@ -1,0 +1,48 @@
+[general]
+seed = 20261023
+variance_floor = 1e-10
+retransformation = "training_residual_mean_exp"
+gru_enabled = false
+
+[features]
+core = ["log_rv_d", "log_rv_w", "log_rv_m", "log_park", "ret_d"]
+volume = ["log_qv", "log_turn_rel"]
+matched_ablation_training_rows = true
+macro_predictive_use = false
+
+[tuning]
+train_target_end = "2020-06-30"
+validation_target_start = "2020-07-01"
+validation_target_end = "2020-12-31"
+selection_metric = "QLIKE"
+min_train_rows = 300
+min_validation_rows = 60
+
+[enet]
+alpha_grid = [0.001, 0.01, 0.1]
+l1_ratio_grid = [0.1, 0.5, 0.9]
+max_iterations = 30000
+retry_max_iterations = 100000
+tolerance = 1e-7
+
+[xgboost]
+max_depth_grid = [2, 3]
+learning_rate_grid = [0.03, 0.1]
+num_boost_round_grid = [100, 250]
+min_child_weight = 5.0
+reg_lambda = 1.0
+subsample = 0.9
+colsample_bytree = 0.9
+nthread = 1
+tree_method = "hist"
+
+[combination]
+name = "combo_core4"
+components = ["har_rv", "garch", "gjr_garch", "xgboost"]
+method = "equal_weight_variance"
+
+[shap]
+enabled = true
+method = "xgboost_native_exact_tree_shap"
+scope = "every_successful_oos_origin"
+output_scale = "raw_log_realized_variance"

@@ -45,9 +45,10 @@
     "gjr_garch",
     "xgboost"
   ],
-  "additional_models": ["naive_rw", "hist_mean", "combo_econ"],
+  "additional_models": ["naive_rw", "hist_mean", "combo_econ", "enet", "combo_core4"],
   "training_kinds": ["supervised", "observations", "combination"],
   "risk_file_excluded": "{symbol}_{model}_risk.parquet",
   "volatility_handoff_folder": "outputs/volatility",
+  "optional_backend3_columns": ["raw_log_rv_forecast", "log_smearing_factor", "predictors", "selection_sha256", "feature_variant", "shap_identity_error"],
   "optional_backend2_columns": ["mean_forecast_pct", "nu", "innovation_distribution", "student_t_scale_pct", "variance_path_pct2", "fit_signature", "model_config_sha256", "combination_components", "combination_weights", "error_message"]
 }

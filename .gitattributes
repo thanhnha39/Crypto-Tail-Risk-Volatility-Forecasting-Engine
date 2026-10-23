@@ -2,6 +2,8 @@
 * text=auto
 data/raw/** -text
 data/interim/** -text
+# Frozen model selection is hashed byte-for-byte by forecast provenance.
+outputs/model_selection/backend3_locked.json -text
 *.parquet -text -diff -merge
 *.zip -text -diff -merge
 *.py text eol=lf

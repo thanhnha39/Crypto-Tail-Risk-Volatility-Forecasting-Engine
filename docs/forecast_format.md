@@ -70,3 +70,9 @@ Backend 2 đã triển khai `har_rv`, `garch`, `gjr_garch` và tổ hợp trung 
 `fit_failed` là ước lượng thất bại, `forecast_failed` là trạng thái dự báo không hợp lệ, `component_unavailable` là tổ hợp thiếu ít nhất một thành phần hợp lệ. Các dòng này không có prediction. `training_kind=combination` dùng metadata thời gian của các thành phần đã được validator kiểm tra riêng.
 
 Bản xuất σ nằm ở `outputs/volatility/{symbol}_{model}.parquet`, có `variance_pct2`, `sigma_pct`, μ và ν khi phù hợp. Đây chưa phải file VaR/ES. Với Student-t h1, scale của Student-t thông thường là `sigma_pct * sqrt((nu-2)/nu)`; h7 không gắn nhãn phân phối Student-t chính xác và scale để trống. Hướng dẫn đầy đủ ở `docs/backend2.md`.
+
+## Phần bổ sung Backend 3
+
+`enet` và `xgboost` dùng log RV với train-residual smearing để trả variance %². Cột bổ sung: `raw_log_rv_forecast`, `log_smearing_factor`, `predictors`, `selection_sha256`, `feature_variant`; `model_config_sha256` của chúng trỏ tới backend3.toml. ML dùng mean=0 theo quy ước FHS, không có ν/Student-t scale.
+
+`combo_core4` trung bình đều variance của HAR/GARCH/GJR/XGBoost và giữ riêng `combo_econ`. Biến thể không volume nằm trong outputs/ablation/forecasts và không tự nạp vào so sánh chính. Hướng dẫn tuning, SHAP, ablation và giới hạn macro: `docs/backend3.md`.
