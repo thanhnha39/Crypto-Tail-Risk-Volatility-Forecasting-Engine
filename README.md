@@ -105,4 +105,30 @@ Hướng dẫn chính: **[docs/backend2.md](docs/backend2.md)**. Chạy sau khi 
 .\.venv\Scripts\python.exe -m src.backend3
 ```
 
-Có Elastic Net, XGBoost với cấu hình khóa từ warmup, TreeSHAP tại các origin ngoài mẫu, ablation volume trên cùng dòng train và tổ hợp HAR/GARCH/GJR/XGBoost. File dự báo/σ dùng chung hợp đồng với Backend 2; bản ablation nằm riêng. Sensitivity VIX/USD dùng snapshot ALFRED, so sánh baseline/VIX/USD/cả hai trên cùng mẫu và giữ nguyên siêu tham số; xem `docs/macro_sensitivity.md`. `outputs/tables/feature_sets.csv` mô tả các nhóm biến; `outputs/tables/robustness.csv` tổng hợp rolling/expanding và h1/h7. GRU tùy chọn được hoãn theo lựa chọn của người dùng. Phần tiếp theo là Backend 4: VaR/ES và backtesting; holdout 2026 vẫn giữ cho bước cuối. Không viết chương báo cáo học thuật.
+Có Elastic Net, XGBoost với cấu hình khóa từ warmup, TreeSHAP tại các origin ngoài mẫu, ablation volume trên cùng dòng train và tổ hợp HAR/GARCH/GJR/XGBoost. File dự báo/σ dùng chung hợp đồng với Backend 2; bản ablation nằm riêng. Sensitivity VIX/USD dùng snapshot ALFRED, so sánh baseline/VIX/USD/cả hai trên cùng mẫu và giữ nguyên siêu tham số; xem `docs/macro_sensitivity.md`. `outputs/tables/feature_sets.csv` mô tả các nhóm biến; `outputs/tables/robustness.csv` tổng hợp rolling/expanding và h1/h7. GRU tùy chọn được hoãn theo lựa chọn của người dùng. Backend 4 trên nhánh `backend-4` bổ sung VaR/ES và backtesting; holdout 2026 vẫn giữ cho bước cuối. Không viết chương báo cáo học thuật.
+
+
+## Backend 4: rủi ro VaR/ES và backtesting
+
+Nhánh **backend-4** tích hợp bản main Data–Backend 1–2–3 và bộ Backend 4 đã sửa.
+Hướng dẫn: **[docs/backend4.md](docs/backend4.md)**.
+
+```powershell
+python -B -m src.backend4
+python -B -m unittest discover -s tests -p "test_backend4*.py"
+python -B -X utf8 verify_backend4.py --input-root .
+```
+
+Đã có VaR/ES 95% và 99% cho BTC/ETH, 9 mô hình, h=1,
+rolling/expanding, giai đoạn 2021–2025. FHS chỉ dùng residual đã quan sát;
+ngày chưa đủ lịch sử giữ trạng thái thiếu. Các kiểm thử kỹ thuật và đối chiếu
+đầu ra ở `outputs/risk/test_results.json` và `outputs/risk/verification.json`.
+
+- `outputs/risk/{coin}_{model}.parquet`: 18 file VaR/ES và thông tin truy vết.
+- `outputs/risk/backtest.csv`: so sánh trên cùng mẫu; xem thêm `coverage.csv`.
+- `outputs/risk/crisis_breaches.csv`: stress windows, COVID 2020 ghi ngoài mẫu.
+- `outputs/figures/risk/`: 18 hình với cả mức 95%/99%.
+- `outputs/risk/volatility_targeting.csv` và `strategy_paths/`: RQ5 tùy chọn,
+  dùng sigma gốc, chi phí giao dịch và đường vốn ghép lãi.
+
+Holdout 2026 dành cho bước đánh giá cuối. Không bổ sung chương báo cáo học thuật.

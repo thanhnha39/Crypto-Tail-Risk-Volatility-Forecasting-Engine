@@ -1,6 +1,6 @@
-# Bàn giao tích hợp Data → Backend 1 → Backend 2 → Backend 3
+# Bàn giao tích hợp Data → Backend 1 → Backend 2 → Backend 3 → Backend 4
 
-Điểm bắt đầu hiện tại là nhánh `main`, đã tích hợp bản `backend-3` gồm Data, Backend 1, Backend 2 và Backend 3. Đã có dataset feature/target, lịch dự báo, regime, HAR-RV/GARCH/GJR-GARCH/XGBoost và Elastic Net. Bảng so sánh đủ bốn mô hình chính nằm tại `outputs/tables/model_comparison.csv`; hợp đồng đầu ra ở `docs/forecast_format.md`.
+Trên nhánh `backend-4`, bản main Data–Backend 1–2–3 đã được tích hợp cùng Backend 4. Đọc `docs/backend4.md` để nhận phần VaR/ES và kiểm định rủi ro. Đã có dataset feature/target, lịch dự báo, regime, HAR-RV/GARCH/GJR-GARCH/XGBoost và Elastic Net. Bảng so sánh đủ bốn mô hình chính nằm tại `outputs/tables/model_comparison.csv`; hợp đồng đầu ra ở `docs/forecast_format.md`.
 
 Bản mô phỏng cũ, script tạo dữ liệu mô phỏng và cấu hình YAML đã ngừng dùng được dọn khỏi cây file hiện tại. Lịch sử Git vẫn giữ các phiên bản trước. Các fixture mô phỏng trong unit test được giữ để kiểm tra công thức và leakage; dữ liệu/kết quả nghiên cứu dùng snapshot thật.
 
@@ -74,4 +74,16 @@ Chạy `python -m src.data.refresh` từ gốc repo trong môi trường đã c�
 - Target 7 ngày: tổng RV của t+1 đến t+7 (%²), yêu cầu đủ bảy ngày; chỉ fit nhãn đã quan sát đầy đủ.
 - Crisis: phân vị 90% của RV trung bình 22 ngày trong warmup 2019–2020, riêng từng coin, cố định sau warmup; regime dự báo chỉ dùng dữ liệu đến origin.
 
-Chi tiết và ví dụ: `docs/GROUP_PROTOCOL.md`. Dataset feature/target, lịch chạy và ngưỡng crisis cụ thể đã có trong `data/processed/`. Bước tiếp theo là Backend 4 (VaR/ES và backtesting), sử dụng dự báo/volatility hiện có.
+Chi tiết và ví dụ: `docs/GROUP_PROTOCOL.md`. Dataset feature/target, lịch chạy và ngưỡng crisis cụ thể đã có trong `data/processed/`. Backend 4 đã sử dụng dự báo/volatility hiện có; kết quả ở `outputs/risk/`. Bước tiếp theo có thể tích hợp dashboard và tổng hợp kết quả; giữ holdout 2026 cho lượt cuối.
+
+
+## Nhận phần rủi ro Backend 4
+
+Đọc `docs/backend4.md`, rồi `outputs/risk/README.md`. Dashboard đọc
+`outputs/risk/{coin}_{model}.parquet` theo coin/model/window/alpha/date.
+Chỉ hiển thị giá trị dự báo khi `status == "ok"`; số breach/thống kê cần
+`score_valid == True`. Ngày thiếu không phải ngày có rủi ro bằng 0.
+Bảng so sánh chính là `outputs/risk/backtest.csv` trên cùng mẫu 9 mô hình;
+`backtest_available_sample.csv` là mẫu riêng, cần xem kèm `coverage.csv`.
+`run_manifest.json` ghi hash nguồn/code/kết quả; `verification.json` ghi đối chiếu.
+Các kiểm định coverage đánh giá VaR; không suy diễn rằng ES đã qua một kiểm định hiệu chuẩn riêng.

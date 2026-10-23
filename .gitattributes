@@ -13,3 +13,8 @@ outputs/sensitivity/macro/fit_diagnostics.csv -text
 *.toml text eol=lf
 *.ps1 text eol=lf
 *.txt text eol=lf
+
+# Risk artifacts are checksummed byte-for-byte across platforms.
+outputs/risk/** -text whitespace=cr-at-eol
+
+.gitattributes text eol=lf
