@@ -1,0 +1,5 @@
+[risk]
+confidence_levels = [0.95, 0.99]
+residual_window_calendar_days = 730
+min_fhs_residuals = 500
+min_backtest_observations = 100

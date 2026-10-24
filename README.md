@@ -106,3 +106,14 @@ Hướng dẫn chính: **[docs/backend2.md](docs/backend2.md)**. Chạy sau khi 
 ```
 
 Có Elastic Net, XGBoost với cấu hình khóa từ warmup, TreeSHAP tại các origin ngoài mẫu, ablation volume trên cùng dòng train và tổ hợp HAR/GARCH/GJR/XGBoost. File dự báo/σ dùng chung hợp đồng với Backend 2; bản ablation nằm riêng. Sensitivity VIX/USD dùng snapshot ALFRED, so sánh baseline/VIX/USD/cả hai trên cùng mẫu và giữ nguyên siêu tham số; xem `docs/macro_sensitivity.md`. `outputs/tables/feature_sets.csv` mô tả các nhóm biến; `outputs/tables/robustness.csv` tổng hợp rolling/expanding và h1/h7. GRU tùy chọn được hoãn theo lựa chọn của người dùng. Phần tiếp theo là Backend 4: VaR/ES và backtesting; holdout 2026 vẫn giữ cho bước cuối. Không viết chương báo cáo học thuật.
+
+## Backend 4: VaR/ES và backtesting
+
+Sau khi đã có dự báo Backend 1–3, chạy:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest tests.test_backend4 -v
+.\.venv\Scripts\python.exe -m src.backend4
+```
+
+Backend 4 tạo forecast VaR/ES h1, kiểm định Kupiec và Christoffersen, bảng breach theo regime và hình VaR/breach; mặc định chỉ dùng evaluation 2021–2025. Cấu hình và giới hạn phương pháp nằm trong [docs/backend4.md](docs/backend4.md). Volatility targeting là tùy chọn RQ5 và hiện chưa triển khai.
