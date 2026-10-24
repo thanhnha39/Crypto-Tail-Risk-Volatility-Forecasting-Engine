@@ -5,8 +5,7 @@ hợp Data và Backend 1–4**, kèm code, dữ liệu và kết quả evaluatio
 
 ## Bắt đầu từ đây
 
-| Bạn cần làm gì | Đọc file này |
-|---|---|
+
 | Viết luận, lấy số liệu và diễn giải kết quả | **[Bàn giao viết luận](docs/BAN_GIAO_VIET_LUAN.md)** |
 | Chạy code hoặc làm tiếp dashboard | **[Hướng dẫn kỹ thuật](docs/TECHNICAL_GUIDE.md)** |
 | Kiểm tra quy định nghiên cứu | [GROUP_PROTOCOL.md](docs/GROUP_PROTOCOL.md) |
