@@ -55,7 +55,7 @@ Có thể chia tác vụ theo `--symbol BTCUSDT --model enet` (tương tự cho 
 
 ## Nguồn phương pháp và dữ liệu
 
-Snapshot đã chạy: 1.790 vintage VIX, 361 vintage USD; 23 ô nguồn có ngày quan sát sau vintage bị loại khỏi bước chọn feature. Có 23.360 fit thành công, 16 file dự báo, 64 dòng so sánh; đủ lịch evaluation và cùng mẫu train được validator đối chiếu. Bộ tests hiện tại có 53 kiểm tra qua, gồm availability, revision, bất biến với thông tin tương lai và cùng mẫu. Không chấm holdout hoặc chọn lại siêu tham số. Số quan sát chấm điểm và trạng thái DM phải đọc kèm từng dòng bảng; không suy luận hiệu quả tăng chỉ vì thêm macro.
+Snapshot đã chạy: 1.790 vintage VIX, 361 vintage USD; 23 ô nguồn có ngày quan sát sau vintage bị loại khỏi bước chọn feature. Có 23.360 fit thành công, 16 file dự báo, 64 dòng so sánh; đủ lịch evaluation và cùng mẫu train được validator đối chiếu. Bản kiểm tra sensitivity tại thời điểm triển khai có 53 kiểm tra qua (trước khi bổ sung risk), gồm availability, revision, bất biến với thông tin tương lai và cùng mẫu. Không chấm holdout hoặc chọn lại siêu tham số. Số quan sát chấm điểm và trạng thái DM phải đọc kèm từng dòng bảng; không suy luận hiệu quả tăng chỉ vì thêm macro.
 
 - [ALFRED: định nghĩa vintage và định dạng dữ liệu](https://alfred.stlouisfed.org/help/downloaddata).
 - [FRED/ALFRED: real-time periods và dữ liệu sửa đổi](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).

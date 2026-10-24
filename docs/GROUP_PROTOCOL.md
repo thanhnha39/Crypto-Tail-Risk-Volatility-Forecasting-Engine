@@ -1,6 +1,6 @@
 # Quy định thống nhất của nhóm
 Áp dụng cho phần dữ liệu từ yêu cầu nhóm .
-Nguồn cấu hình máy đọc: `config/data.toml`. Các mục model/risk dưới đây là quy định bàn giao cho bước sau.
+Nguồn cấu hình máy đọc: `config/data.toml`. Data và Backend 1–4 đã triển khai theo quy định dưới đây.
 
 | # | Hạng mục | Quy định |
 |---|---|---|
@@ -21,7 +21,7 @@ Nguồn cấu hình máy đọc: `config/data.toml`. Các mục model/risk dư�
 | 15 | Đánh giá | QLIKE chính, RMSE, MAE; so sánh Diebold–Mariano |
 | 16 | Regime | Crisis: RV trung bình 22 ngày trên ngưỡng phân vị 90% hiệu chuẩn riêng từng coin từ warmup rồi cố định; bull/bear: log return 90 ngày ≥ +10% / ≤ −10%; crisis > bear > bull > normal |
 | 17 | VaR/ES | 95%, 99%; GARCH/GJR dùng Student-t; HAR/XGBoost dùng filtered historical simulation; Kupiec và Christoffersen |
-| 18 | File dự báo | `{symbol}_{model}.parquet` và `{symbol}_{model}_risk.parquet` |
+| 18 | File dự báo | RV: `outputs/forecasts/{symbol}_{model}.parquet`; risk theo PCCV Backend 4: `outputs/risk/{coin}_{model}.parquet` |
 
 ## Nhãn dữ liệu ngày
 
@@ -63,10 +63,20 @@ Regime đi kèm dự báo t+1 dùng thông tin đến hết origin t: crisis n�
 
 ## Phạm vi triển khai hiện tại
 
-Trên nhánh backend-1 đã tạo dataset feature/target 1/7 ngày, lịch dự báo, ngưỡng crisis và khung đánh giá với baseline/HAR OLS tham chiếu. Schema file dự báo đã ghi ở docs/forecast_format.md; model GARCH/GJR/XGBoost do backend phụ trách tích hợp sau. Ngưỡng regime, scaler và mọi bước hiệu chuẩn không được dùng dữ liệu tương lai/holdout.
+main đã tích hợp Data, Backend 1 (feature/target, lịch, regime và khung đánh giá),
+Backend 2 (HAR/GARCH/GJR và tổ hợp), Backend 3 (Elastic Net/XGBoost, SHAP,
+ablation và macro sensitivity riêng) và Backend 4 (VaR/ES h1, backtest, stress,
+chiến lược có phí). GRU tùy chọn chưa triển khai. Holdout mô hình 2026 chưa chấm.
 
-Cập nhật backend-2: đã triển khai HAR OLS, GARCH/GJR Student-t, tổ hợp ba mô hình, chẩn đoán và bản xuất σ; hướng dẫn tại `docs/backend2.md`. XGBoost và phần VaR/ES chưa thuộc bàn giao này. Các quy tắc nghiên cứu ở trên giữ nguyên.
+Hướng dẫn chạy và phương pháp: [TECHNICAL_GUIDE.md](TECHNICAL_GUIDE.md).
+Số liệu và diễn giải để viết luận: [BAN_GIAO_VIET_LUAN.md](BAN_GIAO_VIET_LUAN.md).
 
-Cập nhật backend-3: bổ sung Elastic Net, XGBoost, TreeSHAP ngoài mẫu, ablation volume và tổ hợp bốn mô hình. Siêu tham số chỉ chọn trên validation nằm trong warmup; GRU tùy chọn được hoãn theo lựa chọn của người dùng. Hướng dẫn ở `docs/backend3.md`; VaR/ES thuộc Backend 4. Macro sensitivity vẫn chờ xác minh release/vintage.
+Trong brief/config ban đầu có tên risk với hậu tố `_risk.parquet`. Bàn giao
+Backend 4 thực hiện theo thư mục PCCV `outputs/risk/{coin}_{model}.parquet` và
+giữ risk tách khỏi RV forecasts. Trường `risk_filename` trong cấu hình dữ liệu
+là quy ước tên thiết kế ban đầu, không phải đường dẫn được module risk hiện tại
+sử dụng. Không đổi shared config/hash chỉ để đổi cách trình bày tài liệu.
 
-Macro observations/calendar FRED cũ vẫn chỉ dùng mô tả, giữ cờ `predictive_use_allowed=False`. Bộ snapshot ALFRED bổ sung có ngày vintage và hash riêng; chỉ nhánh sensitivity được opt-in sau kiểm tra provenance và thời điểm khả dụng. Không thay dataset hoặc cấu hình mô hình chính. Xem `docs/macro_sensitivity.md`.
+FRED observations/calendar cũ chỉ mô tả. Snapshot ALFRED có availability và hash
+riêng chỉ được dùng trong sensitivity; không thay dataset/mô hình chính.
+Xem [macro_sensitivity.md](macro_sensitivity.md).

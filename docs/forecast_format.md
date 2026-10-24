@@ -1,6 +1,6 @@
 # Hợp đồng file dự báo cho các backend
 
-Tên: `outputs/forecasts/{symbol}_{model}.parquet`, ví dụ `BTCUSDT_garch.parquet`. Một file chứa cả horizon 1/7 và rolling/expanding. Model chính: `har_rv`, `garch`, `gjr_garch`, `xgboost`. File risk `{symbol}_{model}_risk.parquet` được module tổng hợp volatility bỏ qua; schema VaR/ES thuộc phần risk của nhóm.
+Tên: `outputs/forecasts/{symbol}_{model}.parquet`, ví dụ `BTCUSDT_garch.parquet`. Một file chứa cả horizon 1/7 và rolling/expanding. Model chính: `har_rv`, `garch`, `gjr_garch`, `xgboost`. Module tổng hợp volatility bỏ qua tên `_risk.parquet` cũ. Đường dẫn risk thực tế theo PCCV Backend 4 là `outputs/risk/{coin}_{model}.parquet`; schema có ở cuối tài liệu này.
 
 | Cột | Kiểu / quy tắc |
 |---|---|
@@ -69,12 +69,39 @@ Backend 2 đã triển khai `har_rv`, `garch`, `gjr_garch` và tổ hợp trung 
 
 `fit_failed` là ước lượng thất bại, `forecast_failed` là trạng thái dự báo không hợp lệ, `component_unavailable` là tổ hợp thiếu ít nhất một thành phần hợp lệ. Các dòng này không có prediction. `training_kind=combination` dùng metadata thời gian của các thành phần đã được validator kiểm tra riêng.
 
-Bản xuất σ nằm ở `outputs/volatility/{symbol}_{model}.parquet`, có `variance_pct2`, `sigma_pct`, μ và ν khi phù hợp. Đây chưa phải file VaR/ES. Với Student-t h1, scale của Student-t thông thường là `sigma_pct * sqrt((nu-2)/nu)`; h7 không gắn nhãn phân phối Student-t chính xác và scale để trống. Hướng dẫn đầy đủ ở `docs/backend2.md`.
+Bản xuất σ nằm ở `outputs/volatility/{symbol}_{model}.parquet`, có `variance_pct2`, `sigma_pct`, μ và ν khi phù hợp. Đây chưa phải file VaR/ES. Với Student-t h1, scale của Student-t thông thường là `sigma_pct * sqrt((nu-2)/nu)`; h7 không gắn nhãn phân phối Student-t chính xác và scale để trống. Hướng dẫn đầy đủ ở `docs/TECHNICAL_GUIDE.md`.
 
 ## Phần bổ sung Backend 3
 
 `enet` và `xgboost` dùng log RV với train-residual smearing để trả variance %². Cột bổ sung: `raw_log_rv_forecast`, `log_smearing_factor`, `predictors`, `selection_sha256`, `feature_variant`; `model_config_sha256` của chúng trỏ tới backend3.toml. ML dùng mean=0 theo quy ước FHS, không có ν/Student-t scale.
 
-`combo_core4` trung bình đều variance của HAR/GARCH/GJR/XGBoost và giữ riêng `combo_econ`. Biến thể không volume nằm trong outputs/ablation/forecasts và không tự nạp vào so sánh chính. Hướng dẫn tuning, SHAP, ablation và giới hạn macro: `docs/backend3.md`.
+`combo_core4` trung bình đều variance của HAR/GARCH/GJR/XGBoost và giữ riêng `combo_econ`. Biến thể không volume nằm trong outputs/ablation/forecasts và không tự nạp vào so sánh chính. Hướng dẫn tuning, SHAP, ablation và giới hạn macro: `docs/TECHNICAL_GUIDE.md`.
 
 Sensitivity macro nằm riêng tại `outputs/sensitivity/macro/forecasts/`, không tự nạp vào tổng hợp model chính. Tên model là `enet_macro_base`, `enet_vix`, `enet_usd`, `enet_vix_usd` và tương tự cho `xgboost`. Các file giữ schema thời gian/đơn vị chung, thêm `macro_dataset_sha256` trỏ tới bộ ALFRED và `selection_sha256` của lock warmup không đổi. `dataset_sha256` vẫn trỏ dataset cơ sở; cần cả hash macro để tái lập sensitivity. Không dùng file macro thay cho đầu vào risk chính nếu chưa thiết kế thí nghiệm risk sensitivity riêng.
+
+
+## Hợp đồng đầu ra VaR và ES Backend 4
+
+Đường dẫn: `outputs/risk/{coin}_{model}.parquet`, ví dụ `BTCUSDT_har_rv.parquet`.
+Risk tách khỏi `outputs/forecasts/`; một file có rolling/expanding và alpha .05/.01.
+
+| Cột | Quy tắc |
+|---|---|
+| date, coin, model, window, alpha | Khóa duy nhất; date là target UTC; confidence=1−alpha |
+| return, var, es | % log return; ES ≤ VaR; không đổi dấu thành loss dương |
+| breach | 1 khi return < var, 0 khi không breach và chấm được; NaN khi không chấm được |
+| status | ok / source_forecast_unavailable / insufficient_fhs_history / invalid_student_t_parameters |
+| score_valid | Risk forecast ok và actual return hữu hạn |
+| common_sample | Ngày hợp lệ của đủ 9 model trong từng coin/window/alpha |
+| origin_date, forecast_available_at | Origin=t, forecast khả dụng đầu ngày t+1 |
+| horizon_days | 1 trong phần risk hiện tại |
+| sigma_pct, variance_pct2, mean_forecast_pct, nu | Forecast và tham số nguồn, đúng đơn vị |
+| n_fhs_residuals, n_fhs_tail | Số residual quá khứ và số điểm trong tail dùng cho ES |
+| last_residual_observable_at | Không được sau forecast_available_at |
+| last_residual_target_date | Phải trước date đang dự báo |
+| dataset_sha256, protocol_sha256, selection_sha256 nếu có | Provenance nguồn |
+
+Không cộng số dòng theo hai alpha/hai window để gọi là số ngày quan sát độc lập.
+`backtest.csv` dùng common sample; `backtest_available_sample.csv` chỉ mô tả
+mẫu riêng. Hướng dẫn mô hình FHS/Student-t và giới hạn ES nằm tại
+[TECHNICAL_GUIDE.md](TECHNICAL_GUIDE.md).

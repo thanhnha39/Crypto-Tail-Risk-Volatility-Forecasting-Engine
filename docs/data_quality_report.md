@@ -52,7 +52,7 @@ Ngày lệch trên 2% đã được đối chiếu thêm với archive Binance 1
 | Target 7 ngày | Tổng RV(t+1)...RV(t+7), %²; yêu cầu đủ 7 RV; chỉ fit target đã quan sát đầy đủ |
 | Crisis | Phân vị 90% của RV trung bình 22 ngày; hiệu chuẩn warmup riêng coin rồi cố định; chỉ dùng thông tin đến origin |
 
-Chi tiết: docs/GROUP_PROTOCOL.md. Tài liệu này mô tả bước Data; trạng thái tích hợp feature/target, regime và mô hình hiện tại xem docs/HANDOFF.md.
+Chi tiết: docs/GROUP_PROTOCOL.md. Tài liệu này mô tả bước Data; trạng thái tích hợp feature/target, regime và mô hình hiện tại xem docs/BAN_GIAO_VIET_LUAN.md.
 
 ## Bảng và hình dùng cho chương 3
 
@@ -60,7 +60,7 @@ Bảng nguồn: source_log.csv; từ điển biến: docs/data_dictionary.md; th
 
 ## Bộ bàn giao và bước tiếp theo
 
-Nhận *_5m_clean.parquet, *_daily_quality.parquet, *_quarantine.parquet, QA daily reference, source log, dictionary, bảng thiếu/outlier và báo cáo này. Huân phụ trách tiếp phần chuẩn bị feature của Châu ở bước sau. Giữ ngày thiếu trên lịch, tạo feature đến hết ngày t UTC và target t+1; gán split của dataset mô hình theo target_date bằng cùng cấu hình giai đoạn. QA reference đã có nhãn ngày quan sát, chưa phải dataset feature/target và không có lệnh train. Quy định nhóm: HAR-RV, GARCH(1,1), GJR-GARCH, XGBoost; rolling 730 ngày, expanding để kiểm tra độ nhạy; ước lượng lại mỗi 5 ngày; horizon chính 1 ngày và kiểm tra độ nhạy 7 ngày; chỉ chọn siêu tham số XGBoost trên warmup. Xem docs/GROUP_PROTOCOL.md. Robustness của các mô hình đã tích hợp được xuất riêng ở outputs/tables/robustness.csv; các chương học thuật không nằm trong đợt triển khai code.
+Nhận *_5m_clean.parquet, *_daily_quality.parquet, *_quarantine.parquet, QA daily reference, source log, dictionary, bảng thiếu/outlier và báo cáo này. Feature, target và Backend 1–4 đã được tích hợp; xem docs/BAN_GIAO_VIET_LUAN.md để nhận kết quả hiện tại. Giữ ngày thiếu trên lịch, tạo feature đến hết ngày t UTC và target t+1; gán split của dataset mô hình theo target_date bằng cùng cấu hình giai đoạn. QA reference đã có nhãn ngày quan sát, chưa phải dataset feature/target và không có lệnh train. Quy định nhóm: HAR-RV, GARCH(1,1), GJR-GARCH, XGBoost; rolling 730 ngày, expanding để kiểm tra độ nhạy; ước lượng lại mỗi 5 ngày; horizon chính 1 ngày và kiểm tra độ nhạy 7 ngày; chỉ chọn siêu tham số XGBoost trên warmup. Xem docs/GROUP_PROTOCOL.md. Robustness của các mô hình đã tích hợp được xuất riêng ở outputs/tables/robustness.csv; các chương học thuật không nằm trong đợt triển khai code.
 
 ## Nguồn và giới hạn
 

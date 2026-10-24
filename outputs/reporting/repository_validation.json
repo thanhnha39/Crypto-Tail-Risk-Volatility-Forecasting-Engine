@@ -1,0 +1,7 @@
+{
+  "tests": 100,
+  "passed": true,
+  "failures": 0,
+  "errors": 0,
+  "scope": "full repository tests after merging Backend 4; no model refit or holdout evaluation"
+}
