@@ -1,4 +1,4 @@
-# Từ điển dữ liệu bàn giao của Huân
+# Từ điển dữ liệu bàn giao 
 
 Schema nến sạch dùng chung ở data/interim. Raw ZIP là bản nguồn nguyên gốc; raw Parquet tổng hợp giữ token gốc dưới dạng chuỗi để tránh làm tròn và giữ dấu vết. Nhãn giai đoạn theo config/data.toml; dataset feature/target hiện đã có ở data/processed, được mô tả thêm trong docs/TECHNICAL_GUIDE.md.
 
