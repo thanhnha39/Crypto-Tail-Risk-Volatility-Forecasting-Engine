@@ -1,0 +1,28 @@
+{
+  "name": "crypto-tail-risk-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "setup:api": "powershell -ExecutionPolicy Bypass -File .\\backend\\setup_api.ps1",
+    "dev:api": "powershell -ExecutionPolicy Bypass -File .\\backend\\run_api.ps1"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.90.0",
+    "axios": "^1.12.2",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "recharts": "^2.15.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.4",
+    "typescript": "~5.9.2",
+    "vite": "^7.1.7"
+  }
+}

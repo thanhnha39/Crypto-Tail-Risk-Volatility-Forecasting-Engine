@@ -1,0 +1,90 @@
+.market-data-page{display:grid;gap:16px;color:var(--text)}
+.md-panel{min-width:0;padding:19px 20px;border:1px solid rgba(118,160,198,.16);border-radius:15px;background:linear-gradient(155deg,rgba(13,32,56,.98),rgba(8,23,42,.99));box-shadow:0 12px 28px rgba(0,0,0,.12)}
+.md-panel-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:13px}
+.md-panel-heading h2{margin:0 0 5px;color:#f3f6fb;font:700 16px/1.3 var(--serif);letter-spacing:-.015em}
+.md-panel-heading p{margin:0;color:#91a4bc;font:400 11px/1.55 'DM Sans',sans-serif}
+.md-badge{flex:0 0 auto;padding:5px 8px;border:1px solid rgba(90,150,191,.22);border-radius:6px;background:rgba(52,107,150,.12);color:#a5bed8;font:500 9px/1.2 var(--mono);letter-spacing:.025em}
+.md-toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:5px 0 12px}
+.md-legend,.md-actions,.md-toolbar-actions{display:flex;align-items:center;gap:9px}
+.md-legend{flex-wrap:wrap}
+.md-legend span{display:inline-flex;align-items:center;gap:6px;color:#a9b7c9;font-size:11px}
+.md-legend i,.md-regime-label i{width:8px;height:8px;display:inline-block;border-radius:50%}
+.md-toolbar-actions{gap:8px}
+.md-range{display:flex;padding:3px;border:1px solid #233a53;border-radius:7px;background:#071629}
+.md-range button,.md-export{border:0;border-radius:5px;background:transparent;color:#9eb0c5;font:600 10px 'DM Sans',sans-serif;cursor:pointer}
+.md-range button{padding:6px 9px}
+.md-range button.active{background:#805a15;color:#fff1c5;box-shadow:inset 0 0 0 1px #ad7d20}
+.md-export{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border:1px solid #29435f;background:#10243b;color:#cfdbeb}
+.md-main-chart{height:320px;min-height:250px;padding:10px 8px 3px;border:1px solid #142942;border-radius:11px;background:#071528}
+.md-chart-caption{display:flex;justify-content:space-between;gap:12px;padding:11px 2px 0;color:#91a4bc;font-size:11px}
+.md-chart-caption span{display:flex;align-items:center;gap:7px}
+.md-line-key{width:17px;height:2px;background:#f2a41b;display:inline-block}
+.md-band-key{width:12px;height:10px;border-radius:2px;background:linear-gradient(90deg,#46c3a0,#e4a321,#ef7d7d);display:inline-block}
+.md-analysis-grid{display:grid;grid-template-columns:1fr 1fr 1.05fr;gap:15px}
+.md-analysis-panel{padding:17px 17px 16px}
+.md-analysis-panel .md-panel-heading{min-height:49px}
+.md-small-chart{height:190px;margin:2px 0 11px;padding:8px;border:1px solid #142942;border-radius:10px;background:#071528}
+.md-insight{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 0 11px;color:#a8b6c9;font-size:11px}
+.md-insight strong{font:700 12px var(--mono);color:#f4b94e}
+.md-insight .md-good{color:#47c5a2}.md-insight .md-warn{color:#ef9292}.md-accent{color:#f3b34a!important}
+.md-conclusion{padding-top:10px;border-top:1px solid #1b3048;color:#a9b8cb;font-size:11px;line-height:1.55}
+.md-conclusion b{margin-right:5px;color:#f4b94e;font-size:9px;letter-spacing:.045em}
+.md-table-wrap{width:100%;overflow:auto;border:1px solid #1d334c;border-radius:9px}
+.md-table{width:100%;border-collapse:collapse;white-space:normal}
+.md-table th{padding:9px 10px;background:#0a192b;color:#90a4bd;text-align:left;font:600 9px var(--mono);letter-spacing:.035em}
+.md-table td{padding:9px 10px;border-top:1px solid #192d44;color:#bdc9d8;font-size:11px;line-height:1.35}
+.md-table td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.md-table th:last-child{text-align:right}
+.md-table tbody tr:nth-child(even){background:rgba(255,255,255,.012)}
+.md-footnote{margin:9px 0 0;color:#8294aa;font-size:10px}
+.md-regime-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.95fr);gap:15px}
+.md-acf-chart{height:220px;padding:8px 7px;border:1px solid #142942;border-radius:10px;background:#071528}
+.md-acf-caption{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0 12px;color:#879ab1;font-size:10px}
+.md-acf-caption strong{display:inline-flex;align-items:center;gap:5px;color:#48c6a3;font-size:11px}
+.md-regime-track{display:flex;width:100%;height:18px;overflow:hidden;border-radius:6px;background:#223650}
+.md-regime-track span{height:100%;min-width:2px}
+.md-regime-dates{display:flex;justify-content:space-between;margin:6px 2px 12px;color:#8295ad;font:10px var(--mono)}
+.md-regime-label{display:inline-flex;align-items:center;gap:7px}
+.md-regime-note{margin:11px 0 0;color:#91a1b6;font-size:10px;line-height:1.5}
+.md-quality-panel{padding-bottom:17px}
+.md-quality-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:2px 0 17px}
+.md-quality-metrics>div{min-height:98px;padding:13px 14px;border:1px solid #20354d;border-radius:10px;background:#09182b}
+.md-quality-metrics span{display:block;color:#98aac0;font-size:10px;font-weight:600;letter-spacing:.015em}
+.md-quality-metrics strong{display:block;margin-top:8px;color:#f0f4fa;font:700 23px/1.1 var(--serif);font-variant-numeric:tabular-nums}
+.md-quality-metrics>div:nth-child(2) strong{color:#e9b447}
+.md-quality-metrics small{display:block;margin-top:5px;color:#8497ad;font-size:10px;line-height:1.35}
+.md-inventory-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 9px}
+.md-inventory-heading h3{margin:0;color:#dbe4ef;font-size:12px;font-weight:700}
+.md-inventory-heading span{color:#8294aa;font-size:10px}
+.md-quality-note{display:flex;align-items:center;gap:8px;margin-top:12px;color:#93a6bc;font-size:10px;line-height:1.5}
+.md-quality-note svg{flex:0 0 auto;color:#f0b447}
+.md-empty{min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;border:1px solid #20354d;border-radius:14px;background:#0b1b30;color:#91a4bc;text-align:center}
+.md-empty svg{color:#efb344}.md-empty strong{color:#e6edf6;font-size:14px}.md-empty span{max-width:460px;font-size:11px;line-height:1.6}
+@media(max-width:1220px){.md-analysis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.md-stats-panel{grid-column:1/-1}.md-stats-panel .md-table{table-layout:fixed}.md-stats-panel .md-table td:first-child{width:72%}}
+@media(max-width:850px){.md-panel{padding:16px}.md-main-chart{height:280px}.md-regime-grid{grid-template-columns:1fr}.md-quality-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.market-data-page{gap:12px}.md-panel{padding:14px;border-radius:12px}.md-panel-heading{gap:8px}.md-panel-heading h2{font-size:15px}.md-panel-heading p{font-size:10px}.md-badge{font-size:8px;padding:4px 6px}.md-toolbar{align-items:flex-start;flex-direction:column}.md-toolbar-actions{width:100%;justify-content:space-between}.md-main-chart{height:240px;padding:6px 3px}.md-chart-caption{flex-direction:column;gap:5px;font-size:10px}.md-analysis-grid{grid-template-columns:1fr}.md-stats-panel{grid-column:auto}.md-small-chart{height:205px}.md-acf-chart{height:210px}.md-quality-metrics{gap:8px}.md-quality-metrics>div{padding:11px;min-height:92px}.md-quality-metrics strong{font-size:20px}.md-table th,.md-table td{padding:8px 7px;font-size:10px}.md-acf-caption{align-items:flex-start;flex-direction:column}.md-inventory-heading span{font-size:9px}}
+
+/* Slightly larger typography for content blocks below the market page header. */
+.md-panel-heading h2{font-size:17px}
+.md-panel-heading p{font-size:12px}
+.md-badge{font-size:10px}
+.md-legend span,.md-chart-caption,.md-insight,.md-conclusion{font-size:12px}
+.md-range button,.md-export{font-size:11px}
+.md-insight strong{font-size:13px}
+.md-conclusion b{font-size:10px}
+.md-table th{font-size:10px}
+.md-table td{font-size:12px}
+.md-footnote,.md-acf-caption,.md-regime-note,.md-quality-note{font-size:11px}
+.md-acf-caption strong{font-size:12px}
+.md-regime-dates{font-size:11px}
+.md-quality-metrics span,.md-quality-metrics small,.md-inventory-heading span{font-size:11px}
+.md-quality-metrics strong{font-size:24px}
+.md-inventory-heading h3{font-size:13px}
+@media(max-width:620px){
+  .md-panel-heading h2{font-size:16px}
+  .md-panel-heading p{font-size:11px}
+  .md-badge{font-size:9px}
+  .md-table th,.md-table td{font-size:11px}
+  .md-quality-metrics strong{font-size:21px}
+  .md-inventory-heading span{font-size:10px}
+}

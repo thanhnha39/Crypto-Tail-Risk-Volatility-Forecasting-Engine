@@ -1,0 +1,101 @@
+.api-status.connected span,.connection-dot.live,.status-lamp.live{background:#50d1b2;box-shadow:0 0 10px #50d1b255}
+.connection-dot.live,.status-lamp.live{width:7px;height:7px;border-radius:50%}
+.notice-success{border-color:#21443d;background:linear-gradient(100deg,rgba(28,94,76,.17),rgba(20,57,49,.08))}
+.notice-success .notice-icon{background:#17382f;color:#50d1b2}
+.notice-success strong{color:#a2dfce}
+.notice-success .notice-tag{color:#50d1b2;border-color:#285647}
+.status-pill.ready{color:#75d8bd;background:#15332d;border:1px solid #285647}
+.chart-wrap{height:245px;width:100%;margin-top:13px}
+.data-table-panel{margin-top:14px}
+.method-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.method-card span{font:10px var(--mono);color:#8b9bb0;letter-spacing:.04em}
+.method-card p{font-size:12px;line-height:1.65;color:#d2dce8;margin:12px 0 0}
+.method-notes h3{font:600 13px Manrope,sans-serif;margin:0 0 10px}
+.method-notes ul{color:#aab7c7;font-size:11px;line-height:1.9;padding-left:18px}
+.method-notes p{color:#8291a6;font-size:11px;line-height:1.8;margin:14px 0 0;padding-top:12px;border-top:1px solid #1c2a3d}
+.period-note{font:9px var(--mono);color:#bac8d8;border:1px solid #ffffff18;background:#08152988;padding:7px 9px;border-radius:6px;white-space:nowrap}
+.sidebar{overflow-y:auto;scrollbar-width:thin}
+
+/* Sidebar filter controls matching reference image */
+.sidebar-filters{display:flex;flex-direction:column;gap:16px;margin-top:18px;padding:16px 8px 0;border-top:1px solid rgba(255,255,255,0.08)}
+.sidebar-filter-group{display:flex;flex-direction:column;gap:7px}
+.sidebar-filter-label{font:700 9px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8596ac}
+.asset-filter-row{display:flex;gap:7px}
+.asset-filter-row button{flex:1;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:#94a3b8;font-size:11px;font-weight:600;padding:7px 0;border-radius:20px;cursor:pointer;transition:all .18s}
+.asset-filter-row button.selected{background:#f59e0b;color:#0b1523;font-weight:700;border-color:#f59e0b;box-shadow:0 2px 10px rgba(245,158,11,0.3)}
+
+.horizon-filter-row{display:flex;border:1px solid rgba(255,255,255,0.1);background:#071526;border-radius:20px;padding:3px;gap:3px}
+.horizon-filter-row button{flex:1;border:0;background:transparent;color:#94a3b8;font-size:10px;padding:5px 0;border-radius:16px;cursor:pointer;transition:all .18s}
+.horizon-filter-row button.selected{background:rgba(245,178,43,0.15);border:1px solid #d99c2b;color:#f5b93d;font-weight:600}
+
+.date-range-chip{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);background:#071526;border-radius:8px;color:#cbd5e1;font:10px var(--mono);white-space:nowrap}
+.date-range-chip svg{color:#f59e0b;flex:0 0 auto}
+
+.export-button{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:10px 8px;border:0;border-radius:8px;background:linear-gradient(95deg,#f59e0b,#e68a00);color:#0e1726;font-size:11px;font-weight:700;cursor:pointer;transition:all .18s;margin-top:4px}
+.export-button:hover{filter:brightness(1.08)}
+
+/* Header dark mode toggle */
+.dark-mode-toggle{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:20px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#ffffff;font-size:11px;cursor:pointer;user-select:none;transition:all .18s}
+.dark-mode-toggle:hover{background:rgba(255,255,255,0.1)}
+.dark-mode-toggle svg{color:#ffffff}
+.toggle-pill{position:relative;display:inline-block;width:32px;height:18px;border-radius:10px;background:#334155;transition:background-color .2s}
+.toggle-pill.on{background:#f59e0b}
+.toggle-circle{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#ffffff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,0.3)}
+.toggle-pill.on .toggle-circle{transform:translateX(14px)}
+
+.heading-overview{font-family:var(--serif);font-size:26px;font-weight:700;color:#ffffff;letter-spacing:-0.02em;margin:0 0 4px}
+
+@media(max-width:700px){.chart-wrap{height:210px}.method-grid{grid-template-columns:1fr 1fr}.method-card{padding:12px}.method-card p{font-size:11px}}
+
+/* Desktop layout tuned to reference screenshots */
+@media(min-width:701px){
+  .sidebar{width:240px;padding:20px 14px 14px;background:#091422;border-right:1px solid rgba(255,255,255,0.06)}
+  .main-area{margin-left:240px;background:radial-gradient(ellipse at 50% -12%,#244b6e55,transparent 50%),linear-gradient(180deg,#1e3e5c 0%,#152c42 100%);min-height:100vh}
+  .brand{padding:0 6px 24px;gap:10px}
+  .brand-mark{border-radius:50%;width:34px;height:34px;background:#0c1929;border:1.5px solid #f59e0b;color:#f59e0b;box-shadow:0 0 12px rgba(245,158,11,0.25);display:flex;align-items:center;justify-content:center}
+  .brand-copy strong{font-size:13px;letter-spacing:.02em;color:#ffffff}
+  .brand-copy strong em{font-style:normal;color:#f59e0b}
+  .brand-copy small{font:8px 'DM Sans',sans-serif;color:#8fa2b7}
+  .side-nav{gap:4px}
+  .nav-item{padding:9px 12px;font-size:11px;border-radius:8px;gap:10px;color:#94a3b8;border:1px solid transparent}
+  .nav-item:hover{background:rgba(255,255,255,0.04);color:#e2e8f0}
+  .nav-item.active{background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);color:#f5b93d;box-shadow:none}
+  .nav-item.active svg{color:#f5b93d}
+  .nav-item.active i{display:none}
+  
+  .topbar-overview{display:none}
+  .page-content-overview{padding:22px 28px 30px;max-width:1440px}
+  .page-content-overview .page-heading{margin-bottom:16px;align-items:center}
+  .page-content-overview .page-heading .eyebrow{display:none}
+  .page-content-overview .page-heading h1{font-family:var(--serif);font-size:26px;letter-spacing:-.02em;margin-bottom:3px}
+  .page-content-overview .page-heading p{font-size:11px;color:#94a3b8}
+}
+
+@media(max-width:700px){
+  .topbar-overview{display:flex}
+  .page-content-overview{padding:16px 14px 20px}
+}
+/* Asset switcher styled as a dark, outlined coin selector. */
+.asset-filter-row{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:0;min-height:48px;padding:2px;border:1px solid #263247;border-radius:26px;background:linear-gradient(115deg,#080e18,#0b1421);box-shadow:inset 0 1px 8px #0009}
+.asset-filter-row button{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;height:42px;padding:4px 8px;border:1px solid transparent;border-radius:24px;background:transparent;color:#8092ad;font-size:14px;font-weight:600;letter-spacing:.015em;cursor:pointer;transition:color .18s,border-color .18s,box-shadow .18s,background .18s}
+.asset-filter-row button:hover{color:#d4deeb}
+.asset-filter-row button.selected{border-color:#f0a90b;background:radial-gradient(ellipse at center,rgba(241,166,12,.11),rgba(6,13,24,.78) 75%);color:#f5b21b;box-shadow:0 0 11px rgba(245,158,11,.38),inset 0 0 13px rgba(245,158,11,.13)}
+.asset-coin-icon{flex:0 0 auto;width:20px;height:20px;display:inline-grid;place-items:center;color:#8ea1bf}
+.bitcoin-icon{border:1.5px solid currentColor;border-radius:50%;font:700 14px Arial,sans-serif;line-height:1}
+.ethereum-icon{width:13px;height:21px}
+.asset-filter-row button.selected .bitcoin-icon{color:#ffb51b;text-shadow:0 0 7px #f59e0b99}
+.asset-filter-row button.selected .ethereum-icon{color:#b9c8e4}
+
+/* Market tab page heading follows the overview header layout. */
+@media(min-width:701px){
+  .topbar-market{display:none}
+  .page-content-market{padding:22px 28px 30px;max-width:1440px}
+  .page-content-market .page-heading{margin-bottom:16px;align-items:center}
+  .page-content-market .page-heading h1{font-family:var(--serif);font-size:26px;letter-spacing:-.02em;margin-bottom:3px}
+  .page-content-market .page-heading p{font-size:11px;color:#94a3b8}
+}
+@media(max-width:700px){
+  .topbar-market{display:flex}
+  .page-content-market{padding:16px 14px 20px}
+  .page-content-market .page-heading{margin-bottom:16px;align-items:flex-start}
+}
