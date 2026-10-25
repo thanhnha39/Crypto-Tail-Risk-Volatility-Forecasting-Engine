@@ -1,0 +1,11 @@
+{
+  "plan_sha256": "f31b30802bc2aebd1ec8b1c60ab732f18974dd5c98a1f16ffaa9e1eef040f091",
+  "report_sha256": "fbbfa9a15533c846c592c7970bb4753dae00a5858f0c84f6b1167b818a32806f",
+  "inputs_sha256": {
+    "outputs/holdout_tables/model_comparison.csv": "d25d2b8211ca9297519af7131c726a81e04d63250ffd112c714e5e3e455cd22c",
+    "outputs/holdout_tables/dm_vs_benchmark.csv": "cc64072d925e085c08a3f1eb08c6371796e5fb1c59cf252b55a837401b5ce6d2",
+    "outputs/tables/model_comparison.csv": "a6e1c55aacaada4c2547f838d99ef0bd952f47aa1f6861a650a3a89e03566d8d",
+    "outputs/risk_holdout/backtest.csv": "ee81853d44465ddb7e81751d1c001f7484bc40355e6c18e2af5adad775c1b73e",
+    "outputs/holdout_verification.json": "3027b3ec4570e2a1262715125d0e42908425aa088018ce69d43952443043dc9c"
+  }
+}

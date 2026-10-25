@@ -63,8 +63,8 @@ def _summarise(coin,model,window,vol_target,max_leverage,fee_bps,df):
         strategy_max_drawdown_pct=_max_drawdown(df.strategy_cum),bh_max_drawdown_pct=_max_drawdown(df.bh_cum),
         mean_weight=float(df.weight.mean()),total_cost_pct_of_daily_nav=float(df.cost_pct.sum()))
 
-def run_all_vol_targeting(vol_target_annual_pct=15.,max_leverage=1.,fee_bps=5.,root=None):
-    dest=Path(root or ROOT);risk_dir=dest/'outputs/risk';summaries=[]
+def run_all_vol_targeting(vol_target_annual_pct=15.,max_leverage=1.,fee_bps=5.,root=None,risk_dir=None):
+    dest=Path(root or ROOT);risk_dir=Path(risk_dir) if risk_dir is not None else dest/'outputs/risk';summaries=[]
     for path in sorted(risk_dir.glob('*.parquet')):
         frame=pd.read_parquet(path)
         for window,part in frame.loc[frame.alpha.eq(.05)].groupby('window'):

@@ -21,7 +21,10 @@ def main():
     if args.final_holdout:
         if lock.exists(): raise ValueError("Final holdout run already recorded; inspect it rather than rerun")
         save_json(lock,{"state":"started","protocol_sha256":protocol_hash(config),"dataset_sha256":meta["dataset_sha256"]})
-    write_table(make_schedule(ds,config),ROOT/"data/processed/forecast_schedule.parquet")
+    schedule=make_schedule(ds,config)
+    if args.final_holdout:
+        pd.testing.assert_frame_equal(schedule,pd.read_parquet(ROOT/"data/processed/forecast_schedule.parquet"))
+    else:write_table(schedule,ROOT/"data/processed/forecast_schedule.parquet")
     folder=ROOT/("outputs/forecasts_holdout" if args.final_holdout else "outputs/forecasts")
     folder.mkdir(parents=True,exist_ok=True)
     for symbol,d in ds.groupby("symbol"):

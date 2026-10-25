@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "protocol_sha256": "7e0191870a5c7609ce0313e525d34e788a7fc75072a71c9727d1409900d9678b",
+  "dataset_sha256": "2025bf54f52f9bad444c8474cf3df3c7ca434c6884b06017c443d575cbbf4edd",
+  "model_config_sha256": "8de07dba72fc2684b9b273e3fc023cfef31d2ac9fc95cc018288952b00c39492",
+  "checks": [
+    {
+      "symbol": "BTCUSDT",
+      "model": "har_rv",
+      "rows": 1148,
+      "successful": 1148,
+      "forecast_sha256": "b28bf8d5df7141b8c65d7c55aaf07f0adbe1ac7328c916006ec9baf68586fa4c"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "model": "garch",
+      "rows": 1148,
+      "successful": 1148,
+      "forecast_sha256": "af899651ac4b0138bfc3546370020d45a8dcb56c8714cc785c808bec09a5e680"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "model": "gjr_garch",
+      "rows": 1148,
+      "successful": 1148,
+      "forecast_sha256": "9045b741d98c39969ea56d08ffa10aef1964c097cf1b68107a28fb6267a61cc5"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "model": "combo_econ",
+      "rows": 1148,
+      "successful": 1148,
+      "forecast_sha256": "b7aec1cd6bb81f2d5745945c265687bd5b7c25e667aa8796573ff3ac2940111a"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "har_rv",
+      "rows": 1148,
+      "successful": 1148,
+      "forecast_sha256": "01fe94a2d64ee729faf8f01caf143ffe60027291a486717753c87b662f401f45"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "garch",
+      "rows": 1148,
+      "successful": 1148,
+      "forecast_sha256": "f5df7ee65bd314ba7148587f8da5deed34b15ea64eb2cd9023f43d054a983b3c"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "gjr_garch",
+      "rows": 1148,
+      "successful": 1148,
+      "forecast_sha256": "3294d128d5167d27752ff8062168422906076132f65b3ee6f37386ebce892e7f"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "model": "combo_econ",
+      "rows": 1148,
+      "successful": 1148,
+      "forecast_sha256": "a83f941b665fa6b1519fded6d929e2330ca6352e7536b82acd3488d337513d4f"
+    }
+  ],
+  "garch_unique_fits": 472,
+  "garch_failed_fits": 0,
+  "max_library_recursion_difference": 3.5527136788005016e-14,
+  "sigma_handoff_verified": true,
+  "combined_variances_not_sigmas": true,
+  "holdout_scored": true,
+  "external_independent_review": "pending_team_review"
+}

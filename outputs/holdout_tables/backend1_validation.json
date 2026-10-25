@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "data_source": "binance_spot_real_snapshot",
+  "protocol_sha256": "7e0191870a5c7609ce0313e525d34e788a7fc75072a71c9727d1409900d9678b",
+  "dataset_sha256": "2025bf54f52f9bad444c8474cf3df3c7ca434c6884b06017c443d575cbbf4edd",
+  "segment": "holdout",
+  "forecast_rows": 20664,
+  "common_scored_rows": 20664,
+  "models": [
+    "combo_core4",
+    "combo_econ",
+    "enet",
+    "garch",
+    "gjr_garch",
+    "har_rv",
+    "hist_mean",
+    "naive_rw",
+    "xgboost"
+  ],
+  "full_core_comparison_ready": true,
+  "macro_predictive_use": false,
+  "turnover_is_proxy": true,
+  "holdout_scored": true
+}

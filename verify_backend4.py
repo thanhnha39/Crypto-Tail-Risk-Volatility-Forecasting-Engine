@@ -3,12 +3,15 @@ from pathlib import Path
 import hashlib
 import json
 import sys
+import subprocess
 import numpy as np
 import pandas as pd
 
 import argparse
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--input-root',type=Path,required=True)
+parser.add_argument('--historical-source-ref',help='Git revision that generated the preserved evaluation artifacts')
+parser.add_argument('--output-report',type=Path,help='Separate verification report; do not overwrite historical evidence')
 args=parser.parse_args()
 BASE=args.input_root.resolve()
 SUB=Path(__file__).resolve().parent
@@ -83,7 +86,9 @@ manifest=json.loads((out/'run_manifest.json').read_text(encoding='utf-8'))
 for rel,sha in manifest['input_sha256'].items():assert hashlib.sha256((BASE/rel).read_bytes()).hexdigest()==sha
 for rel,sha in manifest['output_sha256'].items():assert hashlib.sha256((SUB/rel).read_bytes()).hexdigest()==sha
 for rel,sha in manifest.get('risk_source_sha256',{}).items():
-    assert hashlib.sha256((SUB/rel).read_bytes()).hexdigest()==sha
+    code=(subprocess.check_output(['git','show',f'{args.historical_source_ref}:{rel}'],cwd=SUB)
+          if args.historical_source_ref else (SUB/rel).read_bytes())
+    assert hashlib.sha256(code).hexdigest()==sha
 assert manifest['holdout_evaluated'] is False
 result=dict(check='passed',risk_files=len(files),scheduled_risk_rows=len(all_risk),valid_risk_rows=len(valid),
     common_risk_rows=int(all_risk.common_sample.sum()),backtest_rows=len(summary),strategy_paths=len(paths),
@@ -94,5 +99,6 @@ result=dict(check='passed',risk_files=len(files),scheduled_risk_rows=len(all_ris
     unit_tests=json.loads((out/'test_results.json').read_text(encoding='utf-8')) if (out/'test_results.json').exists() else None,
     risk_source_sha256={p.relative_to(SUB).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
         for p in sorted((SUB/'src/risk').glob('*.py'))})
-(out/'verification.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
+result['historical_source_ref']=args.historical_source_ref
+(args.output_report or out/'verification.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
 print(json.dumps(result,indent=2),flush=True)

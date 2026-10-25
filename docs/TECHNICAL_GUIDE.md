@@ -42,8 +42,9 @@ không yêu cầu thành viên tự giải nén ZIP bằng tay.
 
 Snapshot kết thúc 17/10/2026 23:55 UTC, không tự cập nhật theo ngày mở repo.
 Tháng 12/2018 làm đệm; warmup 2019–2020; evaluation 2021–2025; holdout 2026 dành
-cho lượt đánh giá cuối. QA nguồn có thể kiểm tra holdout, không đồng nghĩa đã
-chấm mô hình holdout. Xem [data_quality_report.md](data_quality_report.md),
+cho lượt đánh giá cuối. Quy trình và kết quả holdout hiện tại nằm trong
+[HOLDOUT_PROTOCOL.md](HOLDOUT_PROTOCOL.md) và [HOLDOUT_RESULTS.md](HOLDOUT_RESULTS.md).
+QA nguồn không đồng nghĩa đã chấm mô hình. Xem [data_quality_report.md](data_quality_report.md),
 [data_dictionary.md](data_dictionary.md), [source_log.md](source_log.md) và
 [source_log.csv](source_log.csv).
 
@@ -223,9 +224,34 @@ ES/VaR, thay đổi residual tương lai và wealth path. Test fixture mô phỏ
 
 Không coi unit test đạt là mọi model vượt benchmark hay coverage được chấp nhận.
 Các trạng thái kiểm tra độc lập trước đây không phải chữ ký của thành viên.
-Lượt final holdout 2026 chỉ chạy khi nhóm đã khóa toàn bộ thiết kế. Các entry
-point trước có cờ final-holdout/lock riêng; không xóa lock để thử nhiều lần.
-Backend 4 mặc định chỉ evaluation 2021–2025.
+Lượt final holdout 2026 dùng thiết kế đã khóa tại `outputs/holdout_plan.json`.
+Trạng thái từng bước ở `outputs/final_holdout_pipeline.json`; kết quả và giới hạn
+ở [HOLDOUT_RESULTS.md](HOLDOUT_RESULTS.md). Phạm vi là 01/01–17/10/2026.
+Luồng chạy thống nhất: `python -m src.final_holdout --prepare`, rồi `--run`;
+không chạy lại khi đã có trạng thái completed. Không xóa lock để thử nhiều lần.
+Orchestrator chỉ gọi aggregate sau khi toàn bộ model đã có forecast, tránh
+trùng khóa khi gọi tuần tự entry point Backend 2 và 3 cũ.
+Backend 4 mặc định giữ evaluation 2021–2025; cờ `--final-holdout` dùng thư mục
+`outputs/risk_holdout`, kế thừa residual ngoài mẫu riêng model/window trước 2026
+và chỉ thêm residual đã quan sát. Xem quy trình khóa và kiểm tra ở tài liệu holdout.
+
+Code risk evaluation lịch sử đã thay phiên bản sau khi bổ sung holdout. Đối chiếu
+hash code đã tạo ra kết quả cũ bằng `verify_backend4.py --input-root .
+--historical-source-ref e226478 --output-report outputs/holdout_evaluation_compatibility.json`.
+Không cập nhật ngược hash manifest cũ thành hash code mới.
+
+QA holdout giữ giới hạn đã biết: ngày 22/02/2026 còn chênh giữa Binance và
+CoinGecko chưa rõ nguyên nhân, dù nến Binance 5m khớp dữ liệu 1d cùng sàn.
+Giữ nguồn Binance theo protocol; không sửa giá hoặc tune theo chênh lệch này.
+Đọc `data_quality_report.md` và phần dữ liệu của bản bàn giao 24/10 khi viết luận.
+
+Đã có hiệu chỉnh riêng sau lượt chấm cho tiêu đề hình bị ghi cố định 2021–2025.
+`outputs/holdout_plan_original.json` giữ nguyên plan trước lượt chấm;
+`outputs/holdout_plan.json` ghi bổ sung đúng thay đổi trình bày này. Code gốc
+ở `outputs/holdout_source_original/aggregate.py`; manifest hiệu chỉnh xác nhận
+không fit/tune lại và mọi file số liệu giữ nguyên. `correct_holdout_titles.py`
+là công cụ sửa một lần, từ chối ghi đè biên bản đã có. Kiểm tra lại các đầu ra
+hiện hành bằng `python -m src.evaluation.verify_holdout`.
 
 ## 12 Nguồn phương pháp và code
 

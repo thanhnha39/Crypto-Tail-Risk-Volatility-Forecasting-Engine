@@ -134,13 +134,34 @@ def _plot(group,path,coin,model):
         b=part.breach.eq(1)
         ax.scatter(part.loc[b,'date'],part.loc[b,'return'],s=9,color='#ef912c',label='Breach',zorder=3)
         ax.set_ylabel('Log return (%)');ax.grid(alpha=.2);ax.legend(ncol=4,frameon=False)
-    fig.suptitle(f'{coin} | {model} | rolling | h=1 | 2021–2025')
+    fig.suptitle(f'{coin} | {model} | rolling | h=1 | {group.date.min():%Y-%m-%d} to {group.date.max():%Y-%m-%d}')
     fig.tight_layout();path.parent.mkdir(parents=True,exist_ok=True);fig.savefig(path,dpi=140);plt.close(fig)
 
 def _sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def run(input_root=None,output_root=None,with_strategy=True):
+def risk_forecast_input(current, history, start, end):
+    """Separate scored dates from causal residual history, preserving the full calendar."""
+    combined=pd.concat([history,current],ignore_index=True) if history is not None else current.copy()
+    for c in ('origin_date','target_date','forecast_available_at'):combined[c]=_utc(combined[c])
+    combined=combined.loc[combined.horizon_days.eq(1)&combined.target_date.le(end)].copy()
+    if combined.duplicated(['symbol','model','window','target_date']).any():
+        raise ValueError('Overlapping or duplicate historical/holdout forecasts')
+    if history is not None and _utc(history.target_date).ge(start).any():
+        raise ValueError('Residual seed must precede the holdout')
+    if 'mean_forecast_pct' not in combined:combined['mean_forecast_pct']=0.
+    if not np.isfinite(combined.loc[combined.status.eq('ok'),'mean_forecast_pct']).all():
+        raise ValueError('Invalid forecast mean')
+    scored=combined.loc[combined.target_date.between(start,end)].copy()
+    expected=set(pd.date_range(start,end,freq='D'))
+    for window in ('rolling','expanding'):
+        if set(scored.loc[scored.window.eq(window),'target_date'])!=expected:
+            raise ValueError(f'Incomplete forecast calendar: {window}')
+    return scored,build_residuals(combined)
+
+
+def run(input_root=None,output_root=None,with_strategy=True,segment='evaluation'):
+    if segment not in ('evaluation','holdout'):raise ValueError('Unknown segment')
     source=Path(input_root or ROOT).resolve();dest=Path(output_root or source).resolve()
     cfg=tomllib.loads((source/'config/data.toml').read_text(encoding='utf-8'))
     cfg['backend1']=tomllib.loads((source/'config/backend1.toml').read_text(encoding='utf-8'))
@@ -148,29 +169,32 @@ def run(input_root=None,output_root=None,with_strategy=True):
     digest=_sha(dataset_path);meta=json.loads((source/'data/processed/dataset_meta.json').read_text(encoding='utf-8'))
     if meta['dataset_sha256']!=digest or meta['protocol_sha256']!=protocol_hash(cfg):
         raise ValueError('Dataset/protocol provenance mismatch; rebuild upstream outputs first')
-    start=pd.Timestamp(cfg['data']['evaluation_start'],tz='UTC');end=pd.Timestamp(cfg['data']['research_end'],tz='UTC')
+    holdout=segment=='holdout'
+    start=pd.Timestamp(cfg['data']['holdout_start'] if holdout else cfg['data']['evaluation_start'],tz='UTC')
+    end=pd.Timestamp(min(cfg['data']['holdout_end'],cfg['data']['end']) if holdout else cfg['data']['research_end'],tz='UTC')
     truth=dataset[['symbol','origin_date','ret_d']].rename(columns={'origin_date':'target_date','ret_d':'realized_return_pct'})
     truth['target_date']=_utc(truth.target_date)
     parts=[];inputs={'data/processed/dataset.parquet':digest}
     for coin in cfg['data']['symbols']:
         for model in MODELS:
-            rel=f'outputs/forecasts/{coin}_{model}.parquet';path=source/rel
+            rel=f'outputs/{"forecasts_holdout" if holdout else "forecasts"}/{coin}_{model}.parquet';path=source/rel
             if not path.exists():raise ValueError(f'Required upstream forecasts missing: {path}')
             fc=pd.read_parquet(path)
             errors=validate_forecasts(fc,dataset,cfg,digest,rel)
             if errors:raise ValueError('\n'.join(errors))
             if set(fc.symbol)!={coin} or set(fc.model)!={model}:raise ValueError(f'Wrong file identity: {rel}')
             for c in ('origin_date','target_date','forecast_available_at'):fc[c]=_utc(fc[c])
-            # Exclude final holdout before building any residuals or risk forecasts.
-            fc=fc.loc[fc.horizon_days.eq(1)&fc.target_date.between(start,end)].copy()
-            if 'mean_forecast_pct' not in fc:fc['mean_forecast_pct']=0.
-            # Unavailable forecasts may have missing means. Successful ones may not.
-            if (~np.isfinite(fc.loc[fc.status.eq('ok'),'mean_forecast_pct'])).any():raise ValueError(f'Invalid forecast mean: {rel}')
-            expected=pd.date_range(start,end,freq='D')
-            for window in ('rolling','expanding'):
-                if set(fc.loc[fc.window.eq(window),'target_date'])!=set(expected):raise ValueError(f'Incomplete forecast calendar: {rel} {window}')
             fc=fc.merge(truth,on=['symbol','target_date'],how='left',validate='many_to_one')
-            residuals=build_residuals(fc)
+            history=None
+            if holdout:
+                seed_rel=f'outputs/forecasts/{coin}_{model}.parquet';seed_path=source/seed_rel
+                history=pd.read_parquet(seed_path)
+                errors=validate_forecasts(history,dataset,cfg,digest,seed_rel)
+                if errors:raise ValueError(errors)
+                if not history.symbol.eq(coin).all() or not history.model.eq(model).all():raise ValueError('Wrong residual seed identity')
+                history=history.merge(truth,on=['symbol','target_date'],how='left',validate='many_to_one')
+                inputs[seed_rel]=_sha(seed_path)
+            fc,residuals=risk_forecast_input(fc,history,start,end)
             risk=_risk_rows(fc,residuals)
             actual=truth.rename(columns={'symbol':'coin','target_date':'date','realized_return_pct':'return'})
             risk=risk.merge(actual,on=['coin','date'],how='left',validate='many_to_one')
@@ -180,10 +204,11 @@ def run(input_root=None,output_root=None,with_strategy=True):
             print(f'[risk] {coin} {model}: {int(risk.score_valid.sum())}/{len(risk)} scored rows',flush=True)
     risks=pd.concat(parts,ignore_index=True)
     primary,available,coverage=comparison_tables(risks)
-    out=dest/'outputs/risk';out.mkdir(parents=True,exist_ok=True)
+    out=dest/('outputs/risk_holdout' if holdout else 'outputs/risk');out.mkdir(parents=True,exist_ok=True)
     for (coin,model),group in risks.groupby(['coin','model']):
         write_table(group.sort_values(['date','window','alpha']),out/f'{coin}_{model}.parquet')
-        _plot(group,dest/f'outputs/figures/risk/{coin}_{model}_var_breaches.png',coin,model)
+        fig_folder='outputs/holdout_figures/risk' if holdout else 'outputs/figures/risk'
+        _plot(group,dest/f'{fig_folder}/{coin}_{model}_var_breaches.png',coin,model)
     primary.to_csv(out/'backtest.csv',index=False)
     available.to_csv(out/'backtest_available_sample.csv',index=False)
     coverage.to_csv(out/'coverage.csv',index=False)
@@ -203,8 +228,8 @@ def run(input_root=None,output_root=None,with_strategy=True):
     pd.DataFrame(check_simulation()).to_csv(out/'simulation_checks.csv',index=False)
     if with_strategy:
         from src.risk.strategy import run_all_vol_targeting
-        run_all_vol_targeting(root=dest)
-    manifest=dict(schema_version=2,evaluation_start=str(start),evaluation_end=str(end),holdout_evaluated=False,
+        run_all_vol_targeting(root=dest,risk_dir=out)
+    manifest=dict(schema_version=3,segment=segment,evaluation_start=str(start),evaluation_end=str(end),holdout_evaluated=holdout,
         input_root=str(source),models=list(MODELS),risk_rows=len(risks),valid_rows=int(risks.score_valid.sum()),
         common_rows=int(risks.common_sample.sum()),fhs_min_history=MIN_FHS_HISTORY,
         fhs_history='expanding own-model one-day OOS residuals, observable_at <= forecast_available_at',
@@ -218,7 +243,16 @@ def run(input_root=None,output_root=None,with_strategy=True):
         cost_convention='one-way fee on traded value; exact self-financing initial allocation for both strategies') if with_strategy else None
     manifest['output_sha256']={p.relative_to(dest).as_posix():_sha(p) for p in sorted(out.rglob('*')) if p.is_file() and p.name not in ('run_manifest.json','verification.json','README.md')}
     (out/'run_manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
-    (out/'README.md').write_text('''# Backend 4 risk outputs (corrected)
+    (out/'README.md').write_text(('''# Holdout risk outputs
+
+Final holdout only; see run_manifest.json for exact dates and checksums.
+FHS starts with 2021–2025 own-model OOS residuals and adds completed 2026 errors.
+Only observable_at <= forecast_available_at and earlier target dates enter the pool.
+Strategy starts flat at the beginning of this separate period with the same fixed costs.
+Historical named crisis windows are outside this holdout, not new 2026 stress evidence.
+Kupiec/Christoffersen test VaR coverage, not ES calibration. At 99%, the short sample
+has few expected breaches, so p-values have limited power.
+''' if holdout else '''# Backend 4 risk outputs (corrected)
 
 `{coin}_{model}.parquet`: all scheduled 2021–2025 h=1 dates, two windows,
 alpha .05/.01 (95%/99%). Returns/VaR/ES/sigma in percent; variance in %².
@@ -238,13 +272,21 @@ FHS uses own-model OOS residuals only after the return is observable. Minimum
 tail is sparse; inspect n_fhs_tail. No 2026 final holdout is evaluated.
 Christoffersen never joins across missing days; gapped-sample p-values are
 asymptotic diagnostics. These tests validate VaR coverage, not ES calibration.
-''',encoding='utf-8')
+'''),encoding='utf-8')
     return risks
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--input-root',type=Path);p.add_argument('--output-root',type=Path)
     p.add_argument('--skip-strategy',action='store_true')
-    a=p.parse_args();run(a.input_root,a.output_root,not a.skip_strategy)
+    p.add_argument('--final-holdout',action='store_true')
+    a=p.parse_args()
+    lock=Path(a.output_root or a.input_root or ROOT)/'outputs/final_holdout_backend4.json'
+    if a.final_holdout:
+        if lock.exists():raise ValueError('Final risk holdout was already started; inspect the stored run')
+        lock.parent.mkdir(parents=True,exist_ok=True)
+        lock.write_text(json.dumps({'state':'started'}),encoding='utf-8')
+    run(a.input_root,a.output_root,not a.skip_strategy,'holdout' if a.final_holdout else 'evaluation')
+    if a.final_holdout:lock.write_text(json.dumps({'state':'completed'}),encoding='utf-8')
 
 if __name__=='__main__':main()

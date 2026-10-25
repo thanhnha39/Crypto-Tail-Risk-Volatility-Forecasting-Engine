@@ -89,7 +89,7 @@ def make_figures(ev,config,directory):
                 values=part.set_index("target_date")["rv_forecast_pct2"].reindex(grid)
                 ax.plot(grid,np.sqrt(values) if sqrt else values,lw=.7,alpha=.8,label=model)
             ax.set_ylabel("Volatility (%)" if sqrt else "Variance (%²)");ax.legend(ncol=4,fontsize=8)
-        axes[0].set_title(f"{symbol} | {scheme} | {h}-day variance | evaluation 2021–2025")
+        axes[0].set_title(f"{symbol} | {scheme} | {h}-day variance | {actual.index.min():%Y-%m-%d} to {actual.index.max():%Y-%m-%d}")
         axes[-1].set_xlabel("Target end (UTC)");fig.savefig(directory/f"{prefix}_forecast_vs_actual.png",dpi=130);plt.close(fig)
         losses=group.pivot(index="origin_date",columns="model",values="qlike").sort_index()
         losses=losses.reindex(pd.date_range(losses.index.min(),losses.index.max(),tz="UTC",freq="D"))

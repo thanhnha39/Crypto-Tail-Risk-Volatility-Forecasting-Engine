@@ -1,0 +1,8 @@
+{
+  "tests": 108,
+  "seconds": 9.163,
+  "passed": true,
+  "failures": 0,
+  "errors": 0,
+  "scope": "Full repository suite before final holdout; includes eight new year-boundary/freeze regressions"
+}

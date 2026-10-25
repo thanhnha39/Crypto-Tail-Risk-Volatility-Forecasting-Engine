@@ -1,0 +1,31 @@
+{
+  "segment": "holdout",
+  "models": [
+    "enet",
+    "xgboost",
+    "enet_core",
+    "xgboost_core"
+  ],
+  "ml_config_sha256": "c7abeb13241203fd87ad4c5bfc04f4f9818911e0913bd2f8fe5098c0bd2134e6",
+  "selection_sha256": "4b585b406def3fa671ad5aded2b7aaa41cc0616e64720553e825d561a821578f",
+  "protocol_sha256": "7e0191870a5c7609ce0313e525d34e788a7fc75072a71c9727d1409900d9678b",
+  "dataset_sha256": "2025bf54f52f9bad444c8474cf3df3c7ca434c6884b06017c443d575cbbf4edd",
+  "input_forecast_sha256": {
+    "outputs/forecasts_holdout/BTCUSDT_har_rv.parquet": "b28bf8d5df7141b8c65d7c55aaf07f0adbe1ac7328c916006ec9baf68586fa4c",
+    "outputs/forecasts_holdout/BTCUSDT_garch.parquet": "af899651ac4b0138bfc3546370020d45a8dcb56c8714cc785c808bec09a5e680",
+    "outputs/forecasts_holdout/BTCUSDT_gjr_garch.parquet": "9045b741d98c39969ea56d08ffa10aef1964c097cf1b68107a28fb6267a61cc5",
+    "outputs/forecasts_holdout/ETHUSDT_har_rv.parquet": "01fe94a2d64ee729faf8f01caf143ffe60027291a486717753c87b662f401f45",
+    "outputs/forecasts_holdout/ETHUSDT_garch.parquet": "f5df7ee65bd314ba7148587f8da5deed34b15ea64eb2cd9023f43d054a983b3c",
+    "outputs/forecasts_holdout/ETHUSDT_gjr_garch.parquet": "3294d128d5167d27752ff8062168422906076132f65b3ee6f37386ebce892e7f"
+  },
+  "fit_count": 1856,
+  "shap_rows": 2296,
+  "forecast_rows_including_ablation": 9184,
+  "status_counts": {
+    "ok": 9184
+  },
+  "holdout_scored": false,
+  "holdout_forecasted": true,
+  "gru_enabled": false,
+  "macro_predictive_use": false
+}

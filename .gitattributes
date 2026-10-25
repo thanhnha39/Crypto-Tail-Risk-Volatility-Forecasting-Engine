@@ -18,3 +18,87 @@ outputs/sensitivity/macro/fit_diagnostics.csv -text
 outputs/risk/** -text whitespace=cr-at-eol
 
 .gitattributes text eol=lf
+
+# Preserve byte hashes for the final holdout artifacts across checkouts.
+outputs/forecasts_holdout/** -text whitespace=cr-at-eol
+outputs/volatility_holdout/** -text whitespace=cr-at-eol
+outputs/diagnostics_holdout/** -text whitespace=cr-at-eol
+outputs/ablation_holdout/** -text whitespace=cr-at-eol
+outputs/holdout_tables/** -text whitespace=cr-at-eol
+outputs/holdout_figures/** -text whitespace=cr-at-eol
+outputs/risk_holdout/** -text whitespace=cr-at-eol
+outputs/holdout*.json -text whitespace=cr-at-eol
+outputs/final_holdout*.json -text whitespace=cr-at-eol
+outputs/holdout_source_original/** -text
+
+# Original evaluation text was hashed with CRLF; reconstruct those exact bytes.
+data/processed/dataset_meta.json -text whitespace=cr-at-eol
+outputs/diagnostics/backend2_validation.json -text whitespace=cr-at-eol
+outputs/diagnostics/backend3/fit_diagnostics.csv -text whitespace=cr-at-eol
+outputs/diagnostics/backend3/run_summary.json -text whitespace=cr-at-eol
+outputs/diagnostics/backend3/validation.json -text whitespace=cr-at-eol
+outputs/diagnostics/garch_diagnostic_summary.csv -text whitespace=cr-at-eol
+outputs/diagnostics/garch_fit_diagnostics.csv -text whitespace=cr-at-eol
+outputs/diagnostics/garch_parameters.csv -text whitespace=cr-at-eol
+outputs/diagnostics/har_fit_diagnostics.csv -text whitespace=cr-at-eol
+outputs/diagnostics/run_summary.json -text whitespace=cr-at-eol
+outputs/sensitivity/macro/coverage.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/BTCUSDT_enet_macro_base.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/BTCUSDT_enet_usd.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/BTCUSDT_enet_vix.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/BTCUSDT_enet_vix_usd.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/BTCUSDT_xgboost_macro_base.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/BTCUSDT_xgboost_usd.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/BTCUSDT_xgboost_vix.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/BTCUSDT_xgboost_vix_usd.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/ETHUSDT_enet_macro_base.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/ETHUSDT_enet_usd.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/ETHUSDT_enet_vix.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/ETHUSDT_enet_vix_usd.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/ETHUSDT_xgboost_macro_base.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/ETHUSDT_xgboost_usd.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/ETHUSDT_xgboost_vix.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/refits/ETHUSDT_xgboost_vix_usd.csv -text whitespace=cr-at-eol
+outputs/sensitivity/macro/validation.json -text whitespace=cr-at-eol
+outputs/tables/acf_rv.csv -text whitespace=cr-at-eol
+outputs/tables/backend1_validation.json -text whitespace=cr-at-eol
+outputs/tables/backend3_macro_ablation.csv -text whitespace=cr-at-eol
+outputs/tables/backend3_scope_status.csv -text whitespace=cr-at-eol
+outputs/tables/backend3_shap_importance.csv -text whitespace=cr-at-eol
+outputs/tables/backend3_volume_ablation.csv -text whitespace=cr-at-eol
+outputs/tables/BTCUSDT_coingecko_crosscheck.csv -text whitespace=cr-at-eol
+outputs/tables/BTCUSDT_daily_quality.csv -text whitespace=cr-at-eol
+outputs/tables/BTCUSDT_incomplete_days.csv -text whitespace=cr-at-eol
+outputs/tables/BTCUSDT_missing_intervals.csv -text whitespace=cr-at-eol
+outputs/tables/BTCUSDT_review_bars.csv -text whitespace=cr-at-eol
+outputs/tables/crosscheck_source_audit.csv -text whitespace=cr-at-eol
+outputs/tables/data_quality_summary.json -text whitespace=cr-at-eol
+outputs/tables/descriptive_statistics.csv -text whitespace=cr-at-eol
+outputs/tables/dm_by_regime.csv -text whitespace=cr-at-eol
+outputs/tables/dm_vs_benchmark.csv -text whitespace=cr-at-eol
+outputs/tables/ETHUSDT_coingecko_crosscheck.csv -text whitespace=cr-at-eol
+outputs/tables/ETHUSDT_daily_quality.csv -text whitespace=cr-at-eol
+outputs/tables/ETHUSDT_incomplete_days.csv -text whitespace=cr-at-eol
+outputs/tables/ETHUSDT_missing_intervals.csv -text whitespace=cr-at-eol
+outputs/tables/ETHUSDT_review_bars.csv -text whitespace=cr-at-eol
+outputs/tables/feature_sets.csv -text whitespace=cr-at-eol
+outputs/tables/feature_validation.json -text whitespace=cr-at-eol
+outputs/tables/forecast_coverage.csv -text whitespace=cr-at-eol
+outputs/tables/gap_archive_ohlc_differences.csv -text whitespace=cr-at-eol
+outputs/tables/gap_source_audit.csv -text whitespace=cr-at-eol
+outputs/tables/handoff_validation.json -text whitespace=cr-at-eol
+outputs/tables/large_return_source_audit.csv -text whitespace=cr-at-eol
+outputs/tables/model_availability.csv -text whitespace=cr-at-eol
+outputs/tables/model_comparison.csv -text whitespace=cr-at-eol
+outputs/tables/model_comparison_available_sample.csv -text whitespace=cr-at-eol
+outputs/tables/regime_counts.csv -text whitespace=cr-at-eol
+outputs/tables/regime_labels.csv -text whitespace=cr-at-eol
+outputs/tables/regime_performance.csv -text whitespace=cr-at-eol
+outputs/tables/robustness.csv -text whitespace=cr-at-eol
+outputs/tables/robustness.json -text whitespace=cr-at-eol
+outputs/tables/sample_period_summary.csv -text whitespace=cr-at-eol
+outputs/tables/source_audit_summary.json -text whitespace=cr-at-eol
+
+# These frozen inputs/reports also retain their original checksum bytes.
+docs/HOLDOUT_RESULTS.md -text whitespace=cr-at-eol
+requirements.txt -text whitespace=cr-at-eol

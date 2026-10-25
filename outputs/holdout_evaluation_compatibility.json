@@ -1,0 +1,32 @@
+{
+  "check": "passed",
+  "risk_files": 18,
+  "scheduled_risk_rows": 131472,
+  "valid_risk_rows": 124176,
+  "common_risk_rows": 119016,
+  "backtest_rows": 72,
+  "strategy_paths": 36,
+  "first_valid_har": "2021-02-06 00:00:00+00:00",
+  "har_fhs_count_range": [
+    0,
+    1672
+  ],
+  "real_data_future_mutation_test": "passed",
+  "timestamp_resolution_invariance": "passed",
+  "source_and_output_checksums": "passed",
+  "holdout_evaluated": false,
+  "unit_tests": {
+    "tests": 47,
+    "passed": true,
+    "failures": 0,
+    "errors": 0
+  },
+  "risk_source_sha256": {
+    "src/risk/__init__.py": "1bbe7f0b20b241acdf27008b46373a14a73d81b94620a0b6271435dbffcd258b",
+    "src/risk/metrics.py": "14cfe4ca8af87123c48a8b2f733216bdb3bd72a61eadd9765f54cdff7525ace6",
+    "src/risk/run.py": "0a5c2fdf20c9d5a66f4906cead6ac332eeeb6c6560d0df0d5b76d2eea1abdd53",
+    "src/risk/simulation.py": "76c6f4c2529ded12613bbf9f4a008a5487d6eb7c8777ed910709bb19842ffa55",
+    "src/risk/strategy.py": "5d12b935fbcfd5cd743131ab4293373170187b6978c268b1bd8f9afdedf0a3be"
+  },
+  "historical_source_ref": "e226478"
+}

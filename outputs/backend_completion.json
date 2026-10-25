@@ -1,0 +1,32 @@
+{
+  "status": "complete_within_agreed_scope",
+  "verified_at": "2026-10-25T10:06:02.806249+00:00",
+  "unit_tests": {
+    "tests": 108,
+    "passed": true,
+    "failures": 0,
+    "errors": 0
+  },
+  "evaluation_risk_verification": "passed",
+  "holdout_verification": "passed",
+  "holdout_start": "2026-01-01",
+  "holdout_end": "2026-10-17",
+  "holdout_forecast_files": 18,
+  "holdout_forecast_rows": 20664,
+  "holdout_risk_rows": 20880,
+  "future_residual_mutation_checks": 14,
+  "original_evaluation_unchanged": true,
+  "all_pipeline_stages_completed": true,
+  "main_document_links_checked": true,
+  "excluded_from_backend": [
+    "optional GRU deferred by user",
+    "dashboard integration",
+    "academic report composition"
+  ],
+  "limitations": [
+    "ES has no separate calibration test",
+    "partial-year 2026 holdout",
+    "preserve documented source-data limitations"
+  ],
+  "frozen_artifact_git_bytes_preserved": true
+}

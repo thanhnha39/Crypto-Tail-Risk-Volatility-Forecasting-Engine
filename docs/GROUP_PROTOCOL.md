@@ -36,7 +36,7 @@ Nguồn cấu hình máy đọc: `config/data.toml`. Data và Backend 1–4 đã
 
 RV = tổng bình phương các return `100*ln(P_j/P_{j-1})`. Nến mở 00:00–23:55 UTC thuộc ngày t; close của nến cuối có sẵn khi ngày t kết thúc. Return tại 00:00 cần close nến 23:55 của ngày trước. Biến căn RV chỉ dùng báo cáo volatility, không đổi mục tiêu thành volatility.
 
-Holdout được kiểm tra chất lượng dữ liệu nguồn, nhưng không dùng chọn mô hình/siêu tham số. Báo cáo mô tả mới chỉ thống kê giá/return/RV theo warmup và evaluation; ACF chỉ dùng warmup. Các báo cáo cũ từng có thống kê mô tả 2026; không khẳng định rằng dữ liệu 2026 chưa từng được xem. Chưa chạy đánh giá mô hình holdout trong phần bàn giao này.
+Holdout được kiểm tra chất lượng dữ liệu nguồn, nhưng không dùng chọn mô hình/siêu tham số. Báo cáo mô tả cũ từng có thống kê 2026; không khẳng định rằng dữ liệu 2026 chưa từng được xem. Quy trình chấm cuối một phần năm 2026 nằm trong [HOLDOUT_PROTOCOL.md](HOLDOUT_PROTOCOL.md); trạng thái thực tế trong `outputs/final_holdout_pipeline.json` và kết quả ở [HOLDOUT_RESULTS.md](HOLDOUT_RESULTS.md).
 
 
 ### 1. Cửa sổ là 730 ngày lịch
@@ -66,7 +66,7 @@ Regime đi kèm dự báo t+1 dùng thông tin đến hết origin t: crisis n�
 main đã tích hợp Data, Backend 1 (feature/target, lịch, regime và khung đánh giá),
 Backend 2 (HAR/GARCH/GJR và tổ hợp), Backend 3 (Elastic Net/XGBoost, SHAP,
 ablation và macro sensitivity riêng) và Backend 4 (VaR/ES h1, backtest, stress,
-chiến lược có phí). GRU tùy chọn chưa triển khai. Holdout mô hình 2026 chưa chấm.
+chiến lược có phí). GRU tùy chọn chưa triển khai. Holdout 2026 theo kế hoạch khóa riêng, không sửa thiết kế sau khi chấm.
 
 Hướng dẫn chạy và phương pháp: [TECHNICAL_GUIDE.md](TECHNICAL_GUIDE.md).
 Số liệu và diễn giải để viết luận: [BAN_GIAO_VIET_LUAN.md](BAN_GIAO_VIET_LUAN.md).
