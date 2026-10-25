@@ -48,6 +48,33 @@ py -3.12 -m venv .venv
 
 Kết quả đã được lưu sẵn. Không cần chạy fit lại để viết luận.
 
+## Read-only dashboard API
+
+The FastAPI adapter serves the current saved evaluation and holdout outputs.
+It does not download data, fit models, or rewrite research artifacts. From the
+frontend repository root, set up and start it with:
+
+```powershell
+.\backend\setup_api.ps1
+.\backend\run_api.ps1
+```
+
+Interactive OpenAPI documentation is available at `http://127.0.0.1:8000/docs`.
+The start script uses the project virtual environment and restarts an older
+instance of this same API on port 8000. It refuses to stop an unrelated
+process. By default, the API accepts browser requests from
+`http://127.0.0.1:5173`. For hosted deployment, set `FRONTEND_ORIGINS` to the
+exact frontend origin(s), separated by commas (for example,
+`https://your-dashboard.vercel.app`).
+Restart the API after replacing backend outputs because files are cached for
+the lifetime of the server.
+
+The primary routes are `/api/v1/health`, `/api/v1/dashboard/overview`,
+`/api/v1/market`, `/api/v1/forecasts`, `/api/v1/research/volatility`,
+`/api/v1/risk`, `/api/v1/methodology`, and `/api/v1/exports/dashboard.csv`.
+Forecast, overview, research, risk, and export routes support
+`sample=evaluation` and `sample=holdout`; evaluation is the default.
+
 | Thư mục | Nội dung |
 |---|---|
 | `data/raw/` | ZIP/CSV nguồn, checksum và metadata |

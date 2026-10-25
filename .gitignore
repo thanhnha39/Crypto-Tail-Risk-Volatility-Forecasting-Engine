@@ -221,6 +221,7 @@ __marimo__/
 
 # File máy cá nhân; dữ liệu và kết quả bàn giao được theo dõi trên GitHub.
 .venv/
+.venv-api/
 .cache/
 .idea/
 __pycache__/
