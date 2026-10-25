@@ -1,0 +1,46 @@
+.app-shell .page-content article,
+.app-shell .page-content .panel,
+.app-shell .page-content .metric-box,
+.app-shell .page-content .overview-hero-card,
+.app-shell .page-content .md-panel,
+.app-shell .page-content .md-main-chart,
+.app-shell .page-content .md-small-chart,
+.app-shell .page-content .md-acf-chart,
+.app-shell .page-content .md-empty,
+.app-shell .page-content .vf-panel,
+.app-shell .page-content .vf-chart,
+.app-shell .page-content .vf-regime-chart,
+.app-shell .page-content .vf-empty,
+.app-shell .page-content .risk-conclusion,
+.app-shell .page-content .method-section,
+.app-shell .page-content .method-toc-card,
+.app-shell .page-content .method-reference,
+.app-shell .page-content .method-timeline,
+.app-shell .page-content .method-table-wrap,
+.app-shell .page-content .method-model-table-wrap {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .18), 0 1px 3px rgba(0, 0, 0, .12);
+  transition: box-shadow .24s ease;
+}
+
+.app-shell.theme-light .page-content article,
+.app-shell.theme-light .page-content .panel,
+.app-shell.theme-light .page-content .metric-box,
+.app-shell.theme-light .page-content .overview-hero-card,
+.app-shell.theme-light .page-content .md-panel,
+.app-shell.theme-light .page-content .md-main-chart,
+.app-shell.theme-light .page-content .md-small-chart,
+.app-shell.theme-light .page-content .md-acf-chart,
+.app-shell.theme-light .page-content .md-empty,
+.app-shell.theme-light .page-content .vf-panel,
+.app-shell.theme-light .page-content .vf-chart,
+.app-shell.theme-light .page-content .vf-regime-chart,
+.app-shell.theme-light .page-content .vf-empty,
+.app-shell.theme-light .page-content .risk-conclusion,
+.app-shell.theme-light .page-content .method-section,
+.app-shell.theme-light .page-content .method-toc-card,
+.app-shell.theme-light .page-content .method-reference,
+.app-shell.theme-light .page-content .method-timeline,
+.app-shell.theme-light .page-content .method-table-wrap,
+.app-shell.theme-light .page-content .method-model-table-wrap {
+  box-shadow: 0 7px 20px rgba(34, 54, 76, .1), 0 1px 3px rgba(34, 54, 76, .06);
+}

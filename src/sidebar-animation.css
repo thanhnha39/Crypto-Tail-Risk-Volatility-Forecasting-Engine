@@ -1,0 +1,30 @@
+@media(min-width:701px){
+  .sidebar,.main-area,.sidebar .brand-copy,.sidebar .sidebar-filters,.sidebar .sidebar-bottom,
+  .sidebar .nav-item,.sidebar .nav-item>span,.sidebar .sidebar-toggle{
+    transition:width .24s ease,min-width .24s ease,margin .24s ease,padding .24s ease,gap .24s ease,
+      max-width .2s ease,opacity .16s ease,transform .24s ease,background-color .18s ease,border-color .18s ease;
+  }
+  .sidebar-collapsed .sidebar{width:76px;overflow-x:hidden}
+  .sidebar-collapsed .main-area{margin-left:76px}
+  .sidebar-collapsed .sidebar .brand{position:relative;justify-content:center;gap:0;padding-right:0;padding-left:0}
+  .sidebar-collapsed .sidebar .brand-mark{flex-basis:42px;width:42px;height:42px}
+  .sidebar-collapsed .sidebar .brand-copy{max-width:0;overflow:hidden;opacity:0;transform:translateX(-6px);pointer-events:none}
+  .sidebar-collapsed .sidebar .sidebar-toggle{position:absolute;top:2px;right:1px;z-index:1;width:21px;height:21px;flex-basis:21px;padding:0;border-color:rgba(255,255,255,.16);background:#15233a;color:#f4bd3d}
+  .sidebar-collapsed .sidebar .side-nav{gap:5px}
+  .sidebar-collapsed .sidebar .nav-item{justify-content:center;gap:0;padding-right:0;padding-left:0}
+  .sidebar-collapsed .sidebar .nav-item>span{max-width:0;overflow:hidden;opacity:0}
+  .sidebar-collapsed .sidebar .sidebar-filters{max-height:0;gap:0;margin:0;padding:0;border-width:0;opacity:0;overflow:hidden;visibility:hidden;pointer-events:none}
+  .sidebar-collapsed .sidebar .sidebar-bottom{align-items:center;padding-right:0;padding-left:0}
+  .sidebar-collapsed .sidebar .sidebar-bottom .export-button,
+  .sidebar-collapsed .sidebar .sidebar-bottom>small,
+  .sidebar-collapsed .sidebar .connection>span:not(.connection-dot){display:none}
+  .sidebar-collapsed .sidebar .sidebar-bottom .connection{justify-content:center;margin:0}
+}
+
+@media(max-width:700px){
+  .sidebar-toggle{display:none!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .sidebar,.main-area,.sidebar *{scroll-behavior:auto!important;transition-duration:.01ms!important}
+}

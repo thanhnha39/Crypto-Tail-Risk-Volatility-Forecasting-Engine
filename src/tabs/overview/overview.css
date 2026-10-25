@@ -743,14 +743,59 @@
   display: block;
 }
 
+.crisis-chart-gridline {
+  stroke: rgba(148, 163, 184, 0.12);
+  stroke-width: 1;
+}
+
+.crisis-chart-return-line {
+  fill: none;
+  stroke: #dbe4ee;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.crisis-chart-var-line {
+  fill: none;
+  stroke: #f5b93d;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.crisis-chart-breach-dot {
+  fill: #ef4444;
+  stroke: #fee2e2;
+  stroke-width: 1;
+}
+
 .crisis-chart-legend {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
   font-size: 8.5px;
   color: #8fa2b7;
   margin-top: 3px;
+}
+
+.legend-return-item::before,
+.legend-var-item::before {
+  content: "";
+  display: inline-block;
+  width: 11px;
+  margin: 0 4px 2px 0;
+  vertical-align: middle;
+}
+
+.legend-return-item::before {
+  border-top: 1.5px solid #dbe4ee;
+}
+
+.legend-var-item::before {
+  border-top: 1.5px dashed #f5b93d;
 }
 
 .crisis-chart-legend .dot-sep {
@@ -760,6 +805,29 @@
 .legend-breach-item {
   color: #ef4444;
   font-weight: 600;
+}
+
+.crisis-mini-chart-empty,
+.stress-empty-state {
+  padding: 18px 12px;
+  border: 1px dashed rgba(148, 163, 184, 0.2);
+  border-radius: 7px;
+  color: #8fa2b7;
+  font-size: 11px;
+  text-align: center;
+}
+
+.crisis-mini-chart-empty {
+  margin-bottom: 10px;
+}
+
+.stress-empty-state {
+  margin: 0;
+}
+
+.stress-error-state {
+  color: #fca5a5;
+  border-color: rgba(248, 113, 113, 0.35);
 }
 
 .crisis-model-breaches {
@@ -1163,3 +1231,32 @@
 .crisis-card-footer{font-size:10px}
 .stress-bottom-footnote{font-size:11px}
 .chart-canvas-container .recharts-cartesian-axis-tick-value{font-size:11px!important}
+
+/* Slightly larger labels and values throughout the overview tab. */
+.overview-tab-container .hero-sub-title{font-size:12px}
+.overview-tab-container .hero-stat-desc{font-size:10px}
+.overview-tab-container .hero-stat-desc small{font-size:10px}
+.overview-tab-container .hero-regime-pill,
+.overview-tab-container .hero-var-reading{font-size:11px}
+.overview-tab-container .metric-box-label{font-size:11px}
+.overview-tab-container .metric-box-value{font-size:24px}
+.overview-tab-container .metric-box-note{font-size:11px}
+.overview-tab-container .panel-title{font-size:17px}
+.overview-tab-container .panel-subtitle{font-size:12px}
+.overview-tab-container .panel-kicker{font-size:10px}
+.overview-tab-container .tf-button{font-size:12px}
+.overview-tab-container .chart-table-view th{font-size:10px}
+.overview-tab-container .chart-table-view td{font-size:12px}
+.overview-tab-container .chart-legend-row,
+.overview-tab-container .chart-conclusion-footer{font-size:12px}
+.overview-tab-container .loss-ranking-title{font-size:10px}
+.overview-tab-container .loss-row-info{font-size:12px}
+.overview-tab-container .dm-test-label,
+.overview-tab-container .dm-pill-badge{font-size:12px}
+.overview-tab-container .dm-footnote{font-size:11px}
+.overview-tab-container .crisis-card-date,
+.overview-tab-container .crisis-warning-badge,
+.overview-tab-container .crisis-model-row{font-size:12px}
+.overview-tab-container .crisis-chart-legend{font-size:10px}
+.overview-tab-container .crisis-card-footer,
+.overview-tab-container .stress-bottom-footnote{font-size:11px}

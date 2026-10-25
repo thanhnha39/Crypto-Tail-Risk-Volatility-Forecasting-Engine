@@ -1,0 +1,302 @@
+.app-shell,
+.app-shell .sidebar,
+.app-shell .main-area,
+.app-shell .research-header,
+.app-shell .sidebar *,
+.app-shell .page-content .panel,
+.app-shell .page-content .metric-card,
+.app-shell .page-content .metric-box,
+.app-shell .page-content .metric-box-value,
+.app-shell .page-content .vf-panel,
+.app-shell .page-content .md-panel,
+.app-shell .page-content .method-section,
+.app-shell .page-content .method-toc-card,
+.app-shell .page-content .method-fact-card,
+.app-shell .page-content .method-stat-card,
+.app-shell .page-content .method-formula-card,
+.app-shell .page-content .method-process-card,
+.app-shell .page-content .method-info-grid article,
+.app-shell .page-content .method-evaluation-card,
+.app-shell .page-content .method-limit-card,
+.app-shell .page-content .method-reference,
+.app-shell .page-content .risk-crisis-card,
+.app-shell .page-content .research-header-theme {
+  transition: color .28s ease, background-color .28s ease, background-image .28s ease,
+    border-color .28s ease, box-shadow .28s ease;
+}
+
+.app-shell.theme-light {
+  --bg: #edf2f7;
+  --surface: #ffffff;
+  --surface2: #f5f8fb;
+  --border: #d7e0e9;
+  --muted: #64748b;
+  --text: #26364a;
+  color: #26364a;
+  background: #edf2f7;
+  color-scheme: light;
+}
+
+.theme-light .main-area {
+  background: linear-gradient(180deg, #f3f6fa 0%, #eaf0f6 100%);
+}
+
+.theme-light .sidebar {
+  background: #f8fafc;
+  border-color: #d8e1eb;
+  box-shadow: 4px 0 18px rgba(41, 61, 82, .06);
+}
+
+.theme-light .brand { color: #1e293b; }
+.theme-light .brand-mark { background: #fff8e8; }
+.theme-light .brand-copy strong { color: #1e293b; }
+.theme-light .brand-copy small { color: #936c16; }
+.theme-light .nav-item { color: #536278; }
+.theme-light .nav-item>svg { color: #74839a; }
+.theme-light .nav-item:hover { background: #eaf0f6; color: #1e293b; }
+.theme-light .nav-item.active {
+  color: #9a6500;
+  background: linear-gradient(90deg, #fff0c7, #fff8e8);
+  border-color: #f1d58d;
+  border-left-color: #e99b13;
+  box-shadow: 0 3px 12px rgba(176, 126, 26, .1);
+}
+.theme-light .nav-item.active>svg { color: #c17d00; }
+.theme-light .sidebar-toggle,
+.theme-light .research-header-menu {
+  background: #fff;
+  border-color: #d6e0e9;
+  color: #536278;
+}
+.theme-light .sidebar-filter-heading,
+.theme-light .sidebar-filter-label { color: #536278; }
+.theme-light .sidebar-filters,
+.theme-light .sidebar-bottom { border-color: #dce4ec; }
+.theme-light .asset-filter-row,
+.theme-light .horizon-filter-row,
+.theme-light .date-range-chip {
+  background: #fff;
+  border-color: #d3dde7;
+  color: #536278;
+  box-shadow: none;
+}
+.theme-light .asset-filter-row button,
+.theme-light .horizon-filter-row button { color: #536278; }
+.theme-light .asset-filter-row button.selected {
+  background: #f2b643;
+  border-color: #e3a52c;
+  color: #33250b;
+}
+.theme-light .horizon-filter-row button.selected {
+  background: #fff1c9;
+  border-color: #e7c66c;
+  color: #885e08;
+}
+.theme-light .sidebar-bottom .connection { color: #526176; }
+.theme-light .sidebar-bottom>small { color: #728096; }
+
+.theme-light .page-content { color: #26364a; }
+.theme-light .research-header { border-color: #d6e0e9; }
+.theme-light .research-header-module { background: #fff8e8; color: #93630b; }
+.theme-light .research-header-subtitle,
+.theme-light .research-header p { color: #58697e; }
+.theme-light .research-header h1 { color: #182638; }
+.theme-light .research-header-theme {
+  background: #fff;
+  border-color: #d6e0e9;
+  color: #334155;
+}
+.theme-light .research-header-theme>svg { color: #64748b; }
+.theme-light .page-footer { color: #64748b; }
+
+.theme-light .panel,
+.theme-light .metric-card,
+.theme-light .metric-box,
+.theme-light .vf-panel,
+.theme-light .md-panel,
+.theme-light .method-section,
+.theme-light .method-toc-card,
+.theme-light .method-fact-card,
+.theme-light .method-stat-card,
+.theme-light .method-formula-card,
+.theme-light .method-process-card,
+.theme-light .method-info-grid article,
+.theme-light .method-evaluation-card,
+.theme-light .method-limit-card,
+.theme-light .method-reference,
+.theme-light .risk-crisis-card,
+.theme-light .risk-assumption-note {
+  border-color: #d8e1eb;
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(34, 54, 76, .055);
+}
+
+.theme-light .md-main-chart,
+.theme-light .md-small-chart,
+.theme-light .md-acf-chart,
+.theme-light .vf-chart,
+.theme-light .vf-regime-chart,
+.theme-light .vf-range-picker,
+.theme-light .vf-research-tabs,
+.theme-light .risk-control,
+.theme-light .risk-control select,
+.theme-light .risk-confidence,
+.theme-light .risk-confidence button,
+.theme-light .vf-range-picker button:not(.active) {
+  background-color: #f4f7fa;
+  border-color: #d8e1eb;
+  color: #526176;
+}
+
+.theme-light .section-title h2,
+.theme-light .panel-heading h3,
+.theme-light .panel-title,
+.theme-light .md-panel-heading h2,
+.theme-light .md-inventory-heading h3,
+.theme-light .vf-question-card h2,
+.theme-light .vf-title-copy h3,
+.theme-light .risk-question-copy h2,
+.theme-light .method-section-heading h2,
+.theme-light .method-subheading,
+.theme-light .method-process-card strong,
+.theme-light .method-info-grid strong,
+.theme-light .method-evaluation-card strong,
+.theme-light .method-limit-card strong,
+.theme-light .method-repo-row strong,
+.theme-light .method-reference strong {
+  color: #1f2f43;
+}
+
+.theme-light .panel-heading p,
+.theme-light .panel-subtitle,
+.theme-light .metric-note,
+.theme-light .metric-box-note,
+.theme-light .md-panel-heading p,
+.theme-light .md-legend span,
+.theme-light .md-chart-caption,
+.theme-light .md-insight,
+.theme-light .md-conclusion,
+.theme-light .md-footnote,
+.theme-light .md-acf-caption,
+.theme-light .md-regime-note,
+.theme-light .md-quality-note,
+.theme-light .vf-question-card p,
+.theme-light .vf-panel-title p,
+.theme-light .vf-summary-card>span,
+.theme-light .vf-training-card>span,
+.theme-light .vf-summary-card small,
+.theme-light .vf-training-card small,
+.theme-light .vf-model-note,
+.theme-light .vf-chart-foot,
+.theme-light .vf-rq1-table-foot,
+.theme-light .vf-rolling-summary,
+.theme-light .vf-detail-list>div span,
+.theme-light .vf-ablation-stats,
+.theme-light .vf-ablation-conclusion,
+.theme-light .risk-question-copy p,
+.theme-light .risk-footnote,
+.theme-light .risk-empty-note,
+.theme-light .risk-chart-legend,
+.theme-light .method-section-heading p,
+.theme-light .method-lead,
+.theme-light .method-body,
+.theme-light .method-note p,
+.theme-light .method-process-card p,
+.theme-light .method-evaluation-card p,
+.theme-light .method-limit-card p,
+.theme-light .method-footnote,
+.theme-light .method-formula-card p,
+.theme-light .method-info-grid p {
+  color: #596a7f;
+}
+
+.theme-light .hero-main-title,
+.theme-light .hero-big-stat strong { color: #fff; }
+
+.theme-light .overview-tab-container .metric-box-value {
+  color: #26364a;
+}
+
+.theme-light .metric-box-label,
+.theme-light .metric-top,
+.theme-light .md-quality-metrics span,
+.theme-light .md-quality-metrics small,
+.theme-light .md-inventory-heading span,
+.theme-light .vf-title-copy h3,
+.theme-light .vf-table td,
+.theme-light .vf-table td strong,
+.theme-light .vf-detail-list>div strong,
+.theme-light .vf-regime-heading,
+.theme-light .vf-regime-metric b,
+.theme-light .vf-latest-output strong,
+.theme-light .method-fact-card strong,
+.theme-light .method-stat-card strong,
+.theme-light .method-formula-card strong,
+.theme-light .method-table td,
+.theme-light .method-table td strong,
+.theme-light .method-timeline-segment.context strong,
+.theme-light .method-timeline-segment.context small,
+.theme-light .method-process-card strong,
+.theme-light .risk-crisis-card>div strong {
+  color: #26364a;
+}
+
+.theme-light .vf-summary-card,
+.theme-light .vf-training-card,
+.theme-light .vf-latest-output>div,
+.theme-light .vf-regime-metric,
+.theme-light .method-fact-card,
+.theme-light .method-stat-card,
+.theme-light .method-process-card,
+.theme-light .method-formula-card,
+.theme-light .method-info-grid article,
+.theme-light .method-evaluation-card,
+.theme-light .method-limit-card,
+.theme-light .method-repo-row,
+.theme-light .method-reference,
+.theme-light .method-back-top,
+.theme-light .method-toc-expand,
+.theme-light .risk-crisis-card {
+  background: #f5f8fb;
+}
+
+.theme-light .method-table th,
+.theme-light .md-table th,
+.theme-light .vf-table th,
+.theme-light th {
+  background: #edf2f7;
+  color: #526176;
+}
+.theme-light .method-table td,
+.theme-light .md-table td,
+.theme-light .vf-table td,
+.theme-light td { border-color: #e2e8f0; }
+.theme-light .md-table td,
+.theme-light .vf-table td,
+.theme-light .method-table td { color: #46576c; }
+.theme-light .vf-table td strong,
+.theme-light .method-table td strong { color: #26364a; }
+.theme-light .md-table tbody tr:nth-child(even),
+.theme-light .vf-table tbody tr:hover { background: #f5f8fb; }
+
+.theme-light .md-empty,
+.theme-light .vf-empty {
+  border-color: #d8e1eb;
+  background: #f5f8fb;
+  color: #526176;
+}
+.theme-light .md-empty strong,
+.theme-light .vf-empty strong { color: #26364a; }
+.theme-light .method-state { background: #f1f5f9; color: #526176; }
+.theme-light .method-reference { color: #46576c; }
+.theme-light .method-toc-heading { color: #526176; }
+.theme-light .method-back-top { border-color: #d8e1eb; color: #46576c; }
+
+.theme-light input,
+.theme-light select {
+  color-scheme: light;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .app-shell,.app-shell * { transition-duration: .01ms!important; }
+}

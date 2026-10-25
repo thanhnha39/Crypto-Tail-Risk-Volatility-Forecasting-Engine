@@ -29,6 +29,26 @@
 .vf-table td strong{color:#e9eff7}.vf-best-tag{display:block;margin-top:3px;color:#e7b749;font-size:10px}
 .vf-select-model{padding:5px 8px;border-color:rgba(127,157,189,.2);font-size:10px}
 .vf-chart-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(270px,1fr);gap:14px;min-width:0}
+.vf-rq1-summary-grid{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(290px,.9fr);gap:14px;min-width:0}
+.vf-rq1-best-panel{display:flex;flex-direction:column}
+.vf-rq1-best-name{display:grid;gap:5px;padding:13px;border:1px solid rgba(240,165,28,.2);border-radius:10px;background:rgba(240,165,28,.06)}
+.vf-rq1-best-name span{color:#8fa4bd;font-size:10px;letter-spacing:.08em}
+.vf-rq1-best-name strong{color:#f3bd4b;font-family:var(--serif,Georgia,serif);font-size:26px}
+.vf-rq1-best-name small{color:#91a5bd;font-size:11px}
+.vf-rq1-table{min-width:720px}
+.vf-rq1-table th:not(:first-child),.vf-rq1-table td:not(:first-child){text-align:right}
+.vf-rq1-table tbody tr.vf-rq1-best-row{background:rgba(240,165,28,.055)}
+.vf-rq1-table tbody tr.vf-rq1-best-row td:first-child{border-left:2px solid #f0ad36}
+.vf-rq1-table tbody tr.vf-rq1-baseline-row td:first-child{border-left:2px solid #42c6aa}
+.vf-rq1-table tbody tr.vf-rq1-baseline-row{background:rgba(66,198,170,.035)}
+.vf-rq1-table td:first-child strong{display:inline-block}
+.vf-baseline-tag{display:inline-flex;margin-left:7px;padding:2px 5px;border:1px solid rgba(66,198,170,.28);border-radius:4px;color:#5ed3b1;font-size:9px}
+.vf-significant{display:inline-block;padding:3px 6px;border:1px solid rgba(73,201,160,.26);border-radius:5px;background:rgba(73,201,160,.09);color:#62d5b2}
+.vf-rq1-table-foot{display:flex;justify-content:space-between;gap:12px;margin-top:12px;padding-top:10px;border-top:1px solid rgba(130,157,188,.1);color:#879bb3;font-size:10px;line-height:1.5}
+.vf-rq1-table-foot strong{color:#efbd59;font-weight:600}
+.vf-rolling-summary{display:flex;justify-content:space-between;flex-wrap:wrap;gap:7px;margin-top:10px;color:#9aabc0;font-size:11px}
+.vf-rolling-summary strong{color:#e9eff7}
+.vf-rolling-summary span+span{color:#4bd0a3;font-weight:650}
 .vf-panel-heading-row{display:flex;align-items:flex-start;gap:12px;justify-content:space-between}.vf-panel-heading-row .vf-panel-title{flex:1}
 .vf-chart-tools{display:flex;align-items:center;gap:7px}.vf-range-picker{display:flex;gap:3px;padding:3px;border:1px solid rgba(126,155,189,.15);border-radius:9px;background:#09182b}
 .vf-range-picker button{padding:5px 8px;font-size:10px}.vf-icon-button{width:31px;height:31px;border-color:rgba(126,155,189,.2)}
@@ -46,9 +66,66 @@
 .vf-components{display:grid;gap:14px;padding:10px 2px}.vf-component-heading{display:flex;justify-content:space-between;margin-bottom:6px;color:#c5d1df;font-size:12px}.vf-component-heading strong{color:#f1ba45}
 .vf-weight-track{height:7px;overflow:hidden;border-radius:99px;background:#071528}.vf-weight-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#bf7d14,#ffc248)}
 .vf-unavailable{display:flex;gap:12px;align-items:flex-start;padding:15px;border:1px dashed rgba(240,165,28,.28);border-radius:10px;background:rgba(240,165,28,.045);color:#e8b747}.vf-unavailable strong{font-size:12px}.vf-unavailable p{margin:6px 0 0;color:#91a4bb;font-size:11px;line-height:1.55}
+.vf-ablation-bars{display:grid;gap:18px;margin:18px 2px 14px}
+.vf-ablation-row{display:grid;gap:7px}
+.vf-ablation-label{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:3px 10px;color:#dce5f0;font-size:11px}
+.vf-ablation-label strong{font-size:12px}
+.vf-ablation-label span{grid-column:1;color:#8ea2ba;font-size:10px;line-height:1.4}
+.vf-ablation-label b{grid-column:2;grid-row:1/3;color:#eaf0f7;font-size:11px;font-variant-numeric:tabular-nums}
+.vf-ablation-track,.vf-shap-track{height:15px;overflow:hidden;border:1px solid rgba(134,161,191,.1);border-radius:6px;background:#071528}
+.vf-ablation-track i,.vf-shap-track i{display:block;height:100%;border-radius:5px;transition:width .2s ease}
+.vf-ablation-core{background:#8fa3bc}
+.vf-ablation-volume{background:linear-gradient(90deg,#24c6b1,#03b5e9)}
+.vf-ablation-stats{display:flex;flex-wrap:wrap;gap:7px 14px;padding:10px 0;border-top:1px solid rgba(130,157,188,.1);border-bottom:1px solid rgba(130,157,188,.1);color:#91a5bd;font-size:10px}
+.vf-ablation-stats strong{color:#e7edf6;font-variant-numeric:tabular-nums}
+.vf-ablation-conclusion{margin:10px 0 0;color:#c3cfdd;font-size:11px;line-height:1.5}
+.vf-shap-list{display:grid;gap:10px;padding:5px 0 10px}
+.vf-shap-row{display:grid;grid-template-columns:minmax(125px,1fr) minmax(60px,1.5fr) 42px;align-items:center;gap:10px;color:#bdcadd;font-size:10px}
+.vf-shap-row>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vf-shap-row strong{color:#e8eef7;text-align:right;font-size:10px;font-variant-numeric:tabular-nums}
+.vf-shap-track{height:13px;border:0}
+.vf-shap-track i{background:#f0a51c}
 .vf-latest-output{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.vf-latest-output>div{display:grid;gap:7px;padding:12px;border:1px solid rgba(130,157,188,.13);border-radius:9px;background:#0a1a30}.vf-latest-output span{color:#91a5bd;font-size:11px}.vf-latest-output strong{color:#e9eff7;font-size:14px}
 .vf-regime-chart{height:250px;padding:6px;border:1px solid rgba(126,155,189,.11);border-radius:10px;background:#09182b}
 .vf-regime-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.vf-regime-metric{display:grid;gap:7px;padding:11px;border:1px solid rgba(130,157,188,.13);border-radius:9px;background:#0a1a30}.vf-regime-heading{display:flex;align-items:center;gap:7px;padding-bottom:5px;border-bottom:1px solid rgba(130,157,188,.1);color:#e2eaf4;font-size:12px}.vf-regime-heading i{width:8px;height:8px;border-radius:50%}.vf-regime-heading span{margin-left:auto;color:#8195ad;font-size:10px}.vf-regime-metric>div:not(.vf-regime-heading){display:flex;justify-content:space-between;gap:8px;color:#91a5bd;font-size:10px}.vf-regime-metric b{color:#e5edf6;font-size:11px}
 .vf-empty{display:grid;justify-items:center;gap:8px;min-height:130px;padding:24px;color:#94a8c0;text-align:center}.vf-empty strong{color:#dce6f1;font-size:13px}.vf-empty span{max-width:560px;font-size:11px;line-height:1.5}
-@media(max-width:1100px){.vf-chart-grid{grid-template-columns:minmax(0,1fr)}.vf-summary-grid,.vf-training-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.vf-latest-output{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){.vf-question-card{align-items:flex-start;flex-wrap:wrap;padding:14px}.vf-question-card h2{font-size:17px}.vf-answer-badge{margin-left:0}.vf-panel{padding:12px}.vf-panel-heading-row{flex-wrap:wrap}.vf-panel-heading-row .vf-panel-title{flex-basis:100%}.vf-chart-tools{margin-left:auto}.vf-chart{height:240px}.vf-research-tabs{width:100%}.vf-research-tabs button{flex:1;padding:8px 5px;font-size:10px}.vf-research-tabs button svg{display:none}.vf-summary-grid,.vf-training-grid{gap:8px}.vf-summary-card,.vf-training-card{padding:11px}.vf-summary-card strong{font-size:18px}.vf-rq2-grid,.vf-rq3-grid{grid-template-columns:minmax(0,1fr)}.vf-regime-metrics{grid-template-columns:minmax(0,1fr)}.vf-latest-output{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1100px){.vf-chart-grid,.vf-rq1-summary-grid{grid-template-columns:minmax(0,1fr)}.vf-summary-grid,.vf-training-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.vf-latest-output{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.vf-question-card{align-items:flex-start;flex-wrap:wrap;padding:14px}.vf-question-card h2{font-size:17px}.vf-answer-badge{margin-left:0}.vf-panel{padding:12px}.vf-panel-heading-row{flex-wrap:wrap}.vf-panel-heading-row .vf-panel-title{flex-basis:100%}.vf-chart-tools{margin-left:auto}.vf-chart{height:240px}.vf-research-tabs{width:100%}.vf-research-tabs button{flex:1;padding:8px 5px;font-size:10px}.vf-research-tabs button svg{display:none}.vf-summary-grid,.vf-training-grid{gap:8px}.vf-summary-card,.vf-training-card{padding:11px}.vf-summary-card strong{font-size:18px}.vf-rq2-grid,.vf-rq3-grid{grid-template-columns:minmax(0,1fr)}.vf-regime-metrics{grid-template-columns:minmax(0,1fr)}.vf-latest-output{grid-template-columns:repeat(2,minmax(0,1fr))}.vf-rq1-table-foot{flex-direction:column}.vf-rolling-summary{flex-direction:column}}
+
+/* Slightly enlarge explanatory text, controls, and table values across forecast RQ tabs. */
+.volatility-forecast-tab .vf-research-tabs button{font-size:13px}
+.volatility-forecast-tab .vf-question-card p,
+.volatility-forecast-tab .vf-panel-title p{font-size:12px}
+.volatility-forecast-tab .vf-answer-badge,
+.volatility-forecast-tab .vf-badge{font-size:12px}
+.volatility-forecast-tab .vf-summary-card>span,
+.volatility-forecast-tab .vf-summary-card small{font-size:12px}
+.volatility-forecast-tab .vf-table th{font-size:11px}
+.volatility-forecast-tab .vf-table td{font-size:13px}
+.volatility-forecast-tab .vf-best-tag{font-size:11px}
+.volatility-forecast-tab .vf-rq1-table-foot,
+.volatility-forecast-tab .vf-chart-foot,
+.volatility-forecast-tab .vf-model-note{font-size:12px}
+.volatility-forecast-tab .vf-rq1-best-name small{font-size:12px}
+.volatility-forecast-tab .vf-baseline-tag,
+.volatility-forecast-tab .vf-significant{font-size:10px}
+.volatility-forecast-tab .vf-range-picker button,
+.volatility-forecast-tab .vf-icon-button,
+.volatility-forecast-tab .vf-select-model,
+.volatility-forecast-tab .vf-download-button{font-size:12px}
+.volatility-forecast-tab .vf-detail-list>div,
+.volatility-forecast-tab .vf-status-ok,
+.volatility-forecast-tab .vf-status-warn{font-size:13px}
+.volatility-forecast-tab .vf-ablation-label{font-size:12px}
+.volatility-forecast-tab .vf-ablation-label span{font-size:11px}
+.volatility-forecast-tab .vf-ablation-label b,
+.volatility-forecast-tab .vf-ablation-stats{font-size:12px}
+.volatility-forecast-tab .vf-ablation-conclusion{font-size:12px}
+.volatility-forecast-tab .vf-shap-row,
+.volatility-forecast-tab .vf-shap-row strong{font-size:11px}
+.volatility-forecast-tab .vf-unavailable strong{font-size:13px}
+.volatility-forecast-tab .vf-unavailable p{font-size:12px}
+.volatility-forecast-tab .vf-regime-metric>div:not(.vf-regime-heading){font-size:11px}
+@media(max-width:640px){
+  .volatility-forecast-tab .vf-research-tabs button{font-size:11px}
+}

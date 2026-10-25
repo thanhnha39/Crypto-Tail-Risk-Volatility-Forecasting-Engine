@@ -23,7 +23,13 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { api, apiPaths, type OverviewResponse } from '../../lib/api'
+import {
+  api,
+  apiPaths,
+  type CrisisBacktestPoint,
+  type DashboardSample,
+  type OverviewResponse,
+} from '../../lib/api'
 import { dashboardWindow, useForecasts, useMarket } from '../../lib/dashboardQueries'
 import heroCryptoImg from '../../assets/hero-background.png'
 import './overview.css'
@@ -31,28 +37,67 @@ import './overview.css'
 interface OverviewTabProps {
   symbol: 'BTCUSDT' | 'ETHUSDT'
   horizonDays: 1 | 7
+  sample: DashboardSample
   onNavigateTab?: (tab: string) => void
 }
 
 type Timeframe = '3M' | '6M' | '1Y' | 'ALL'
 
-export default function OverviewTab({ symbol, horizonDays, onNavigateTab }: OverviewTabProps) {
+const crisisChartWidth = 320
+const crisisChartHeight = 80
+
+function crisisChartYDomain(points: CrisisBacktestPoint[]) {
+  const values = points.flatMap((point) => [point.return, point.var]).filter((value): value is number => value != null)
+  if (values.length === 0) return { min: -1, max: 1 }
+  const min = Math.min(...values)
+  const max = Math.max(...values)
+  const padding = Math.max((max - min) * 0.1, 0.1)
+  return { min: min - padding, max: max + padding }
+}
+
+function crisisChartPath(
+  points: CrisisBacktestPoint[],
+  valueFor: (point: CrisisBacktestPoint) => number | null,
+  domain: { min: number; max: number },
+) {
+  let path = ''
+  let segmentStarted = false
+  const innerWidth = crisisChartWidth - 20
+  const innerHeight = crisisChartHeight - 14
+
+  points.forEach((point, index) => {
+    const value = valueFor(point)
+    if (value == null) {
+      segmentStarted = false
+      return
+    }
+
+    const x = 10 + (index / Math.max(points.length - 1, 1)) * innerWidth
+    const y = 7 + ((domain.max - value) / (domain.max - domain.min)) * innerHeight
+    path += `${segmentStarted ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)} `
+    segmentStarted = true
+  })
+
+  return path.trim()
+}
+
+export default function OverviewTab({ symbol, horizonDays, sample, onNavigateTab }: OverviewTabProps) {
   const [timeframe, setTimeframe] = useState<Timeframe>('6M')
   const [showTable, setShowTable] = useState(false)
 
   const overview = useQuery({
-    queryKey: ['dashboard-overview', symbol, dashboardWindow, horizonDays],
+    queryKey: ['dashboard-overview', symbol, dashboardWindow, horizonDays, sample],
     queryFn: async () =>
       (
         await api.get<OverviewResponse>(apiPaths.overview, {
-          params: { symbol, model: 'best', window: dashboardWindow, horizon_days: horizonDays },
+          params: { symbol, model: 'best', window: dashboardWindow, horizon_days: horizonDays, sample },
         })
       ).data,
   })
 
   const data = overview.data
   const market = useMarket(symbol, 3000)
-  const forecasts = useForecasts(symbol, data?.model ?? 'xgboost', horizonDays, 3000)
+  const forecasts = useForecasts(symbol, data?.model ?? 'xgboost', horizonDays, 3000, sample)
 
   const risk95 = data?.latest_risk?.alpha_95
   const risk99 = data?.latest_risk?.alpha_99
@@ -306,16 +351,16 @@ export default function OverviewTab({ symbol, horizonDays, onNavigateTab }: Over
           <div className="metric-box-note">Lợi suất 5 phút · {data?.latest_market?.origin_date ? formatDateDMY(data.latest_market.origin_date) : '—'}</div>
         </div>
 
-        {/* Card 6: Trạng thái hiện tại */}
+        {/* Card 6: Regime at the forecast origin */}
         <div className="metric-box">
           <div className="metric-box-top">
-            <span className="metric-box-label">TRẠNG THÁI HIỆN TẠI</span>
+            <span className="metric-box-label">TRẠNG THÁI TẠI MỐC DỰ BÁO</span>
             <Disc size={16} className="metric-box-icon" />
           </div>
           <div className="metric-box-value serif-value">
             {data?.latest_market?.regime ?? '—'}
           </div>
-          <div className="metric-box-note">Dữ liệu thị trường đến {data?.latest_market?.origin_date ? formatDateDMY(data.latest_market.origin_date) : '—'}</div>
+          <div className="metric-box-note">Tại ngày lập dự báo {data?.latest_market?.origin_date ? formatDateDMY(data.latest_market.origin_date) : '—'}</div>
         </div>
       </div>
 
@@ -605,38 +650,92 @@ export default function OverviewTab({ symbol, horizonDays, onNavigateTab }: Over
           </button>
         </div>
 
-        {/* 3 Crisis Cards */}
-        <div className="crisis-cards-grid">
-          {crisisEvents.map((evt) => (
-            <div key={evt.crisis} className="crisis-card">
-              <div className="crisis-card-top">
-                <h4 className="crisis-card-name">{crisisNames[evt.crisis] ?? evt.event}</h4>
-                <span className="crisis-card-date">{evt.start.slice(0, 7)}</span>
-              </div>
+        {overview.isPending ? (
+          <p className="stress-empty-state">Đang tải dữ liệu backtest khủng hoảng…</p>
+        ) : overview.isError ? (
+          <p className="stress-empty-state stress-error-state">Không thể tải dữ liệu backtest: {overview.error.message}</p>
+        ) : crisisEvents.length > 0 ? (
+          <div className="crisis-cards-grid">
+            {crisisEvents.map((evt) => {
+              const domain = crisisChartYDomain(evt.series)
+              const returnPath = crisisChartPath(evt.series, (point) => point.return, domain)
+              const varPath = crisisChartPath(evt.series, (point) => point.var, domain)
 
-              {/* Warning Violation Banner */}
-              <div className="crisis-warning-badge">
-                <TriangleAlert size={14} className="warning-icon" />
-                <span>{evt.n_breach} / {evt.n} ngày vi phạm (kỳ vọng {(evt.n * 0.01).toFixed(2)})</span>
-              </div>
+              return (
+                <article key={evt.crisis} className="crisis-card">
+                  <div className="crisis-card-top">
+                    <h4 className="crisis-card-name">{crisisNames[evt.crisis] ?? evt.event}</h4>
+                    <span className="crisis-card-date">{evt.start.slice(0, 7)}</span>
+                  </div>
 
-              <div className="crisis-model-breaches">
-                <div className="crisis-model-row best-model-breach">
-                  <span>{bestName} · VaR 99%</span>
-                  <strong className="breach-val">{evt.n_breach} vi phạm</strong>
-                </div>
-              </div>
+                  <div className="crisis-warning-badge">
+                    <TriangleAlert size={14} className="warning-icon" />
+                    <span>
+                      {evt.n_breach} / {evt.n} vi phạm VaR 99% · kỳ vọng {(evt.n * 0.01).toFixed(2)}
+                    </span>
+                  </div>
 
-              <div className="crisis-card-footer">
-                <span>Tỷ lệ vi phạm {(evt.breach_rate * 100).toFixed(1)}% · {evt.start} – {evt.end}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+                  {evt.series.length > 0 ? (
+                    <div className="crisis-mini-chart-wrap">
+                      <svg
+                        className="crisis-mini-svg"
+                        viewBox={`0 0 ${crisisChartWidth} ${crisisChartHeight}`}
+                        role="img"
+                        aria-label={`Lợi suất, VaR 99% và các vi phạm trong giai đoạn ${evt.start} đến ${evt.end}`}
+                      >
+                        {[22, 43, 64].map((y) => (
+                          <line key={y} x1="10" x2="310" y1={y} y2={y} className="crisis-chart-gridline" />
+                        ))}
+                        <path d={varPath} className="crisis-chart-var-line" />
+                        <path d={returnPath} className="crisis-chart-return-line" />
+                        {evt.series.map((point, index) => {
+                          if (point.breach !== 1 || point.return == null) return null
+                          const x = 10 + (index / Math.max(evt.series.length - 1, 1)) * (crisisChartWidth - 20)
+                          const y = 7 + ((domain.max - point.return) / (domain.max - domain.min)) * (crisisChartHeight - 14)
+                          return <circle key={point.date} cx={x} cy={y} r="3" className="crisis-chart-breach-dot" />
+                        })}
+                      </svg>
+                      <div className="crisis-chart-legend">
+                        <span className="legend-return-item">Lợi suất</span>
+                        <span className="legend-var-item">VaR 99%</span>
+                        <span className="legend-breach-item">● Vi phạm</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="crisis-mini-chart-empty">Không có chuỗi dữ liệu để vẽ</div>
+                  )}
+
+                  <div className="crisis-model-breaches">
+                    {evt.model_breaches.map((model) => (
+                      <div key={model.model} className={`crisis-model-row ${model.model === data?.model ? 'best-model-breach' : ''}`}>
+                        <span>{model.label}</span>
+                        <strong className="breach-val">
+                          {model.n_breach ?? '—'} / {model.n ?? '—'}
+                        </strong>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="crisis-card-footer">
+                    <span>
+                      Max drawdown {evt.max_drawdown_pct.toFixed(1)}% · {evt.n}/{evt.calendar_days} ngày có VaR hợp lệ
+                    </span>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        ) : (
+          <p className="stress-empty-state">
+            {sample === 'holdout'
+              ? 'Các giai đoạn khủng hoảng lịch sử thuộc tập evaluation, không nằm trong kỳ holdout.'
+              : 'Không có dữ liệu backtest khủng hoảng phù hợp với bộ lọc hiện tại.'}
+          </p>
+        )}
 
         {/* Footnote */}
         <div className="stress-bottom-footnote">
-          Mô hình VaR: GARCH(1,1), HAR-RV, XGBoost. Backtest: Kupiec, Christoffersen.
+          Chuỗi lịch sử hiển thị theo dữ liệu evaluation; số ngày hợp lệ là các ngày có forecast VaR để chấm điểm.
         </div>
       </section>
     </div>

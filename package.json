@@ -11,8 +11,8 @@
     "dev:api": "powershell -ExecutionPolicy Bypass -File .\\backend\\run_api.ps1"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.90.0",
-    "axios": "^1.12.2",
+    "@tanstack/react-query": "^5.104.5",
+    "axios": "^1.20.0",
     "lucide-react": "^0.468.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

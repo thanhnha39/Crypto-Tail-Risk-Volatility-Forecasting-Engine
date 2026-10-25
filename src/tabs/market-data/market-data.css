@@ -88,3 +88,37 @@
   .md-quality-metrics strong{font-size:21px}
   .md-inventory-heading span{font-size:10px}
 }
+
+/* Slightly larger labels and measured values for the market-data tab. */
+.market-data-page .md-panel-heading h2{font-size:18px}
+.market-data-page .md-panel-heading p{font-size:13px}
+.market-data-page .md-badge{font-size:11px}
+.market-data-page .md-legend span,
+.market-data-page .md-chart-caption,
+.market-data-page .md-insight,
+.market-data-page .md-conclusion{font-size:13px}
+.market-data-page .md-range button,
+.market-data-page .md-export{font-size:12px}
+.market-data-page .md-insight strong{font-size:14px}
+.market-data-page .md-table th{font-size:11px}
+.market-data-page .md-table td{font-size:13px}
+.market-data-page .md-footnote,
+.market-data-page .md-acf-caption,
+.market-data-page .md-regime-note,
+.market-data-page .md-quality-note{font-size:12px}
+.market-data-page .md-quality-metrics span,
+.market-data-page .md-quality-metrics small,
+.market-data-page .md-inventory-heading span{font-size:12px}
+.market-data-page .md-quality-metrics strong{font-size:25px}
+.market-data-page .md-inventory-heading h3{font-size:14px}
+.market-data-page .md-empty strong{font-size:15px}
+.market-data-page .md-empty span{font-size:12px}
+@media(max-width:620px){
+  .market-data-page .md-panel-heading h2{font-size:16px}
+  .market-data-page .md-panel-heading p{font-size:12px}
+  .market-data-page .md-badge{font-size:10px}
+  .market-data-page .md-table th,
+  .market-data-page .md-table td{font-size:12px}
+  .market-data-page .md-quality-metrics strong{font-size:22px}
+  .market-data-page .md-inventory-heading span{font-size:11px}
+}
