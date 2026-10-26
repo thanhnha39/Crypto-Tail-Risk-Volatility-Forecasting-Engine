@@ -2,6 +2,7 @@ import { Menu, Moon, Sun } from 'lucide-react'
 import './top-header.css'
 
 interface TopHeaderProps {
+  className?: string
   module: string
   subtitle: string
   title: string
@@ -12,6 +13,7 @@ interface TopHeaderProps {
 }
 
 export default function TopHeader({
+  className = '',
   module,
   subtitle,
   title,
@@ -24,7 +26,7 @@ export default function TopHeader({
   const modeLabel = isDarkMode ? 'Chế độ tối' : 'Chế độ sáng'
 
   return (
-    <header className="research-header">
+    <header className={`research-header ${className}`.trim()}>
       <button type="button" className="research-header-menu" onClick={onToggleMenu} aria-label="Mở menu">
         <Menu size={19} />
       </button>

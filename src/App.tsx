@@ -147,6 +147,7 @@ function App() {
       <main className="main-area">
         <section className="page-content">
           <TopHeader
+            className={activeTab === 'overview' ? 'research-header-overview' : ''}
             module={currentTab.module}
             subtitle={currentTab.subtitle}
             title={currentTab.label}
