@@ -32,9 +32,9 @@ const tabs = [
     description: 'Đánh giá rủi ro lỗ ở đuôi phân phối và kết quả mô phỏng chiến lược.',
   },
   {
-    id: 'method', label: 'Phương pháp & giới hạn', icon: BookOpen, eyebrow: 'TÀI LIỆU NGHIÊN CỨU',
-    module: 'MÔ-ĐUN VI · TÀI LIỆU KỸ THUẬT', subtitle: 'Đặc tả phương pháp và kiểm định',
-    description: 'Dữ liệu, thiết kế đánh giá, khả năng tái lập và các giới hạn nghiên cứu.',
+    id: 'method', label: 'Phương pháp & Hạn chế', icon: BookOpen, eyebrow: 'PHƯƠNG PHÁP & HẠN CHẾ',
+    module: 'MÔ-ĐUN VI · PHƯƠNG PHÁP & HẠN CHẾ', subtitle: 'Phương pháp nghiên cứu và các giới hạn',
+    description: 'Dữ liệu, thiết kế đánh giá, khả năng tái lập và các hạn chế của nghiên cứu.',
   },
 ] as const
 type TabId = (typeof tabs)[number]['id']
