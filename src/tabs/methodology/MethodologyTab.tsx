@@ -183,8 +183,8 @@ export default function MethodologyTab({ onNavigateTab }: { onNavigateTab: (tab:
           <div className="method-fact-grid">
             {overviewFacts.map((fact) => <article className="method-fact-card" key={fact.label}><span>{fact.label}</span><strong>{fact.value}</strong></article>)}
           </div>
-          <p className="method-lead">Nghiên cứu dự báo realized variance (RV) và đánh giá rủi ro đuôi của BTC và ETH. Mục tiêu là so sánh các baseline và mô hình kinh tế lượng với Machine Learning theo quy trình walk-forward; đây không phải mô hình dự báo giá hay khuyến nghị đầu tư.</p>
-          <p className="method-body">Năm mục tiêu nghiên cứu được trình bày ở các tab kết quả: độ chính xác dự báo (RO1), giá trị của nhóm biến bổ sung (RO2), sự khác biệt theo regime (RO3), chất lượng VaR/ES (RO4) và kết quả mô phỏng volatility targeting (RO5). Kết luận không được gán cứng trong mục phương pháp; xem kết quả theo từng mẫu và bộ lọc.</p>
+          <p className="method-lead">Dự án dự báo phương sai thực hiện (realized variance, RV) và đánh giá rủi ro đuôi (VaR, ES) của BTC và ETH. Mục tiêu là kiểm tra xem các mô hình học máy có vượt được mô hình cơ sở và mô hình kinh tế lượng (HAR-RV, GARCH) hay không, theo quy trình walk-forward: mô hình được ước lượng lại theo thời gian và chỉ dùng thông tin trong quá khứ. Đây không phải mô hình dự báo giá và không phải khuyến nghị đầu tư.</p>
+          <p className="method-body">Năm câu hỏi nghiên cứu được trình bày ở các tab kết quả: độ chính xác dự báo (RQ1), giá trị của nhóm biến bổ sung (RQ2), sự khác biệt theo trạng thái thị trường (RQ3), chất lượng VaR/ES (RQ4) và mô phỏng volatility targeting (RQ5). Kết quả phụ thuộc vào mẫu và bộ lọc đang chọn, nên cần đọc cùng các tab chi tiết.</p>
           <div className="method-rq-grid">
             {[
               { id: 'RO1', text: 'So sánh năng lực dự báo RV ngoài mẫu giữa ML và benchmark.', tab: 'forecast' as const },
