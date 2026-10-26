@@ -163,3 +163,11 @@
   .method-timeline-segment{padding:10px 9px}
   .method-toc nav button{font-size:10px}
 }
+
+.app-shell .methodology-layout .method-toc nav button{font-size:13px}
+.app-shell .methodology-content .method-reference{font-size:14px}
+
+@media(max-width:700px){
+  .app-shell .methodology-layout .method-toc nav button{font-size:12px}
+  .app-shell .methodology-content .method-reference{font-size:13px}
+}
