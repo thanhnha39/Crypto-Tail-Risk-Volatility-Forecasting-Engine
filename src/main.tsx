@@ -6,6 +6,7 @@ import './styles.css'
 import './api.css'
 import './sidebar-animation.css'
 import './theme-transition.css'
+import './sidebar-reference.css'
 import './tab-readable-text.css'
 import './tab-card-shadows.css'
 
