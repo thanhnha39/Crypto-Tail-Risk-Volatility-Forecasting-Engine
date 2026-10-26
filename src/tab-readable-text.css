@@ -3,7 +3,7 @@
 .app-shell .page-content .volatility-forecast-tab p,
 .app-shell .page-content .risk-research p,
 .app-shell .page-content .methodology-content p {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .app-shell .page-content .overview-tab-container small,
@@ -11,7 +11,7 @@
 .app-shell .page-content .volatility-forecast-tab small,
 .app-shell .page-content .risk-research small,
 .app-shell .page-content .methodology-content small {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .app-shell .page-content .overview-tab-container td,
@@ -19,13 +19,25 @@
 .app-shell .page-content .volatility-forecast-tab td,
 .app-shell .page-content .risk-research td,
 .app-shell .page-content .methodology-content td {
-  font-size: 14px;
+  font-size: 15px;
 }
 
-.overview-tab-container .hero-stat-desc { font-size: 13px; }
-.overview-tab-container .hero-var-reading { font-size: 13px; }
-.overview-tab-container .metric-box-value { font-size: 27px; }
-.overview-tab-container .metric-box-value.serif-value { font-size: 24px; }
+.app-shell .page-content .page-heading p,
+.app-shell .page-content .section-title p,
+.app-shell .page-content .panel-heading p,
+.app-shell .page-content .market-data-page .md-panel-heading p,
+.app-shell .page-content .volatility-forecast-tab .vf-question-card p,
+.app-shell .page-content .volatility-forecast-tab .vf-panel-title p,
+.app-shell .page-content .risk-research .risk-question-copy p,
+.app-shell .page-content .risk-research .panel-heading p,
+.app-shell .page-content .methodology-content .method-section-heading p {
+  font-size: 12px;
+}
+
+.app-shell .page-content .overview-tab-container .hero-stat-desc { font-size: 14px; }
+.app-shell .page-content .overview-tab-container .hero-var-reading { font-size: 14px; }
+.app-shell .page-content .overview-tab-container .metric-box-value { font-size: 29px; }
+.app-shell .page-content .overview-tab-container .metric-box-value.serif-value { font-size: 26px; }
 .overview-tab-container .metric-box-note,
 .overview-tab-container .chart-legend-row,
 .overview-tab-container .chart-conclusion-footer,
@@ -33,7 +45,7 @@
 .overview-tab-container .dm-footnote,
 .overview-tab-container .crisis-chart-legend,
 .overview-tab-container .crisis-card-footer,
-.overview-tab-container .stress-bottom-footnote { font-size: 13px; }
+.overview-tab-container .stress-bottom-footnote { font-size: 14px; }
 
 .market-data-page .md-legend span,
 .market-data-page .md-chart-caption,
@@ -47,12 +59,12 @@
 .market-data-page .md-quality-metrics small,
 .market-data-page .md-inventory-heading span,
 .market-data-page .md-empty span { font-size: 13px; }
-.market-data-page .md-quality-metrics strong { font-size: 28px; }
+.market-data-page .md-quality-metrics strong { font-size: 30px; }
 
 .volatility-forecast-tab .vf-summary-card strong,
-.volatility-forecast-tab .vf-training-card strong { font-size: 24px; }
-.volatility-forecast-tab .vf-training-card strong { font-size: 20px; }
-.volatility-forecast-tab .vf-latest-output strong { font-size: 16px; }
+.volatility-forecast-tab .vf-training-card strong { font-size: 26px; }
+.volatility-forecast-tab .vf-training-card strong { font-size: 22px; }
+.volatility-forecast-tab .vf-latest-output strong { font-size: 18px; }
 .volatility-forecast-tab .vf-detail-list>div,
 .volatility-forecast-tab .vf-regime-metric>div:not(.vf-regime-heading),
 .volatility-forecast-tab .vf-regime-metric b,
@@ -72,8 +84,8 @@
 .risk-research .risk-chart-legend,
 .risk-research .risk-crisis-card>div span,
 .risk-research .risk-crisis-card>small { font-size: 13px; }
-.risk-research .risk-crisis-card>div strong { font-size: 14px; }
-.risk-research .risk-crisis-card>b { font-size: 16px; }
+.risk-research .risk-crisis-card>div strong { font-size: 16px; }
+.risk-research .risk-crisis-card>b { font-size: 18px; }
 
 .methodology-content .method-fact-card span,
 .methodology-content .method-stat-card>span,
@@ -87,22 +99,29 @@
 .methodology-content .method-evaluation-card small,
 .methodology-content .method-limit-card p,
 .methodology-content .method-timeline-segment small { font-size: 13px; }
-.methodology-content .method-fact-card strong { font-size: 15px; }
-.methodology-content .method-stat-card strong { font-size: 26px; }
-.methodology-content .method-timeline-segment span { font-size: 15px; }
+.methodology-content .method-fact-card strong { font-size: 16px; }
+.methodology-content .method-stat-card strong { font-size: 28px; }
+.methodology-content .method-timeline-segment span { font-size: 16px; }
 
 @media(max-width:700px) {
   .app-shell .page-content .overview-tab-container p,
   .app-shell .page-content .market-data-page p,
   .app-shell .page-content .volatility-forecast-tab p,
   .app-shell .page-content .risk-research p,
-  .app-shell .page-content .methodology-content p { font-size: 13px; }
+  .app-shell .page-content .methodology-content p { font-size: 14px; }
 
   .app-shell .page-content .overview-tab-container td,
   .app-shell .page-content .market-data-page td,
   .app-shell .page-content .volatility-forecast-tab td,
   .app-shell .page-content .risk-research td,
-  .app-shell .page-content .methodology-content td { font-size: 12px; }
+  .app-shell .page-content .methodology-content td { font-size: 13px; }
+
+  .app-shell .page-content .market-data-page .md-panel-heading p,
+  .app-shell .page-content .volatility-forecast-tab .vf-question-card p,
+  .app-shell .page-content .volatility-forecast-tab .vf-panel-title p,
+  .app-shell .page-content .risk-research .risk-question-copy p,
+  .app-shell .page-content .risk-research .panel-heading p,
+  .app-shell .page-content .methodology-content .method-section-heading p { font-size: 11px; }
 
   .overview-tab-container .hero-stat-desc,
   .overview-tab-container .hero-var-reading,
@@ -113,7 +132,7 @@
   .overview-tab-container .dm-footnote,
   .overview-tab-container .crisis-chart-legend,
   .overview-tab-container .crisis-card-footer,
-  .overview-tab-container .stress-bottom-footnote { font-size: 12px; }
+  .overview-tab-container .stress-bottom-footnote { font-size: 13px; }
 
   .market-data-page .md-table td { font-size: 12px; }
   .volatility-forecast-tab .vf-rq1-table-foot,
