@@ -216,7 +216,7 @@ export default function RiskEconomicValueTab({ symbol, sample }: { symbol: Symbo
                 <article className="risk-crisis-card" key={row.crisis}>
                   <div><strong>{CRISIS_LABELS[row.crisis] ?? row.crisis}</strong><span>{row.start} – {row.end}</span></div>
                   <b>{row.n_breach ?? '—'} <small>/ {row.n} ngày vi phạm</small></b>
-                  <i><span style={{ width: `${Math.min(100, Math.max(0, (row.breach_rate ?? 0) * 100 / alpha))}%` }} /></i>
+                  <i><span style={{ width: `${Math.min(100, Math.max(0, (row.breach_rate ?? 0) * 100))}%` }} /></i>
                   <small>Tỷ lệ thực tế {formatPct(row.breach_rate == null ? null : row.breach_rate * 100)} · kỳ vọng {formatPct(alpha * 100)}</small>
                 </article>
               ))}</div> : <div className="risk-empty-note">{sample === 'holdout' ? 'Các cửa sổ khủng hoảng 2021–2022 nằm ngoài kỳ holdout 2026; không dùng lại làm kết quả holdout.' : 'Không có cửa sổ khủng hoảng đủ dữ liệu cho mô hình và bộ lọc này.'}</div>}
